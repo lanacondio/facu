@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1253660181 source:c:\documents and settings\administrador\escritorio\lean\facultad\metodos numericos\tp1\fractal\bigint.cpp
+	"BigInt.h"
+	<cmath>
+	<bitset>
+	<cassert>
+
+1253660180 c:\documents and settings\administrador\escritorio\lean\facultad\metodos numericos\tp1\fractal\bigint.h
+	<iostream>
+	<vector>
+

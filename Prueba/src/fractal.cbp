@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="fractal" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Linux64">
+				<Option platforms="Unix;" />
+				<Option output="bin\fractal" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-march=athlon-fx" />
+					<Add option="-march=athlon64" />
+					<Add option="-march=opteron" />
+					<Add option="-march=k8" />
+					<Add option="-march=nocona" />
+					<Add option="-O3" />
+					<Add option="-O2" />
+					<Add option="-O1" />
+					<Add option="-O" />
+					<Add option="-g" />
+					<Add directory=".\" />
+				</Compiler>
+			</Target>
+			<Target title="Windows">
+				<Option platforms="Windows;" />
+				<Option output="bin\fractal" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory=".\" />
+				</Compiler>
+				<Linker>
+					<Add library="opengl32" />
+				</Linker>
+			</Target>
+			<Target title="Linux32">
+				<Option platforms="Unix;" />
+				<Option output="bin\fractal" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory=".\" />
+				</Compiler>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-O3" />
+			<Add option="-O2" />
+			<Add option="-O1" />
+			<Add option="-O" />
+			<Add option="-Weffc++" />
+			<Add option="-Wextra" />
+			<Add option="-Wall" />
+			<Add option="-g" />
+			<Add option="-fexceptions" />
+			<Add directory=".\" />
+		</Compiler>
+		<Linker>
+			<Add library="sfml-graphics" />
+			<Add library="sfml-window" />
+			<Add library="sfml-system" />
+		</Linker>
+		<Unit filename="BigFloat.cpp" />
+		<Unit filename="BigFloat.h" />
+		<Unit filename="BigInt.cpp" />
+		<Unit filename="BigInt.h" />
+		<Unit filename="Complex.h" />
+		<Unit filename="Mandelbrot.cpp" />
+		<Unit filename="Mandelbrot.h" />
+		<Unit filename="bigmath32.s">
+			<Option target="Windows" />
+			<Option target="Linux32" />
+		</Unit>
+		<Unit filename="bigmath64.s">
+			<Option target="Linux64" />
+		</Unit>
+		<Unit filename="main.cpp" />
+		<Extensions>
+			<envvars />
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
