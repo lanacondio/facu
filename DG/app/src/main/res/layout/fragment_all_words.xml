@@ -1,0 +1,16 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.lanacondio.diccionarioguarani.AllWordsFragment">
+
+
+    <ListView
+        android:id="@+id/all_words_list"
+        android:layout_width="match_parent"
+        android:layout_height="311dp"
+        android:divider="@null"
+        android:layout_alignParentTop="true" />
+
+</RelativeLayout>
