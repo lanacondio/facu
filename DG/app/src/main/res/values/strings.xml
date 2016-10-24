@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Diccionario Guarani</string>
     <string name="title_activity_all_words">AllWords</string>
-    <string name="SpanishGuarani">Español - Guaraní</string>
-    <string name="GuaraniSpanish">Guaraní - Español</string>
+    <string name="Spanish">Español</string>
+    <string name="Guarani">Guaraní</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

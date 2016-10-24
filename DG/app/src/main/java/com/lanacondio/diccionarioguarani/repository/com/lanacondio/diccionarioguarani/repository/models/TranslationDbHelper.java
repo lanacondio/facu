@@ -42,8 +42,60 @@ public class TranslationDbHelper extends SQLiteOpenHelper {
         values.put(TranslationContract.TranslationEntry.TRANSLATION, "lugar");
         values.put(TranslationContract.TranslationEntry.TYPE, "sust.");
         values.put(TranslationContract.TranslationEntry.CONTEXT, "en el LUGAR");
-        // Insertar...
+
         sqLiteDatabase.insert(TranslationContract.TranslationEntry.TABLE_NAME, null, values);
+
+        ContentValues values2 = new ContentValues();
+
+        values2.put(TranslationContract.TranslationEntry.LANGUAGE_ID, "1");
+        values2.put(TranslationContract.TranslationEntry.WORD, "ahy´o");
+        values2.put(TranslationContract.TranslationEntry.TRANSLATION, "garganta");
+        values2.put(TranslationContract.TranslationEntry.TYPE, "sust.");
+        values2.put(TranslationContract.TranslationEntry.CONTEXT, "en la GARGANTA");
+
+        sqLiteDatabase.insert(TranslationContract.TranslationEntry.TABLE_NAME, null, values2);
+
+        ContentValues values3 = new ContentValues();
+
+        values3.put(TranslationContract.TranslationEntry.LANGUAGE_ID, "1");
+        values3.put(TranslationContract.TranslationEntry.WORD, "aipo");
+        values3.put(TranslationContract.TranslationEntry.TRANSLATION, "aquel");
+        values3.put(TranslationContract.TranslationEntry.TYPE, "sust.");
+        values3.put(TranslationContract.TranslationEntry.CONTEXT, "en AQUEL lugar");
+
+        sqLiteDatabase.insert(TranslationContract.TranslationEntry.TABLE_NAME, null, values3);
+
+        ContentValues values4 = new ContentValues();
+
+        values4.put(TranslationContract.TranslationEntry.LANGUAGE_ID, "1");
+        values4.put(TranslationContract.TranslationEntry.WORD, "aja");
+        values4.put(TranslationContract.TranslationEntry.TRANSLATION, "durante");
+        values4.put(TranslationContract.TranslationEntry.TYPE, "sust.");
+        values4.put(TranslationContract.TranslationEntry.CONTEXT, "sucedió DURANTE el juego");
+
+        sqLiteDatabase.insert(TranslationContract.TranslationEntry.TABLE_NAME, null, values4);
+
+        ContentValues values5 = new ContentValues();
+
+
+        values5.put(TranslationContract.TranslationEntry.LANGUAGE_ID, "1");
+        values5.put(TranslationContract.TranslationEntry.WORD, "alemaniagua");
+        values5.put(TranslationContract.TranslationEntry.TRANSLATION, "aleman");
+        values5.put(TranslationContract.TranslationEntry.TYPE, "gent.");
+        values5.put(TranslationContract.TranslationEntry.CONTEXT, "el señor es ALEMÁN");
+
+        sqLiteDatabase.insert(TranslationContract.TranslationEntry.TABLE_NAME, null, values5);
+
+        ContentValues values6 = new ContentValues();
+
+        values6.put(TranslationContract.TranslationEntry.LANGUAGE_ID, "1");
+        values6.put(TranslationContract.TranslationEntry.WORD, "alkila");
+        values6.put(TranslationContract.TranslationEntry.TRANSLATION, "alquilar");
+        values6.put(TranslationContract.TranslationEntry.TYPE, "ver.");
+        values6.put(TranslationContract.TranslationEntry.CONTEXT, "debemos ALQUILAR un lugar");
+
+        // Insertar...
+        sqLiteDatabase.insert(TranslationContract.TranslationEntry.TABLE_NAME, null, values6);
 
     }
 
@@ -66,7 +118,22 @@ public class TranslationDbHelper extends SQLiteOpenHelper {
 
     }
 
-    public Cursor getAllLawyers() {
+    public Cursor getPredictiveTranslations(String word)
+    {
+        Cursor c = getReadableDatabase().query(
+                TranslationContract.TranslationEntry.TABLE_NAME,
+                null,
+                TranslationContract.TranslationEntry.WORD + " LIKE ?",
+                new String[]{"%"+word+"%"},
+                null,
+                null,
+                null);
+        return c;
+
+    }
+
+
+    public Cursor getAllWords() {
         return getReadableDatabase()
                 .query(
                         TranslationContract.TranslationEntry.TABLE_NAME,

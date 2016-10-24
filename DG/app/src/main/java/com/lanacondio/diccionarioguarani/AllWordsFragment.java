@@ -32,9 +32,7 @@ public class AllWordsFragment extends Fragment {
 
 
     private OnFragmentInteractionListener mListener;
-
     private TranslationDbHelper mTranslationDbHelper;
-
     private ListView mResultList;
     private TextView mWord;
     private ResultCursorAdapter mResultAdapter;
@@ -132,7 +130,7 @@ public class AllWordsFragment extends Fragment {
         protected Cursor doInBackground(Void... voids) {
 
             return mTranslationDbHelper.getTranslations(wtoFind);
-            //return mTranslationDbHelper.getAllLawyers();
+
         }
 
         @Override

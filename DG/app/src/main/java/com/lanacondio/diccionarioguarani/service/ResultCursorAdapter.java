@@ -42,24 +42,14 @@ public class ResultCursorAdapter  extends CursorAdapter {
         TextView ttranslation = (TextView) view.findViewById(R.id.tvTranslation);
         TextView tcontext = (TextView) view.findViewById(R.id.tvContext);
 
-        //foreach definition...
-        if (!(cursor.moveToFirst()) || cursor.getCount() ==0){
-            //cursor is empty
-            ttranslation.setText("No se encontraron resultados");
-        }
-        else{
+        Translation translate = new Translation();
+        String strres = cursor.getString(cursor.getColumnIndex(TranslationContract.TranslationEntry.TRANSLATION));
+        String contexts = cursor.getString(cursor.getColumnIndex(TranslationContract.TranslationEntry.CONTEXT));
+        String type = cursor.getString(cursor.getColumnIndex(TranslationContract.TranslationEntry.TYPE));
 
-            do {
-                Translation translate = new Translation();
-                String strres = cursor.getString(cursor.getColumnIndex(TranslationContract.TranslationEntry.TRANSLATION));
-                String contexts = cursor.getString(cursor.getColumnIndex(TranslationContract.TranslationEntry.CONTEXT));
-                String type = cursor.getString(cursor.getColumnIndex(TranslationContract.TranslationEntry.TYPE));
+        ttranslation.setText(strres);
+        ttype.setText(type);
+        tcontext.setText(contexts);
 
-                ttranslation.setText(strres);
-                ttype.setText(type);
-                tcontext.setText(contexts);
-            } while (cursor.moveToNext());
-
-        }
     }
 }
