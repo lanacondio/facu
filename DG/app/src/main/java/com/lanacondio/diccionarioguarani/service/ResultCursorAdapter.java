@@ -38,11 +38,14 @@ public class ResultCursorAdapter  extends CursorAdapter {
     public void bindView(View view, final Context context, Cursor cursor) {
 
         //resultados
+
+        final int position = cursor.getPosition()+1;
+
+        TextView tIndex= (TextView) view.findViewById(R.id.tvIndex);
         TextView ttype= (TextView) view.findViewById(R.id.tvType);
         TextView ttranslation = (TextView) view.findViewById(R.id.tvTranslation);
         TextView tcontext = (TextView) view.findViewById(R.id.tvContext);
 
-        Translation translate = new Translation();
         String strres = cursor.getString(cursor.getColumnIndex(TranslationContract.TranslationEntry.TRANSLATION));
         String contexts = cursor.getString(cursor.getColumnIndex(TranslationContract.TranslationEntry.CONTEXT));
         String type = cursor.getString(cursor.getColumnIndex(TranslationContract.TranslationEntry.TYPE));
@@ -50,6 +53,7 @@ public class ResultCursorAdapter  extends CursorAdapter {
         ttranslation.setText(strres);
         ttype.setText(type);
         tcontext.setText(contexts);
+        tIndex.setText(String.valueOf(position)+".");
 
     }
 }

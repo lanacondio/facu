@@ -37,7 +37,7 @@ public class AllWordsFragment extends Fragment {
     private TextView mWord;
     private ResultCursorAdapter mResultAdapter;
     private String wtoFind;
-
+    private Integer originalLanguaje;
 
     public AllWordsFragment() {
         // Required empty public constructor
@@ -70,7 +70,7 @@ public class AllWordsFragment extends Fragment {
 
         // Referencias UI
         wtoFind = getArguments().getString("wordtf");
-
+        originalLanguaje = getArguments().getInt("olanguage");
         getActivity().setTitle(wtoFind);
         mResultList = (ListView) root.findViewById(R.id.all_words_list);
 
@@ -129,7 +129,7 @@ public class AllWordsFragment extends Fragment {
         @Override
         protected Cursor doInBackground(Void... voids) {
 
-            return mTranslationDbHelper.getTranslations(wtoFind);
+            return mTranslationDbHelper.getTranslations(wtoFind, originalLanguaje);
 
         }
 

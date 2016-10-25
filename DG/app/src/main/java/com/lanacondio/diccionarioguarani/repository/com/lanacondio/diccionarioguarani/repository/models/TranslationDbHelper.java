@@ -45,6 +45,7 @@ public class TranslationDbHelper extends SQLiteOpenHelper {
 
         sqLiteDatabase.insert(TranslationContract.TranslationEntry.TABLE_NAME, null, values);
 
+
         ContentValues values2 = new ContentValues();
 
         values2.put(TranslationContract.TranslationEntry.LANGUAGE_ID, "1");
@@ -94,8 +95,18 @@ public class TranslationDbHelper extends SQLiteOpenHelper {
         values6.put(TranslationContract.TranslationEntry.TYPE, "ver.");
         values6.put(TranslationContract.TranslationEntry.CONTEXT, "debemos ALQUILAR un lugar");
 
-        // Insertar...
         sqLiteDatabase.insert(TranslationContract.TranslationEntry.TABLE_NAME, null, values6);
+
+        ContentValues values7 = new ContentValues();
+
+        values7.put(TranslationContract.TranslationEntry.LANGUAGE_ID, "1");
+        values7.put(TranslationContract.TranslationEntry.WORD, "alkila");
+        values7.put(TranslationContract.TranslationEntry.TRANSLATION, "alquilar 2");
+        values7.put(TranslationContract.TranslationEntry.TYPE, "ver.");
+        values7.put(TranslationContract.TranslationEntry.CONTEXT, "debemos ALQUILAR un lugar para prueba");
+
+        // Insertar...
+        sqLiteDatabase.insert(TranslationContract.TranslationEntry.TABLE_NAME, null, values7);
 
     }
 
@@ -104,13 +115,14 @@ public class TranslationDbHelper extends SQLiteOpenHelper {
         // No hay operaciones
     }
 
-    public Cursor getTranslations(String word)
+    public Cursor getTranslations(String word, int originalLanguaje)
     {
         Cursor c = getReadableDatabase().query(
                 TranslationContract.TranslationEntry.TABLE_NAME,
                 null,
-                TranslationContract.TranslationEntry.WORD + " LIKE ?",
-                new String[]{word},
+                TranslationContract.TranslationEntry.WORD + " LIKE ? AND "+
+                        TranslationContract.TranslationEntry.LANGUAGE_ID + " = ?",
+                new String[]{word,String.valueOf(originalLanguaje)},
                 null,
                 null,
                 null);
@@ -118,13 +130,14 @@ public class TranslationDbHelper extends SQLiteOpenHelper {
 
     }
 
-    public Cursor getPredictiveTranslations(String word)
+    public Cursor getPredictiveTranslations(String word , int originalLanguaje)
     {
         Cursor c = getReadableDatabase().query(
                 TranslationContract.TranslationEntry.TABLE_NAME,
                 null,
-                TranslationContract.TranslationEntry.WORD + " LIKE ?",
-                new String[]{"%"+word+"%"},
+                TranslationContract.TranslationEntry.WORD + " LIKE ? AND " +
+                TranslationContract.TranslationEntry.LANGUAGE_ID + " = ?",
+                new String[]{"%"+word+"%", String.valueOf(originalLanguaje)},
                 null,
                 null,
                 null);

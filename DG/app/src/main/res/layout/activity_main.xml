@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -12,54 +13,62 @@
     tools:context="com.lanacondio.diccionarioguarani.MainActivity">
 
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="25dp"
-        android:id="@+id/predictiveLV"
-        android:layout_below="@+id/textToFind"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
     <TextView
-        android:text="Guarani"
+        android:text="@string/Guarani"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/originLanguageTextView"
+        android:textColor="#6495ED"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-black"
+        android:typeface="monospace"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
 
     <TextView
-        android:text="Español"
+        android:text="@string/Spanish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginRight="19dp"
         android:layout_marginEnd="19dp"
+        android:textColor="#6495ED"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-black"
+        android:typeface="monospace"
         android:id="@+id/translationLanguageTextView"
+        android:layout_alignParentLeft="true"
+
         android:layout_alignParentTop="true" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/ic_loop_chi"
+        app:srcCompat="@mipmap/ic_refresh"
+        android:id="@+id/chi_button"
+        android:background="@android:color/transparent"
         android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/textToFind"
-        android:layout_alignEnd="@+id/textToFind"
-        android:id="@+id/chi_button" />
+        android:layout_centerHorizontal="true" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/textToFind"
-        android:hint="Ingresar Texto"
-        android:contentDescription="Ingresar Texto"
-        android:layout_marginTop="14dp"
+    <SearchView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_below="@+id/chi_button"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"
+        android:id="@+id/textToFind"
+        android:orientation="horizontal"
+        android:layout_alignParentLeft="true" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/textToFind"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="40dp"
+        android:id="@+id/predictiveLV" />
 
 </RelativeLayout>

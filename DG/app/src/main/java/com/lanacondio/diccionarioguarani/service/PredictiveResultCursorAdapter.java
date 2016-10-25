@@ -26,6 +26,7 @@ import java.util.List;
 
 public class PredictiveResultCursorAdapter extends CursorAdapter {
 
+    private Integer originalLanguaje;
 
     public PredictiveResultCursorAdapter(Context context, Cursor c) {
         super(context, c, 0);
@@ -42,7 +43,9 @@ public class PredictiveResultCursorAdapter extends CursorAdapter {
 
         //resultados por item
         Button tword= (Button) view.findViewById(R.id.tvWord);
+
         String strres = cursor.getString(cursor.getColumnIndex(TranslationContract.TranslationEntry.WORD));
+        originalLanguaje = Integer.parseInt(cursor.getString(cursor.getColumnIndex(TranslationContract.TranslationEntry.LANGUAGE_ID)));
         tword.setText(strres);
         tword.setOnClickListener(new View.OnClickListener(){
 
@@ -53,6 +56,7 @@ public class PredictiveResultCursorAdapter extends CursorAdapter {
                 String valueToFind = tword.getText().toString();
                 Intent allWords = new Intent((MainActivity)context, AllWordsActivity.class);
                 allWords.putExtra("wordtf",valueToFind);
+                allWords.putExtra("olanguage",originalLanguaje);
                 context.startActivity(allWords);
 
             }
