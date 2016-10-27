@@ -6,6 +6,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.content.ContentValues;
 import android.database.Cursor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by lanacondio on 20/10/2016.
  */
@@ -23,7 +26,7 @@ public class TranslationDbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         // Comandos SQL
 
-        sqLiteDatabase.execSQL("CREATE TABLE " + TranslationContract.TranslationEntry.TABLE_NAME + " ("
+        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + TranslationContract.TranslationEntry.TABLE_NAME + " ("
                 + TranslationContract.TranslationEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + TranslationContract.TranslationEntry.LANGUAGE_ID + " INTEGER NOT NULL,"
                 + TranslationContract.TranslationEntry.WORD + " TEXT NOT NULL,"
@@ -31,7 +34,6 @@ public class TranslationDbHelper extends SQLiteOpenHelper {
                 + TranslationContract.TranslationEntry.TYPE + " TEXT NOT NULL,"
                 + TranslationContract.TranslationEntry.CONTEXT + " TEXT NOT NULL,"
                 + "UNIQUE (" + TranslationContract.TranslationEntry._ID + "))");
-
 
         ContentValues values = new ContentValues();
         //leer datos de archivo de texto e insertarlos con un for
@@ -130,18 +132,56 @@ public class TranslationDbHelper extends SQLiteOpenHelper {
 
     }
 
-    public Cursor getPredictiveTranslations(String word , int originalLanguaje)
+    public List<Translation> getTranslationsObject(String word, int originalLanguaje)
     {
-        Cursor c = getReadableDatabase().query(
+        List<Translation> result = new ArrayList<Translation>();
+
+        Cursor cursor = getReadableDatabase().query(
                 TranslationContract.TranslationEntry.TABLE_NAME,
                 null,
-                TranslationContract.TranslationEntry.WORD + " LIKE ? AND " +
-                TranslationContract.TranslationEntry.LANGUAGE_ID + " = ?",
-                new String[]{"%"+word+"%", String.valueOf(originalLanguaje)},
+                TranslationContract.TranslationEntry.WORD + " LIKE ? AND "+
+                        TranslationContract.TranslationEntry.LANGUAGE_ID + " = ?",
+                new String[]{word,String.valueOf(originalLanguaje)},
                 null,
                 null,
                 null);
+        try {
+            while (cursor.moveToNext()) {
+                Translation ntranslation = new Translation();
+                ntranslation.setTranslationResult(cursor.getString(cursor.getColumnIndex(TranslationContract.TranslationEntry.TRANSLATION)));
+                ntranslation.setContext(cursor.getString(cursor.getColumnIndex(TranslationContract.TranslationEntry.CONTEXT)));
+                ntranslation.setWordToFind(cursor.getString(cursor.getColumnIndex(TranslationContract.TranslationEntry.WORD)));
+               result.add(ntranslation);
+
+            }
+        } finally {
+            cursor.close();
+        }
+        return result;
+
+    }
+
+
+    public Cursor getPredictiveTranslations(String word , int originalLanguaje)
+    {
+        Cursor c = getReadableDatabase().query(true,
+                TranslationContract.TranslationEntry.TABLE_NAME,
+                new String[]{"_id",TranslationContract.TranslationEntry.WORD,
+                        TranslationContract.TranslationEntry.LANGUAGE_ID,
+                        TranslationContract.TranslationEntry.TRANSLATION,
+                        TranslationContract.TranslationEntry.TYPE,
+                        TranslationContract.TranslationEntry.CONTEXT
+                },
+                TranslationContract.TranslationEntry.WORD + " LIKE ? AND " +
+                        TranslationContract.TranslationEntry.LANGUAGE_ID + " = ?",
+                new String[]{"%"+word+"%", String.valueOf(originalLanguaje)},
+                TranslationContract.TranslationEntry.WORD,
+                null,
+                null,
+                null);
+
         return c;
+
 
     }
 

@@ -4,19 +4,15 @@
     android:layout_height="match_parent"
     android:weightSum="1">
 
+
     <Button
-        android:text=""
-        android:textColor="#FFFFFF"
-        android:textSize="15sp"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="@drawable/buttonshape"
-        android:shadowColor="#000000"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="5"
+        android:layout_height="wrap_content"
+        android:background="#3f51b5"
+        android:text="Calculate"
+        android:layout_margin="10dp"
         android:id="@+id/tvWord"
-        style="@style/buttonStyle"
-        android:layout_weight="0.03" />
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:enabled="true" />
 
 </LinearLayout>

@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final SearchView wordtf = (SearchView) findViewById(R.id.textToFind);
@@ -103,13 +103,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v){
-                //EditText wordtf = (EditText) findViewById(R.id.textToFind);
 
-                /*
-                RotateAnimation ranim = (RotateAnimation) AnimationUtils.loadAnimation( v.getContext(), R.anim.rotate);
-
-                lselector.setAnimation(ranim);
-*/
                 ImageButton lselector=(ImageButton) findViewById(R.id.chi_button);
 
                 RotateAnimation ra =new RotateAnimation(0, 360);

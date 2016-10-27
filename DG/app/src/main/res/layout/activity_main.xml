@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/originLanguageTextView"
-        android:textColor="#6495ED"
+        android:textColor="#3f51b5"
         android:textSize="20sp"
         android:fontFamily="sans-serif-black"
         android:typeface="monospace"
@@ -34,13 +34,11 @@
         android:layout_alignParentEnd="true"
         android:layout_marginRight="19dp"
         android:layout_marginEnd="19dp"
-        android:textColor="#6495ED"
+        android:textColor="#3f51b5"
         android:textSize="20sp"
         android:fontFamily="sans-serif-black"
         android:typeface="monospace"
         android:id="@+id/translationLanguageTextView"
-        android:layout_alignParentLeft="true"
-
         android:layout_alignParentTop="true" />
 
     <ImageButton

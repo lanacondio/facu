@@ -53,7 +53,7 @@
         android:layout_marginRight="6dip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#0907AF"
+        android:textColor="#3f51b5"
         android:textSize="20sp"
         android:id="@+id/tvContext"
         android:layout_weight="0.08" />

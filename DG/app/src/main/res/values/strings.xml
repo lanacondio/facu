@@ -1,9 +1,14 @@
 <resources>
-    <string name="app_name">Diccionario Guarani</string>
+    <string name="app_name">GDicc</string>
     <string name="title_activity_all_words">AllWords</string>
     <string name="Spanish">Español</string>
     <string name="Guarani">Guaraní</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="share_messages_items">%1$s: %2$s. %3$s \n %4$s \n </string>
+    <string name="share_messages_tag">Traducción obtenida de Gdic </string>
+    <string name="copy_to_clipboard">Copiado a portapapeles</string>
+
+
 </resources>
