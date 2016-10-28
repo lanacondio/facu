@@ -1,13 +1,19 @@
 package com.lanacondio.diccionarioguarani;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -17,6 +23,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Switch;
@@ -42,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         final SearchView wordtf = (SearchView) findViewById(R.id.textToFind);
         wordtf.setIconifiedByDefault(true);
         wordtf.setFocusable(true);
@@ -98,19 +108,39 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-        ImageButton lselector=(ImageButton) findViewById(R.id.chi_button);
-        lselector.setOnClickListener(new View.OnClickListener(){
+    }
 
-            @Override
-            public void onClick(View v){
 
-                ImageButton lselector=(ImageButton) findViewById(R.id.chi_button);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
 
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                // User chose the "Settings" item, show the app settings UI...
+                return true;
+
+            case R.id.action_select_language:
+                // User chose the "Select  Language" action, mark the current item
                 RotateAnimation ra =new RotateAnimation(0, 360);
                 ra.setFillAfter(true);
                 ra.setDuration(1000);
-                lselector.setAnimation(ra);
-                lselector.startAnimation(ra);
+
+
+                final SearchView wordtf = (SearchView) findViewById(R.id.textToFind);
+                ImageView imageView = new ImageView(this);
+                imageView.setImageResource(R.mipmap.ic_refresh);
+                imageView.startAnimation(ra);
 
 
                 languajeText = (TextView)findViewById(R.id.originLanguageTextView);
@@ -145,9 +175,14 @@ public class MainActivity extends AppCompatActivity {
                     originalLanguaje = 1;
                 }
 
-            }
+                return true;
 
-        });
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
 
     }
 

@@ -11,6 +11,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -25,11 +27,15 @@ public class AllWordsActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_words);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_all_words);
         setSupportActionBar(toolbar);
 
+        /*
+        getActionBar().setHomeButtonEnabled(true);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+*/
         FloatingActionButton sharingb = (FloatingActionButton)findViewById(R.id.floatingActionButton);
-        FloatingActionButton previousb = (FloatingActionButton)findViewById(R.id.previousActionButton);
+
         FloatingActionButton copyText  = (FloatingActionButton)findViewById(R.id.copyToClipboardActionButton);
 
         sharingb.setOnClickListener(new View.OnClickListener() {
@@ -69,15 +75,6 @@ public class AllWordsActivity extends AppCompatActivity {
             }
         });
 
-
-        previousb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AllWordsActivity.super.onBackPressed();
-            }
-            });
-
-
         copyText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,7 +108,7 @@ public class AllWordsActivity extends AppCompatActivity {
 
 
         AllWordsFragment fragment = (AllWordsFragment)
-                getSupportFragmentManager().findFragmentById(R.id.content_all_words);
+        getSupportFragmentManager().findFragmentById(R.id.content_all_words);
 
         if (fragment == null) {
             fragment = AllWordsFragment.newInstance();
@@ -124,8 +121,37 @@ public class AllWordsActivity extends AppCompatActivity {
 
     }
 
-    public void OnFragmentInteractionListener(Uri uri){
-        //you can leave it empty
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_all_words, menu);
+
+        return true;
     }
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                // User chose the "Settings" item, show the app settings UI...
+
+                return true;
+
+            case R.id.action_back:
+                AllWordsActivity.super.onBackPressed();
+
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+
+    }
 }

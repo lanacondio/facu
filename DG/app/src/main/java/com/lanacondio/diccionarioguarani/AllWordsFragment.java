@@ -71,6 +71,7 @@ public class AllWordsFragment extends Fragment {
         // Referencias UI
         wtoFind = getArguments().getString("wordtf");
         originalLanguaje = getArguments().getInt("olanguage");
+
         getActivity().setTitle(wtoFind);
         mResultList = (ListView) root.findViewById(R.id.all_words_list);
 

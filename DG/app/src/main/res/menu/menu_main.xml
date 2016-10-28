@@ -1,0 +1,30 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.lanacondio.diccionarioguarani.MainActivity">
+
+
+    <item
+        android:title="@string/Guarani"
+        app:showAsAction="always"
+        android:id="@+id/originLanguageTextView"
+        />
+
+    <item
+        android:id="@+id/action_select_language"
+        android:icon="@mipmap/ic_refresh"
+        android:title="@string/select_language"
+        app:showAsAction="always"/>
+
+    <item
+        android:title="@string/Spanish"
+        app:showAsAction="always"
+        android:id="@+id/translationLanguageTextView"
+        />
+
+
+    <!-- Settings, should always be in the overflow -->
+    <item android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        app:showAsAction="never"/>
+</menu>

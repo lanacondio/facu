@@ -5,12 +5,13 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_bandera"
-        android:label="@string/app_name"
+        android:logo="@mipmap/ic_bandera"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar"
             android:icon="@mipmap/ic_bandera">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +22,9 @@
             android:name=".AllWordsActivity"
             android:label="@string/title_activity_all_words"
             android:icon="@mipmap/ic_bandera"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
     </application>
 
 </manifest>

@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.lanacondio.diccionarioguarani.AllWordsActivity">
+
+
+    <item
+        android:id="@+id/action_back"
+        android:icon="?android:attr/actionModeCloseDrawable"
+        android:title="@string/select_language"
+        app:showAsAction="always"/>
+
+
+    <!-- Settings, should always be in the overflow -->
+    <item android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        app:showAsAction="never"/>
+</menu>
