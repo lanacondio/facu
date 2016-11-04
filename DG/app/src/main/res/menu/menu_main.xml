@@ -12,7 +12,7 @@
 
     <item
         android:id="@+id/action_select_language"
-        android:icon="@mipmap/ic_refresh"
+        android:icon="@mipmap/ic_swap_horiz_white_24dp"
         android:title="@string/select_language"
         app:showAsAction="always"/>
 
@@ -24,7 +24,41 @@
 
 
     <!-- Settings, should always be in the overflow -->
-    <item android:id="@+id/action_settings"
+
+    <item
         android:title="@string/action_settings"
-        app:showAsAction="never"/>
+        android:icon="@android:drawable/ic_menu_more"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:icon="@mipmap/ic_favorite_black_24dp"
+                android:id="@+id/favorites"
+                android:title="@string/show_favorites" />
+
+            <item
+                android:icon="@mipmap/ic_language_black_18dp"
+                android:id="@+id/change_language"
+                android:title="@string/change_app_language" />
+
+            <item
+                android:icon="@mipmap/ic_settings_black_18dp"
+                android:id="@+id/configuration"
+                android:title="@string/show_configuration" />
+
+            <item
+                android:icon="@android:drawable/ic_menu_share"
+                android:id="@+id/Share_app"
+
+                android:title="@string/share_app" />
+            <item
+                android:id="@+id/calificate_app"
+                android:title="@string/calificate" />
+            <item
+                android:id="@+id/about_app"
+                android:title="@string/about" />
+
+        </menu>
+    </item>
+
+
 </menu>

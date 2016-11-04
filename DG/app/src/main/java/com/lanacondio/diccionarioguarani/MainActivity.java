@@ -19,6 +19,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.RotateAnimation;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -26,9 +27,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lanacondio.diccionarioguarani.repository.com.lanacondio.diccionarioguarani.repository.models.TranslationDbHelper;
 import com.lanacondio.diccionarioguarani.service.PredictiveResultCursorAdapter;
@@ -52,11 +55,14 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        getSupportActionBar().setLogo(R.mipmap.ic_bandera);
+
         final SearchView wordtf = (SearchView) findViewById(R.id.textToFind);
         wordtf.setIconifiedByDefault(true);
         wordtf.setFocusable(true);
         wordtf.setIconified(false);
         wordtf.requestFocusFromTouch();
+
 
             wordtf.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
@@ -116,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
-
         return true;
     }
 
@@ -125,10 +130,10 @@ public class MainActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+        Context context = getApplicationContext();
+        CharSequence text = "app compartida";
+        int duration = Toast.LENGTH_SHORT;
         switch (item.getItemId()) {
-            case R.id.action_settings:
-                // User chose the "Settings" item, show the app settings UI...
-                return true;
 
             case R.id.action_select_language:
                 // User chose the "Select  Language" action, mark the current item
@@ -176,12 +181,30 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 return true;
+            case  R.id.Share_app:
+
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+                return true;
+
+            case  R.id.calificate_app:
+
+                text = "app calificada";
+                Toast toast2 = Toast.makeText(context, text, duration);
+                toast2.show();
+                return true;
+
+            case  R.id.about_app:
+                text = "acerca de gdicc";
+                Toast toast3 = Toast.makeText(context, text, duration);
+                toast3.show();
+                return true;
 
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
-
         }
 
     }

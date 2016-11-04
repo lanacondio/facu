@@ -11,6 +11,13 @@
     <string name="copy_to_clipboard">Copiado a portapapeles</string>
     <string name="action_bar_button_search">Ingrese texto</string>
     <string name="select_language">Seleccione lenguaje</string>
-
+    <string name="share_app">Compartir GDicc</string>
+    <string name="calificate">Calificar Gdicc</string>
+    <string name="about">Sobre GDicc</string>
+    <string name="show_favorites">Favoritos</string>
+    <string name="show_configuration">Configuración</string>
+    <string name="show_antonyms">Antonimos</string>
+    <string name="show_synonym">Sinonimos</string>
+    <string name="change_app_language">Sinonimos</string>
 
 </resources>

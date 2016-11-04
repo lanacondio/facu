@@ -12,6 +12,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ import com.lanacondio.diccionarioguarani.repository.com.lanacondio.diccionariogu
 import com.lanacondio.diccionarioguarani.repository.com.lanacondio.diccionarioguarani.repository.models.TranslationDbHelper;
 
 import java.util.List;
+
 
 public class AllWordsActivity extends AppCompatActivity {
 
@@ -30,10 +32,11 @@ public class AllWordsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_all_words);
         setSupportActionBar(toolbar);
 
-        /*
-        getActionBar().setHomeButtonEnabled(true);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-*/
+
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         FloatingActionButton sharingb = (FloatingActionButton)findViewById(R.id.floatingActionButton);
 
         FloatingActionButton copyText  = (FloatingActionButton)findViewById(R.id.copyToClipboardActionButton);
@@ -124,7 +127,8 @@ public class AllWordsActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_all_words, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_all_words,menu);
 
         return true;
     }
@@ -136,12 +140,8 @@ public class AllWordsActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
-            case R.id.action_settings:
-                // User chose the "Settings" item, show the app settings UI...
 
-                return true;
-
-            case R.id.action_back:
+            case android.R.id.home:
                 AllWordsActivity.super.onBackPressed();
 
                 return true;
