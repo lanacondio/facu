@@ -24,7 +24,21 @@
             android:label="@string/title_activity_all_words"
             android:icon="@mipmap/ic_bandera"
             android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".FavoritesActivity"
+            android:label="@string/show_favorites"
+            android:icon="@mipmap/ic_bandera"
+            android:theme="@style/AppTheme.NoActionBar">
 
+        </activity>
+
+        <activity
+            android:name=".ConfigurationActivity"
+            android:label="@string/show_configuration"
+            android:icon="@mipmap/ic_bandera"
+            android:configChanges="locale|orientation"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 

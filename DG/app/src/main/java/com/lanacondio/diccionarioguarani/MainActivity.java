@@ -1,11 +1,16 @@
 package com.lanacondio.diccionarioguarani;
 
 import android.app.SearchManager;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -33,8 +38,11 @@ import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lanacondio.diccionarioguarani.repository.com.lanacondio.diccionarioguarani.repository.models.Translation;
 import com.lanacondio.diccionarioguarani.repository.com.lanacondio.diccionarioguarani.repository.models.TranslationDbHelper;
 import com.lanacondio.diccionarioguarani.service.PredictiveResultCursorAdapter;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,6 +59,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getTheme().applyStyle(new Preferences(this).getFontStyle().getResId(), true);
+        getTheme().applyStyle(new Preferences(this).getFontColor().getResId(), true);
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -181,24 +192,77 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 return true;
+
+            case  R.id.favorites:
+
+                Intent favorites = new Intent(MainActivity.this, FavoritesActivity.class);
+                startActivity(favorites);
+
+                return true;
+
             case  R.id.Share_app:
 
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
 
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
+                String shareBody =  "";
+
+                shareBody += context.getString(R.string.share_app_messages)+context.getPackageName();
+
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(sharingIntent, "Share via"));
                 return true;
+
 
             case  R.id.calificate_app:
 
-                text = "app calificada";
-                Toast toast2 = Toast.makeText(context, text, duration);
-                toast2.show();
+                Uri uri = Uri.parse("market://details?id=" + context.getPackageName());
+                Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+                // To count with Play market backstack, After pressing back button,
+                // to taken back to our application, we need to add following flags to intent.
+                goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+                        Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
+                        Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                try {
+                    startActivity(goToMarket);
+                } catch (ActivityNotFoundException e) {
+                    startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("http://play.google.com/store/apps/details?id=" + context.getPackageName())));
+                }
+
                 return true;
 
             case  R.id.about_app:
-                text = "acerca de gdicc";
-                Toast toast3 = Toast.makeText(context, text, duration);
-                toast3.show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("gdicc es una app comunitaria sin fines de lucro. Todos los derechos reservados.")
+                        .setTitle("Acerca de gdicc")
+                        .setCancelable(false)
+                        .setNeutralButton("Aceptar",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+                AlertDialog alert = builder.create();
+
+                alert.setOnShowListener(new DialogInterface.OnShowListener() {
+                                            @Override
+                                            public void onShow(final DialogInterface dialog) {
+                                                Button buttonbackground = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEUTRAL);
+                                                buttonbackground.setTextColor(Color.BLUE);
+
+                                            }
+                                        });
+
+                alert.show();
+                return true;
+
+            case R.id.configuration:
+
+                Intent configuration = new Intent(MainActivity.this, ConfigurationActivity.class);
+                startActivity(configuration);
+
                 return true;
 
             default:

@@ -1,0 +1,158 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.lanacondio.diccionarioguarani.ConfigurationFragment"
+    android:id="@+id/conf_fsize_label"
+    android:scrollbarAlwaysDrawHorizontalTrack="true"
+    android:scrollbarSize="50dp">
+
+
+    <TextView
+        android:text="Tamaño de fuente:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="31dp"
+        android:layout_marginStart="31dp"
+        android:layout_marginTop="30dp"
+        android:textColor="#000"
+        android:textSize="?attr/font_medium"
+        android:id="@+id/conf_fsize_tv"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/ic_text_format_white_18dp"
+        android:id="@+id/ib_smallfs"
+        android:background="@drawable/roundcorner"
+        android:layout_marginTop="24dp"
+        android:layout_below="@+id/conf_fsize_tv"
+        android:layout_alignLeft="@+id/conf_fsize_tv"
+        android:layout_alignStart="@+id/conf_fsize_tv" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/ic_text_format_white_24dp"
+        android:id="@+id/ib_medfs"
+        android:background="@drawable/roundcorner"
+        android:layout_alignTop="@+id/ib_smallfs"
+        android:layout_toRightOf="@+id/ib_smallfs"
+        android:layout_toEndOf="@+id/ib_smallfs"
+        android:layout_marginLeft="38dp"
+        android:layout_marginStart="38dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/ic_text_format_white_36dp"
+        android:id="@+id/ib_bigfs"
+        android:background="@drawable/roundcorner"
+        android:layout_alignTop="@+id/ib_medfs"
+        android:layout_toRightOf="@+id/ib_medfs"
+        android:layout_marginLeft="38dp"
+        android:layout_marginStart="38dp" />
+
+
+    <TextView
+        android:text="Idioma:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:textSize="?attr/font_medium"
+        android:id="@+id/conf_lans_tv"
+        android:layout_marginBottom="33dp"
+        android:layout_above="@+id/conf_language_spinner"
+        android:layout_alignLeft="@+id/ib_smallfs"
+        android:layout_alignStart="@+id/ib_smallfs" />
+
+    <Spinner
+        android:id="@+id/conf_language_spinner"
+        android:layout_width="200dp"
+        android:dropDownWidth="200dp"
+        android:spinnerMode="dropdown"
+        android:layout_height="?attr/dropdownListPreferredItemHeight"
+        android:background="@drawable/gradient_spinner"
+        style="@style/spinner_style"
+        android:paddingRight="14dp"
+        android:stateListAnimator="@drawable/spinner_sla"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/button3"
+        android:layout_alignStart="@+id/button3"
+        android:layout_alignRight="@+id/conf_fsize_tv"
+        android:layout_alignEnd="@+id/conf_fsize_tv" />
+
+
+     <TextView
+         android:text="Color de fuente"
+         android:textColor="#000"
+         android:textSize="?attr/font_medium"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_below="@+id/conf_language_spinner"
+         android:layout_alignLeft="@+id/conf_lans_tv"
+         android:layout_alignStart="@+id/conf_lans_tv"
+         android:layout_marginTop="47dp"
+         android:id="@+id/tview_fc" />
+
+
+    <Button
+         android:text="Button"
+         android:textColor="@android:color/black"
+         android:background="#3f51b5"
+         style="@style/Widget.AppCompat.Button.Colored"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_below="@+id/tview_fc"
+         android:layout_toLeftOf="@+id/ib_bigfs"
+         android:layout_toStartOf="@+id/ib_bigfs"
+         android:layout_marginTop="39dp"
+         android:id="@+id/blackbutton" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/ic_arrow_drop_down_black_18dp"
+        android:id="@+id/imageButton"
+        android:background="@android:color/transparent"
+        android:layout_centerVertical="true"
+        android:layout_alignRight="@+id/conf_language_spinner"
+        android:layout_alignEnd="@+id/conf_language_spinner" />
+
+    <Button
+        android:text="Button"
+        android:textColor="@android:color/white"
+        android:background="#3f51b5"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/whitebutton"
+        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp"
+        android:layout_alignBaseline="@+id/blackbutton"
+        android:layout_alignBottom="@+id/blackbutton"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Button"
+        android:textColor="@android:color/holo_red_dark"
+        android:background="#3f51b5"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/redbutton"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_alignBaseline="@+id/whitebutton"
+        android:layout_alignBottom="@+id/whitebutton"
+        android:layout_toRightOf="@+id/whitebutton"
+        android:layout_toEndOf="@+id/whitebutton" />
+
+
+</RelativeLayout>

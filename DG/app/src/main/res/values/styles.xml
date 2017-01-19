@@ -46,6 +46,55 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">#6495ED</item>
     </style>
+    <style name="spinner_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/gradient_spinner</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:popupBackground">#DFFFFFFF</item>
+    </style>
 
+    <style name="FontStyle">
+    </style>
+
+    <style name="FontColor">
+    </style>
+
+    <style name="FontStyle.Small">
+        <item name="font_small">14sp</item>
+        <item name="font_medium">16sp</item>
+        <item name="font_large">18sp</item>
+        <item name="font_xlarge">20sp</item>
+    </style>
+
+    <style name="FontStyle.Medium">
+        <item name="font_small">18sp</item>
+        <item name="font_medium">20sp</item>
+        <item name="font_large">22sp</item>
+        <item name="font_xlarge">24sp</item>
+    </style>
+
+    <style name="FontStyle.Large">
+        <item name="font_small">26sp</item>
+        <item name="font_medium">28sp</item>
+        <item name="font_large">30sp</item>
+        <item name="font_xlarge">32sp</item>
+    </style>
+
+    <style name="FontColor.ColorRed">
+        <item name="font_color">#FF0000</item>
+    </style>
+
+    <style name="FontColor.ColorWhite">
+        <item name="font_color">#ffffff</item>
+    </style>
+
+    <style name="FontColor.ColorBlack">
+        <item name="font_color">#000000</item>
+    </style>
 
 </resources>

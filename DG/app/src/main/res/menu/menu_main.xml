@@ -6,6 +6,7 @@
 
     <item
         android:title="@string/Guarani"
+        android:textColor="?attr/font_color"
         app:showAsAction="always"
         android:id="@+id/originLanguageTextView"
         />
@@ -18,6 +19,7 @@
 
     <item
         android:title="@string/Spanish"
+        android:textColor="?attr/font_color"
         app:showAsAction="always"
         android:id="@+id/translationLanguageTextView"
         />
@@ -34,27 +36,35 @@
                 android:icon="@mipmap/ic_favorite_black_24dp"
                 android:id="@+id/favorites"
                 android:title="@string/show_favorites" />
-
+<!--
             <item
                 android:icon="@mipmap/ic_language_black_18dp"
                 android:id="@+id/change_language"
                 android:title="@string/change_app_language" />
-
+-->
             <item
                 android:icon="@mipmap/ic_settings_black_18dp"
                 android:id="@+id/configuration"
+                android:textSize="?attr/font_small"
                 android:title="@string/show_configuration" />
 
-            <item
-                android:icon="@android:drawable/ic_menu_share"
-                android:id="@+id/Share_app"
 
+            <item
+                android:icon="@mipmap/ic_share_black_18dp"
+                android:id="@+id/Share_app"
+                android:textSize="?attr/font_small"
                 android:title="@string/share_app" />
+
             <item
+                android:icon="@mipmap/ic_star_black_18dp"
                 android:id="@+id/calificate_app"
+                android:textSize="?attr/font_small"
                 android:title="@string/calificate" />
+
             <item
+                android:icon="@mipmap/ic_priority_high_black_18dp"
                 android:id="@+id/about_app"
+                android:textSize="?attr/font_small"
                 android:title="@string/about" />
 
         </menu>

@@ -10,6 +10,8 @@
         android:layout_height="wrap_content"
         android:background="#3f51b5"
         android:text="Calculate"
+        android:textColor="?attr/font_color"
+        android:textSize="?attr/font_medium"
         android:layout_margin="10dp"
         android:id="@+id/tvWord"
         style="@style/Widget.AppCompat.Button.Colored"

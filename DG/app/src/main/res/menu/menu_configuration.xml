@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.lanacondio.diccionarioguarani.AllWordsActivity">
+    tools:context="com.lanacondio.diccionarioguarani.ConfigurationActivity">
 
 
     <item
@@ -27,27 +27,22 @@
                 android:id="@+id/antonimos"
                 android:title="@string/show_antonyms" />
             -->
-
-
             <item
                 android:icon="@mipmap/ic_share_black_18dp"
                 android:id="@+id/Share_app"
-                android:title="@string/share_app"
                 android:textSize="?attr/font_small"
-                />
+                android:title="@string/share_app" />
             <item
                 android:icon="@mipmap/ic_star_black_18dp"
                 android:id="@+id/calificate_app"
-                android:title="@string/calificate"
                 android:textSize="?attr/font_small"
-                />
+                android:title="@string/calificate" />
 
             <item
                 android:icon="@mipmap/ic_priority_high_black_18dp"
                 android:id="@+id/about_app"
-                android:title="@string/about"
                 android:textSize="?attr/font_small"
-                />
+                android:title="@string/about" />
 
         </menu>
     </item>

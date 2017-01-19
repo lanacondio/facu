@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:background="#3f51b5"
+        android:text="Calculate"
+        android:textSize="?attr/font_medium"
+        android:textColor="?attr/font_color"
+        android:layout_margin="10dp"
+        android:id="@+id/tvWord"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:enabled="true"
+        android:layout_weight="0.38" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:clickable="true"
+        app:fabSize="mini"
+        app:srcCompat="@mipmap/ic_favorite_black_24dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="14dp"
+        app:backgroundTint="@android:color/holo_blue_dark"
+        android:id="@+id/set_favorite_status" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:clickable="true"
+        app:fabSize="mini"
+        app:srcCompat="@mipmap/ic_share_black_18dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="14dp"
+        android:id="@+id/share_favorite"
+        app:backgroundTint="@android:color/holo_blue_dark" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:clickable="true"
+        app:fabSize="mini"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="14dp"
+        app:backgroundTint="@android:color/holo_blue_dark"
+        app:srcCompat="@android:drawable/ic_media_play"
+        android:id="@+id/go_definition" />
+
+</LinearLayout>
