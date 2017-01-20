@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
                         mResultList = (ListView) findViewById(R.id.predictiveLV);
 
-                        mResultAdapter = new PredictiveResultCursorAdapter(MainActivity.this, null);
+                        mResultAdapter = new PredictiveResultCursorAdapter(MainActivity.this, null, valueToFind);
 
                         // Setup
                         mResultList.setAdapter(mResultAdapter);
