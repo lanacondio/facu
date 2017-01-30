@@ -2277,11 +2277,14 @@ class PHP_CRUD_API {
  $api = new PHP_CRUD_API(array(
  	'dbengine'=>'MySQL',
  	'hostname'=>'localhost',
- 	'username'=>'root',
- 	'password'=>'lvsha1987',
- 	'database'=>'gdicc',
+ 	'username'=>'id103504_gdicc_user',
+ 	'password'=>'c672cd3fbdb7bed4f8e56f1ad58e14fe',
+ 	'database'=>'id103504_gdicc',
  	'charset'=>'utf8'
  ));
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
  $api->executeCommand();
 
 // For Microsoft SQL Server 2012 use:
