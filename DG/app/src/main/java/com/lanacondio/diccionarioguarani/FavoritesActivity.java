@@ -116,28 +116,6 @@ public class FavoritesActivity extends AppCompatActivity {
                 }
 
                 return true;
-            case  R.id.about_app:
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage("gdicc es una app comunitaria sin fines de lucro. Todos los derechos reservados.")
-                        .setTitle("Acerca de gdicc")
-                        .setCancelable(false)
-                        .setNeutralButton("Aceptar",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        dialog.cancel();
-                                    }
-                                });
-                AlertDialog alert = builder.create();
-                alert.setOnShowListener(new DialogInterface.OnShowListener() {
-                    @Override
-                    public void onShow(final DialogInterface dialog) {
-                        Button buttonbackground = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEUTRAL);
-                        buttonbackground.setTextColor(Color.BLUE);
-
-                    }
-                });
-                alert.show();
-                return true;
 
             default:
                 // If we got here, the user's action was not recognized.

@@ -38,11 +38,6 @@
                 android:textSize="?attr/font_small"
                 android:title="@string/calificate" />
 
-            <item
-                android:icon="@mipmap/ic_priority_high_black_18dp"
-                android:id="@+id/about_app"
-                android:textSize="?attr/font_small"
-                android:title="@string/about" />
 
         </menu>
     </item>

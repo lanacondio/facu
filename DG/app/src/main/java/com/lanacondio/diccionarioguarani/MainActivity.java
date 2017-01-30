@@ -9,6 +9,9 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +20,8 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,6 +36,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -54,7 +61,8 @@ public class MainActivity extends AppCompatActivity {
     private TranslationDbHelper mTranslationDbHelper;
     private String swtoFind;
     private Integer originalLanguaje = 1;
-
+    private RelativeLayout popupRelativeLayout;
+    private PopupWindow mPopupWindow;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -136,11 +144,13 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+        popupRelativeLayout = (RelativeLayout) findViewById(R.id.content_main);
         Context context = getApplicationContext();
         CharSequence text = "app compartida";
         int duration = Toast.LENGTH_SHORT;
@@ -168,7 +178,31 @@ public class MainActivity extends AppCompatActivity {
                 final Animation out = new AlphaAnimation(1.0f, 0.0f);
                 out.setDuration(1000);
 
-                wordtf.setQuery("",false);
+                //wordtf.setQuery("",false);
+                String valueToFind = wordtf.getQuery().toString();
+                swtoFind = valueToFind;
+
+                if(swtoFind != null && !swtoFind.isEmpty()){
+
+                    mResultList = (ListView) findViewById(R.id.predictiveLV);
+
+                    mResultAdapter = new PredictiveResultCursorAdapter(MainActivity.this, null, valueToFind);
+
+                    // Setup
+                    mResultList.setAdapter(mResultAdapter);
+
+                    // Instancia de helper
+                    mTranslationDbHelper = new TranslationDbHelper(MainActivity.this);
+
+                    // Carga de datos
+                    loadPredictiveResults();
+
+                }else{
+                    mResultList = (ListView) findViewById(R.id.predictiveLV);
+                    // Setup
+                    mResultList.setAdapter(null);
+
+                }
 
                 if(languajeText.getText().toString() == getResources().getString(R.string.Guarani)){
                     languajeText.startAnimation(out);
@@ -234,28 +268,57 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case  R.id.about_app:
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage("gdicc es una app comunitaria sin fines de lucro. Todos los derechos reservados.")
-                        .setTitle("Acerca de gdicc")
-                        .setCancelable(false)
-                        .setNeutralButton("Aceptar",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        dialog.cancel();
-                                    }
-                                });
-                AlertDialog alert = builder.create();
 
-                alert.setOnShowListener(new DialogInterface.OnShowListener() {
-                                            @Override
-                                            public void onShow(final DialogInterface dialog) {
-                                                Button buttonbackground = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEUTRAL);
-                                                buttonbackground.setTextColor(Color.BLUE);
+                LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
 
-                                            }
-                                        });
+                // Inflate the custom layout/view
+                View customView = inflater.inflate(R.layout.about_popup ,null);
 
-                alert.show();
+
+                // Initialize a new instance of popup window
+                mPopupWindow = new PopupWindow(
+                        customView,
+                        AppBarLayout.LayoutParams.WRAP_CONTENT,
+                        AppBarLayout.LayoutParams.WRAP_CONTENT
+                );
+                mPopupWindow.setOutsideTouchable(true);
+                mPopupWindow.setFocusable(true);
+                mPopupWindow.setElevation(10);
+
+
+
+                if(Build.VERSION.SDK_INT>=21){
+                    mPopupWindow.setElevation(5.0f);
+                }
+
+                ImageButton closeButton = (ImageButton) customView.findViewById(R.id.ib_close);
+                Button acceptButton = (Button) customView.findViewById(R.id.popupbutton);
+                acceptButton.setText("Aceptar");
+                TextView popuptext = (TextView) customView.findViewById(R.id.tvpopup);
+                popuptext.setText("gdicc DICCIONARIO GUARANÍ - ESPAÑOL");
+                popuptext.setGravity(Gravity.CENTER);
+
+                // Set a click listener for the popup window close button
+                closeButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // Dismiss the popup window
+                        mPopupWindow.dismiss();
+                    }
+                });
+
+                acceptButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        mPopupWindow.dismiss();
+                    }
+                });
+
+
+                mPopupWindow.showAtLocation(popupRelativeLayout, Gravity.CENTER,0,0);
+
+
                 return true;
 
             case R.id.configuration:

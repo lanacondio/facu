@@ -75,15 +75,11 @@ public class AllWordsActivity extends AppCompatActivity {
                 int index = 1;
                 for (Translation translation: results
                      ) {
-                   // shareBody += String.format(res.getString(R.string.share_messages_items), translation.getWordToFind(),
-                   //         index, translation.getTranslationResult(), translation.getContext());
-
 
                     shareBody += String.format(context.getString(R.string.share_messages_items), translation.getWordToFind(),
                                     String.valueOf(index), translation.getTranslationResult(), translation.getContext());
 
-                    //shareBody += " "+translation.getWordToFind()+":"+" "+String.valueOf(index)+
-                    //"."+" "+translation.getTranslationResult()+"\n" + translation.getContext() +"\n";
+                    index++;
 
                 }
 
@@ -112,6 +108,7 @@ public class AllWordsActivity extends AppCompatActivity {
 
                     textBody += translation.getWordToFind()+":"+" "+String.valueOf(index)+
                             "."+" "+translation.getTranslationResult()+"\n" + translation.getContext() +"\n";
+                    index++;
 
                 }
 
@@ -225,28 +222,6 @@ public class AllWordsActivity extends AppCompatActivity {
                             Uri.parse("http://play.google.com/store/apps/details?id=" + getApplicationContext().getPackageName())));
                 }
 
-                return true;
-            case  R.id.about_app:
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage("gdicc es una app comunitaria sin fines de lucro. Todos los derechos reservados.")
-                        .setTitle("Acerca de gdicc")
-                        .setCancelable(false)
-                        .setNeutralButton("Aceptar",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        dialog.cancel();
-                                    }
-                                });
-                AlertDialog alert = builder.create();
-                alert.setOnShowListener(new DialogInterface.OnShowListener() {
-                    @Override
-                    public void onShow(final DialogInterface dialog) {
-                        Button buttonbackground = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEUTRAL);
-                        buttonbackground.setTextColor(Color.BLUE);
-
-                    }
-                });
-                alert.show();
                 return true;
 
             default:

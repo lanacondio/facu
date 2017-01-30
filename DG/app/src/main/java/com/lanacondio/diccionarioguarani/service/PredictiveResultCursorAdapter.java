@@ -27,6 +27,7 @@ import com.lanacondio.diccionarioguarani.R;
 import com.lanacondio.diccionarioguarani.repository.com.lanacondio.diccionarioguarani.repository.models.Translation;
 import com.lanacondio.diccionarioguarani.repository.com.lanacondio.diccionarioguarani.repository.models.TranslationContract;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,6 +39,7 @@ public class PredictiveResultCursorAdapter extends CursorAdapter {
 
     private Integer originalLanguaje;
     private String wordTF;
+
 
     public PredictiveResultCursorAdapter(Context context, Cursor c, String wordToFind) {
         super(context, c, 0);
@@ -57,39 +59,47 @@ public class PredictiveResultCursorAdapter extends CursorAdapter {
         Button tword= (Button) view.findViewById(R.id.tvWord);
 
         String strres = cursor.getString(cursor.getColumnIndex(TranslationContract.TranslationEntry.WORD));
+        Spannable spanString = SpannableString.valueOf(strres);
         originalLanguaje = Integer.parseInt(cursor.getString(cursor.getColumnIndex(TranslationContract.TranslationEntry.LANGUAGE_ID)));
 
         String valueToFind = wordTF;
-/*
+
+
+        tword.setText(strres, TextView.BufferType.SPANNABLE);
+
+
         Integer startIndex = strres.toLowerCase().indexOf(valueToFind.toLowerCase());
+
 
         if(startIndex != -1)
         {
-            String firstSString = strres.substring(0,startIndex);
-            String finalString = strres.substring(startIndex + valueToFind.length(), strres.length());
-            tword.setText(this.fromHtml(firstSString + "<font color='#EE0000'>"+valueToFind+"</font>" +  finalString));
+            spanString.setSpan(new ForegroundColorSpan(Color.BLACK), 0, startIndex, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            spanString.setSpan(new ForegroundColorSpan(Color.RED), startIndex, startIndex+valueToFind.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            spanString.setSpan(Color.BLACK, startIndex+valueToFind.length(), strres.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+
+            tword.setText(spanString, TextView.BufferType.SPANNABLE);
         }
         else
         {
             tword.setText(strres);
-        }*/
+        }
 
         tword.setText(strres);
-        tword.setOnClickListener(new View.OnClickListener(){
+        tword.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v){
-                //EditText wordtf = (EditText) findViewById(R.id.textToFind);
-                Button tword= (Button) v.findViewById(R.id.tvWord);
-                String valueToFind = tword.getText().toString();
-                Intent allWords = new Intent((MainActivity)context, AllWordsActivity.class);
-                allWords.putExtra("wordtf",valueToFind);
-                allWords.putExtra("olanguage",originalLanguaje);
-                context.startActivity(allWords);
+                @Override
+                public void onClick(View v) {
+                    //EditText wordtf = (EditText) findViewById(R.id.textToFind);
+                    Button tword = (Button) v.findViewById(R.id.tvWord);
+                    String valueToFind = tword.getText().toString();
+                    Intent allWords = new Intent((MainActivity) context, AllWordsActivity.class);
+                    allWords.putExtra("wordtf", valueToFind);
+                    allWords.putExtra("olanguage", originalLanguaje);
+                    context.startActivity(allWords);
 
-            }
+                }
 
-        });
+            });
 
     }
 

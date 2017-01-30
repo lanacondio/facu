@@ -72,7 +72,7 @@ public class AllWordsFragment extends Fragment {
         wtoFind = getArguments().getString("wordtf");
         originalLanguaje = getArguments().getInt("olanguage");
 
-        getActivity().setTitle(wtoFind);
+        getActivity().setTitle(wtoFind.toUpperCase());
         mResultList = (ListView) root.findViewById(R.id.all_words_list);
 
         mResultAdapter = new ResultCursorAdapter(getActivity(), null);

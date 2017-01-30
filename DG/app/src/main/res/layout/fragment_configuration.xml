@@ -83,8 +83,6 @@
         android:paddingRight="14dp"
         android:stateListAnimator="@drawable/spinner_sla"
         android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/button3"
-        android:layout_alignStart="@+id/button3"
         android:layout_alignRight="@+id/conf_fsize_tv"
         android:layout_alignEnd="@+id/conf_fsize_tv" />
 

@@ -95,15 +95,11 @@ public class FavoritesCursorAdapter extends CursorAdapter {
                 int index = 1;
                 for (Translation translation: results
                         ) {
-                    // shareBody += String.format(res.getString(R.string.share_messages_items), translation.getWordToFind(),
-                    //         index, translation.getTranslationResult(), translation.getContext());
-
 
                     shareBody += String.format(context.getString(R.string.share_messages_items), translation.getWordToFind(),
                             String.valueOf(index), translation.getTranslationResult(), translation.getContext());
 
-                    //shareBody += " "+translation.getWordToFind()+":"+" "+String.valueOf(index)+
-                    //"."+" "+translation.getTranslationResult()+"\n" + translation.getContext() +"\n";
+                    index++;
 
                 }
 
