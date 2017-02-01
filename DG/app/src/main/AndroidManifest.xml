@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lanacondio.diccionarioguarani">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_bandera"
@@ -22,6 +23,12 @@
         <activity
             android:name=".AllWordsActivity"
             android:label="@string/title_activity_all_words"
+            android:icon="@mipmap/ic_bandera"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".AllWordsWebActivity"
+            android:label="@string/title_activity_all_words_web"
             android:icon="@mipmap/ic_bandera"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>

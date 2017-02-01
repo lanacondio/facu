@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/content_all_words"
+    android:id="@+id/content_all_words_web"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -10,8 +10,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.lanacondio.diccionarioguarani.AllWordsActivity"
-    tools:showIn="@layout/activity_all_words">
+    tools:context="com.lanacondio.diccionarioguarani.AllWordsWebActivity"
+    tools:showIn="@layout/activity_all_words_web">
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
@@ -39,7 +39,7 @@
         android:layout_alignTop="@+id/floatingActionButton"
         android:layout_toLeftOf="@+id/floatingActionButton"
         android:layout_toStartOf="@+id/floatingActionButton" />
-    <!--
+
        <android.support.design.widget.FloatingActionButton
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
@@ -66,17 +66,17 @@
                app:backgroundTint="@android:color/holo_blue_dark"
                android:layout_marginRight="14dp"
                android:layout_marginEnd="14dp"
-               android:id="@+id/floatingActionButton6" />
-
+               android:id="@+id/add_word_button" />
+<!--
            <android.support.design.widget.FloatingActionButton
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:clickable="true"
                app:fabSize="mini"
                app:srcCompat="@android:drawable/star_off"
-               android:layout_alignTop="@+id/floatingActionButton6"
-               android:layout_toLeftOf="@+id/floatingActionButton6"
-               android:layout_toStartOf="@+id/floatingActionButton6"
+               android:layout_alignTop="@+id/add_word_button"
+               android:layout_toLeftOf="@+id/add_word_button"
+               android:layout_toStartOf="@+id/add_word_button"
                app:backgroundTint="@android:color/holo_blue_dark"
                android:layout_marginRight="14dp"
                android:layout_marginEnd="14dp"
@@ -96,17 +96,5 @@
         app:backgroundTint="@android:color/holo_blue_dark"
         android:id="@+id/addFavorite" />
 
-    <Button
-        android:text="@string/look_web"
-        android:layout_width="wrap_content"
-        android:background="@drawable/roundcorner"
-        android:textColor="#fff"
-        android:layout_height="wrap_content"
-        android:id="@+id/webRequestButton"
-        android:layout_alignTop="@+id/addFavorite"
-        android:layout_toLeftOf="@+id/addFavorite"
-        android:layout_toStartOf="@+id/addFavorite"
-        android:layout_marginRight="25dp"
-        android:layout_marginEnd="25dp" />
 
 </RelativeLayout>

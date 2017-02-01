@@ -53,7 +53,11 @@ public class ResultCursorAdapter  extends CursorAdapter {
         ttranslation.setText(strres);
         ttype.setText(type);
         tcontext.setText(contexts);
-        tIndex.setText(String.valueOf(position)+".");
+        if(strres != context.getString(R.string.not_found_word))
+        {
+            tIndex.setText(String.valueOf(position)+".");
+        }
+
 
     }
 }

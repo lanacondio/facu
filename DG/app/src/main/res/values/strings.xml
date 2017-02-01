@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">GDicc</string>
     <string name="title_activity_all_words">AllWords</string>
+    <string name="title_activity_all_words_web">AllWords</string>
     <string name="Spanish">Español</string>
     <string name="Guarani">Guaraní</string>
     <string name="action_settings">Settings</string>
@@ -10,6 +11,7 @@
     <string name="share_messages_tag">Traducción obtenida de Gdic </string>
     <string name="share_app_messages">Gdic diccionario guaraní-español. https://play.google.com/store/apps/details?id=</string>
     <string name="copy_to_clipboard">Copiado a portapapeles</string>
+    <string name="add_word_text">Palabra agregada</string>
     <string name="action_bar_button_search">Ingrese texto</string>
     <string name="select_language">Seleccione lenguaje</string>
     <string name="share_app">Compartir GDicc</string>
@@ -20,9 +22,19 @@
     <string name="show_antonyms">Antonimos</string>
     <string name="show_synonym">Sinonimos</string>
     <string name="change_app_language">Sinonimos</string>
+    <string name="api_url">http://gdiccw.000webhostapp.com/gdicc.php</string>
+    <string name="not_found_word">No se encontraron resultados</string>
+    <string name="look_web">Buscar en la web</string>
     <string-array name="languages_array">
         <item>Español</item>
         <item>Guaraní</item>
+    </string-array>
+
+    <string-array name="type_array">
+        <item>sustantivo</item>
+        <item>adjetivo</item>
+        <item>adverbio</item>
+        <item>verbo</item>
     </string-array>
 
 

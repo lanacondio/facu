@@ -33,6 +33,7 @@ public class TranslationDbHelper extends SQLiteOpenHelper {
                 + TranslationContract.TranslationEntry.TRANSLATION + " TEXT NOT NULL,"
                 + TranslationContract.TranslationEntry.TYPE + " TEXT NOT NULL,"
                 + TranslationContract.TranslationEntry.CONTEXT + " TEXT NOT NULL,"
+                + TranslationContract.TranslationEntry.WEB_ID + " INTEGER NULL,"
                 + "UNIQUE (" + TranslationContract.TranslationEntry._ID + "))");
 
 
@@ -2455,6 +2456,34 @@ public class TranslationDbHelper extends SQLiteOpenHelper {
 
     }
 
+    public Boolean addTranslation(Translation translation)
+    {
+            try
+            {
+                if(!wasDownloaded(translation))
+                {
+                    ContentValues nuevoRegistro = new ContentValues();
+                    nuevoRegistro.put(TranslationContract.TranslationEntry.LANGUAGE_ID, translation.getCountryId());
+                    nuevoRegistro.put(TranslationContract.TranslationEntry.WORD,translation.getWordToFind().toLowerCase().trim());
+                    nuevoRegistro.put(TranslationContract.TranslationEntry.CONTEXT,translation.getContext());
+                    nuevoRegistro.put(TranslationContract.TranslationEntry.TYPE,translation.getType());
+                    nuevoRegistro.put(TranslationContract.TranslationEntry.TRANSLATION,translation.getTranslationResult());
+                    nuevoRegistro.put(TranslationContract.TranslationEntry.WEB_ID,translation.getWebId());
+
+                    getReadableDatabase().insert(TranslationContract.TranslationEntry.TABLE_NAME, null, nuevoRegistro);
+
+                    return true;
+
+                }
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+    }
 
     public Cursor getAllWords() {
         return getReadableDatabase()
@@ -2466,6 +2495,22 @@ public class TranslationDbHelper extends SQLiteOpenHelper {
                         null,
                         null,
                         null);
+    }
+
+    public Boolean wasDownloaded(Translation translation)
+    {
+        try
+        {
+            Cursor cursor = getReadableDatabase().rawQuery("SELECT "+ TranslationContract.TranslationEntry._ID
+                    +" FROM "+ TranslationContract.TranslationEntry.TABLE_NAME+" WHERE "+ TranslationContract.TranslationEntry.WEB_ID +" = ?", new String[] {translation.getWebId().toString()});
+
+            return cursor.getCount() > 0;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+
     }
 
 }

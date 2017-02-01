@@ -25,6 +25,11 @@
         <item>Español</item>
         <item>Guaraní</item>
     </string-array>
-
+    <string-array name="type_array">
+        <item>sustantivo</item>
+        <item>adjetivo</item>
+        <item>adverbio</item>
+        <item>verbo</item>
+    </string-array>
 
 </resources>

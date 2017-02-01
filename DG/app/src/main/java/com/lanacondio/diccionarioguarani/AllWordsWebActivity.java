@@ -1,27 +1,38 @@
 package com.lanacondio.diccionarioguarani;
 
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.DocumentsContract;
+import android.support.annotation.RequiresApi;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lanacondio.diccionarioguarani.repository.com.lanacondio.diccionarioguarani.repository.models.FavoriteDbHelper;
@@ -31,19 +42,24 @@ import com.lanacondio.diccionarioguarani.service.GdiccApiClient;
 
 import org.json.JSONException;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
+import static android.R.attr.duration;
 
-public class AllWordsActivity extends AppCompatActivity {
+
+public class AllWordsWebActivity extends AppCompatActivity {
+
+    private RelativeLayout popupRelativeLayout;
+    private PopupWindow addPopupWindow;
+    private View customView;
+    private TranslationDbHelper mTranslationDbHelper;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getTheme().applyStyle(new Preferences(this).getFontStyle().getResId(), true);
-        setContentView(R.layout.activity_all_words);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_all_words);
+        this.setContentView(R.layout.activity_all_words_web);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_all_words_web);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -56,9 +72,9 @@ public class AllWordsActivity extends AppCompatActivity {
 
         FloatingActionButton addFavorite  = (FloatingActionButton)findViewById(R.id.addFavorite);
 
-        Button allWordsWeb = (Button) findViewById(R.id.webRequestButton);
+        FloatingActionButton addWord = (FloatingActionButton)findViewById(R.id.add_word_button);
 
-        FavoriteDbHelper mFavoriteDbHelper = new FavoriteDbHelper(AllWordsActivity.this) ;
+        FavoriteDbHelper mFavoriteDbHelper = new FavoriteDbHelper(AllWordsWebActivity.this) ;
         String wtoFind = getIntent().getStringExtra("wordtf");
 
         if(mFavoriteDbHelper.isFavorite(wtoFind))
@@ -71,13 +87,13 @@ public class AllWordsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
 
                 Context context = getApplicationContext();
                 String wtoFind = getIntent().getStringExtra("wordtf");
                 int originalLanguaje = getIntent().getIntExtra("olanguage",1);
-                TranslationDbHelper mTranslationDbHelper = new TranslationDbHelper(AllWordsActivity.this) ;
+                TranslationDbHelper mTranslationDbHelper = new TranslationDbHelper(AllWordsWebActivity.this) ;
                 List<Translation> results =  mTranslationDbHelper.getTranslationsObject(wtoFind,originalLanguaje);
                 String shareBody =  "";
                 int index = 1;
@@ -93,8 +109,8 @@ public class AllWordsActivity extends AppCompatActivity {
 
                 shareBody += context.getString(R.string.share_messages_tag);
 
-                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject Here");
+                sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
                 startActivity(Intent.createChooser(sharingIntent, "Share via"));
             }
         });
@@ -107,7 +123,7 @@ public class AllWordsActivity extends AppCompatActivity {
 
                 String wtoFind = getIntent().getStringExtra("wordtf");
                 int originalLanguaje = getIntent().getIntExtra("olanguage",1);
-                TranslationDbHelper mTranslationDbHelper = new TranslationDbHelper(AllWordsActivity.this) ;
+                TranslationDbHelper mTranslationDbHelper = new TranslationDbHelper(AllWordsWebActivity.this) ;
                 List<Translation> results =  mTranslationDbHelper.getTranslationsObject(wtoFind,originalLanguaje);
                 String textBody =  "";
                 int index = 1;
@@ -134,7 +150,7 @@ public class AllWordsActivity extends AppCompatActivity {
         addFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FavoriteDbHelper mFavoriteDbHelper = new FavoriteDbHelper(AllWordsActivity.this) ;
+                FavoriteDbHelper mFavoriteDbHelper = new FavoriteDbHelper(AllWordsWebActivity.this) ;
                 String wtoFind = getIntent().getStringExtra("wordtf");
 
                 if(mFavoriteDbHelper.isFavorite(wtoFind))
@@ -158,30 +174,91 @@ public class AllWordsActivity extends AppCompatActivity {
             }
         });
 
-
-        allWordsWeb.setOnClickListener(new View.OnClickListener() {
+        addWord.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
+                LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                popupRelativeLayout = (RelativeLayout) findViewById(R.id.content_all_words_web);
+                // Inflate the custom layout/view
+                customView = inflater.inflate(R.layout.add_word_popup ,null);
+
+
+                // Initialize a new instance of popup window
+                addPopupWindow = new PopupWindow(
+                        customView,
+                        AppBarLayout.LayoutParams.WRAP_CONTENT,
+                        AppBarLayout.LayoutParams.WRAP_CONTENT
+                );
+                addPopupWindow.setOutsideTouchable(true);
+                addPopupWindow.setFocusable(true);
+                addPopupWindow.setElevation(10);
+
+                if(Build.VERSION.SDK_INT>=21){
+                    addPopupWindow.setElevation(5.0f);
+                }
+
+                ImageButton closeButton = (ImageButton) customView.findViewById(R.id.ib_close);
+                Button acceptButton = (Button) customView.findViewById(R.id.popup_button_accept);
+                acceptButton.setText("Aceptar");
 
                 String wtoFind = getIntent().getStringExtra("wordtf");
-                int originalLanguaje = getIntent().getIntExtra("olanguage",1);
-                Intent allWordsWeb = new Intent(AllWordsActivity.this, AllWordsWebActivity.class);
-                allWordsWeb.putExtra("wordtf",wtoFind);
-                allWordsWeb.putExtra("olanguage",originalLanguaje);
-                startActivity(allWordsWeb);
+                EditText nword = (EditText) customView.findViewById(R.id.et_new_word);
+                nword.setText(wtoFind);
+
+
+                // Set a click listener for the popup window close button
+                closeButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // Dismiss the popup window
+                        addPopupWindow.dismiss();
+                    }
+                });
+
+                acceptButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        EditText nword = (EditText) customView.findViewById(R.id.et_new_word);
+                        EditText ntrad = (EditText) customView.findViewById(R.id.et_new_traduction);
+                        EditText ncontext = (EditText) customView.findViewById(R.id.et_new_context);
+                        EditText ntype = (EditText) customView.findViewById(R.id.et_new_type);
+
+                        Translation translation = new Translation();
+                        translation.setWordToFind(nword.getText().toString().toLowerCase().trim());
+                        translation.setTranslationResult(ntrad.getText().toString());
+                        translation.setContext(ncontext.getText().toString());
+                        translation.setType(ntype.getText().toString());
+                        int originalLanguaje = getIntent().getIntExtra("olanguage",1);
+                        translation.setCountryId(originalLanguaje);
+                        translation.setDeviceId("my device");
+
+                        mTranslationDbHelper = new TranslationDbHelper(getApplicationContext());
+                        ResultPostTask task = new ResultPostTask(translation);
+                        task.execute();
+                        addPopupWindow.dismiss();
+                        int duration = Toast.LENGTH_SHORT;
+                        CharSequence text = getApplicationContext().getString(R.string.add_word_text);
+                        Toast toast = Toast.makeText(getApplicationContext(), text, duration);
+                        toast.show();
+                        AllWordsWebActivity.super.onBackPressed();
+                    }
+                });
+
+                addPopupWindow.showAtLocation(popupRelativeLayout, Gravity.CENTER,0,0);
 
             }
         });
 
-        AllWordsFragment fragment = (AllWordsFragment)
-        getSupportFragmentManager().findFragmentById(R.id.content_all_words);
+        AllWordsWebFragment fragment = (AllWordsWebFragment)
+        getSupportFragmentManager().findFragmentById(R.id.content_all_words_web);
 
         if (fragment == null) {
-            fragment = AllWordsFragment.newInstance();
+            fragment = AllWordsWebFragment.newInstance();
             fragment.setArguments(getIntent().getExtras());
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.content_all_words, fragment)
+                    .add(R.id.content_all_words_web, fragment)
                     .commit();
         }
 
@@ -192,7 +269,7 @@ public class AllWordsActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_all_words,menu);
+        inflater.inflate(R.menu.menu_all_words_web,menu);
 
         return true;
     }
@@ -207,27 +284,27 @@ public class AllWordsActivity extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case android.R.id.home:
-                AllWordsActivity.super.onBackPressed();
+                AllWordsWebActivity.super.onBackPressed();
 
                 return true;
 
             case  R.id.favorites:
 
-                Intent favorites = new Intent(AllWordsActivity.this, FavoritesActivity.class);
+                Intent favorites = new Intent(AllWordsWebActivity.this, FavoritesActivity.class);
                 startActivity(favorites);
 
                 return true;
             case  R.id.Share_app:
 
-                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
 
                 String shareBody =  "";
 
                 shareBody += context.getString(R.string.share_app_messages) +getApplicationContext().getPackageName();
 
-                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject Here");
+                sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
                 startActivity(Intent.createChooser(sharingIntent, "Share via"));
                 return true;
             case  R.id.calificate_app:
@@ -254,6 +331,33 @@ public class AllWordsActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
 
         }
+
+    }
+
+    class ResultPostTask extends AsyncTask<Void,Void,Void> {
+
+        Translation ttpost;
+        public ResultPostTask(Translation translation){
+            ttpost = translation;
+        }
+        @Override
+        protected Void doInBackground(Void... params) {
+            GdiccApiClient client = new GdiccApiClient();
+            try {
+                client.postWords(getApplicationContext(),  ttpost);
+                int webId = client.getWebId();
+                ttpost.setWebId(webId);
+
+                mTranslationDbHelper.addTranslation(ttpost);
+                // Carga de datos
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
 
     }
 

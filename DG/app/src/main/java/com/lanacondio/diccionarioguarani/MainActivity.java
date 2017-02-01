@@ -1,25 +1,18 @@
 package com.lanacondio.diccionarioguarani;
 
-import android.app.SearchManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,29 +20,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.animation.RotateAnimation;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
-import android.widget.Spinner;
-import android.widget.Switch;
-import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lanacondio.diccionarioguarani.repository.com.lanacondio.diccionarioguarani.repository.models.Translation;
 import com.lanacondio.diccionarioguarani.repository.com.lanacondio.diccionarioguarani.repository.models.TranslationDbHelper;
 import com.lanacondio.diccionarioguarani.service.PredictiveResultCursorAdapter;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -292,11 +275,10 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 ImageButton closeButton = (ImageButton) customView.findViewById(R.id.ib_close);
-                Button acceptButton = (Button) customView.findViewById(R.id.popupbutton);
+                Button acceptButton = (Button) customView.findViewById(R.id.popup_button_cancel);
                 acceptButton.setText("Aceptar");
                 TextView popuptext = (TextView) customView.findViewById(R.id.tvpopup);
                 popuptext.setText("gdicc DICCIONARIO GUARANÍ - ESPAÑOL");
-                popuptext.setGravity(Gravity.CENTER);
 
                 // Set a click listener for the popup window close button
                 closeButton.setOnClickListener(new View.OnClickListener() {

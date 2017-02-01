@@ -1,0 +1,50 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.lanacondio.diccionarioguarani.AllWordsActivity">
+
+
+    <item
+        android:title="@string/action_settings"
+        android:icon="@android:drawable/ic_menu_more"
+        app:showAsAction="always">
+        <menu>
+
+            <item
+                android:icon="@mipmap/ic_favorite_black_24dp"
+                android:id="@+id/favorites"
+                android:title="@string/show_favorites"
+                android:textSize="?attr/font_small"
+                />
+
+
+            <!--
+            <item
+                android:id="@+id/sinonimos"
+                android:title="@string/show_synonym" />
+
+            <item
+                android:id="@+id/antonimos"
+                android:title="@string/show_antonyms" />
+            -->
+
+
+            <item
+                android:icon="@mipmap/ic_share_black_18dp"
+                android:id="@+id/Share_app"
+                android:title="@string/share_app"
+                android:textSize="?attr/font_small"
+                />
+            <item
+                android:icon="@mipmap/ic_star_black_18dp"
+                android:id="@+id/calificate_app"
+                android:title="@string/calificate"
+                android:textSize="?attr/font_small"
+                />
+
+
+        </menu>
+    </item>
+
+
+</menu>

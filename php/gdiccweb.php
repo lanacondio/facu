@@ -1298,7 +1298,7 @@ class PHP_CRUD_API {
 		array_unshift($params, $tables[0]);
 		$result = $this->db->query('INSERT INTO ! ('.$keys.') VALUES ('.$values.')',$params);
 		if (!$result) return null;
-		return $this->db->insertId($result);
+		return '['. $this->db->insertId($result).']';
 	}
 
 	protected function createObjects($inputs,$tables) {
