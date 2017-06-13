@@ -24,47 +24,7 @@ app.post('/users', function(req, res) {
    return res.status(400).send("A user with that username already exists");
   }
 
-/*
-    var options = {
-      host: '162.243.200.232',
-      port: 80,
-      path: '/bunge_api.php/user?file='+ "'"+req.body.username+"'"
-  };
-
-
-  http.get(options, function(resp){
-    resp.on('data', function(chunk){
-      //do something with chunk
-      debugger;
-        if(!chunk.json().user){
-          return res.status(401).send("The username or password don't match");  
-        }
-
-        if(req.body.password === chunk.json().user.records[0][5]){
-          
-          res.status(201).send({
-            id_token: createToken(user),
-            username: chunk.json().user.records[0][2],
-            id: chunk.json().user.records[0][0],         
-          });
-          
-      }
-      else{
-        return res.status(401).send("The username or password don't match");
-      }
-    
-      });
-    }).on("error", function(e){
-      console.log("Got error: " + e.message);
-    });
-
-
-  this.http.get('http://162.243.200.232/bunge_api.php/user?file='+ "'"+username+"'", { headers: contentHeaders })
-  .subscribe(
-  response => {
-    debugger*/
-
-    
+       
   var profile = _.pick(req.body, 'username', 'password', 'extra');
   profile.id = _.max(users, 'id').id + 1;
 
@@ -76,29 +36,43 @@ app.post('/users', function(req, res) {
 });
 
 app.post('/sessions/create', function(req, res) {
+  
   if (!req.body.username || !req.body.password) {
     return res.status(400).send("You must send the username and the password");
   }
 
+   var options = {
+      host: '162.243.200.232',
+      port: 80,
+      path: '/bunge_api.php/user?file='+ "'"+req.body.username+"'"
+  };
 
-  //connect with sql
-  var user = _.find(users, {username: req.body.username});
-  if (!user) {
-    return res.status(401).send("The username or password don't match");
-  }
 
-  if (!(user.password === req.body.password)) {
-    return res.status(401).send("The username or password don't match");
-  }
+    request(options, function(error, response, body){
+        if(error){
+          console.log(error);
+        } 
+        else{
+          console.log(body);
+          if(!body){
+              return res.status(401).send("The username or password don't match");  
+          }
 
-  res.status(201).send({
-    id_token: createToken(user),
-    username: req.body.username,
-    id: 1,
-     
-  });
+          if(!req.body.password === body.json().user.records[0][5]){          
+              return res.status(401).send("The username or password don't match");                      
+           } 
+
+               res.status(201).send({
+              id_token: createToken(user),
+              username: body.json().user.records[0][2],
+              id: body.json().user.records[0][0],         
+            });
+          
+
+        };
+  
+    });
 });
-
 
 app.post('/credits', function(req, res) {
   if (!req.body.user_id) {
