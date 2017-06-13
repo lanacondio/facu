@@ -1,0 +1,32 @@
+<div>
+  <div class="home jumbotron centered">
+    <h1>Welcome to Bunge!</h1>
+    
+    <pre *ngIf="jwt" class="jwt"><code>{{ jwt }}</code></pre>
+    <pre *ngIf="jwt" class="jwt"><code>{{ decodedJwt | json }}</code></pre>
+    <p>What do you want?</p>
+    <p><a class="btn btn-primary btn-lg" role="button" (click)="viewCatalog()">View my catalog</a></p>
+
+
+    <div *ngIf="response">
+    <h2 *ngIf="response">Productos:</h2>
+    <table *ngIf="response">
+      <tbody ngFor="let product of response">
+        <tr>
+          <th >{{response[0].description}}</th>
+        </tr>
+        <tr>
+          <th ><img [attr.src]="response[0].photo_url" ></th>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <p><a class="btn btn-primary btn-lg" role="button" (click)="callSecuredApi()">Check my data</a></p>
+    <p><a class="btn btn-primary btn-lg" role="button" (click)="logout()">Logout</a></p>
+    <h2 *ngIf="response">The response of calling the <span class="red">{{ api }}</span> API is:</h2>
+    <h3 *ngIf="response">{{ response }}</h3>
+
+
+  </div>
+</div>
