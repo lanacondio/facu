@@ -91,8 +91,8 @@ app.post('/credits', function(req, res) {
     } 
     else{
       var credits_api = JSON.parse(body);
-
-      if(!credits_api.records){
+      console.log(credits_api);
+      if(credits_api.records === null){
         return res.status(401).send("The user has no credits");  
       }
 
@@ -142,7 +142,7 @@ app.post('/productsbycategory', function(req, res) {
     else{
       var products_api = JSON.parse(body);
 
-      if(!products_api.records){
+      if(products_api.records ===null){
         return res.status(401).send("The category has no credits");  
       }
 

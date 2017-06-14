@@ -23,16 +23,13 @@ export class Home implements OnInit{
   api: string;
   catalog: string;
   user_id: string;
-  products: any;
-  credits: Credits[];
+  private products: Product[] = [];
+  private credits: Credit[] = [];
   
   constructor(public router: Router, public http: Http, public authHttp: AuthHttp) {  
     
-    
     this.user_id = localStorage.getItem('id_usr');
-    this.decodedJwt = this.jwt && window.jwt_decode(this.jwt);    
-    //products: Products[] = [];
-    //credits: Credits[] = [];  
+    this.decodedJwt = this.jwt && window.jwt_decode(this.jwt);       
   }
 
 
@@ -47,9 +44,7 @@ export class Home implements OnInit{
   }
 
   viewCatalog() {
-    this.response = null;
-    this.products=  [];
-    this.credits= [];   
+    
     let user_id = localStorage.getItem('id_usr');
     let body = JSON.stringify({user_id});        
     this.authHttp.post('http://localhost:3001/credits', body, { headers: contentHeaders }) 
@@ -81,7 +76,7 @@ export class Home implements OnInit{
           }
 
         );    
-      this.response = this.products;
+      
   }
 
   callSecuredApi() {    

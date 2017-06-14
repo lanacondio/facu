@@ -11,12 +11,12 @@
     <div *ngIf="response">
     <h2 *ngIf="response">Productos:</h2>
     <table *ngIf="response">
-      <tbody ngFor="let product of response">
+      <tbody *ngFor="let prod of products">
         <tr>
-          <th >{{response[0].description}}</th>
+          <th >{{ prod.description }}</th>
         </tr>
         <tr>
-          <th ><img [attr.src]="response[0].photo_url" ></th>
+          <th ><img [attr.src]="prod.photo_url" ></th>
         </tr>
       </tbody>
     </table>
