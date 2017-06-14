@@ -55,7 +55,6 @@ app.post('/sessions/create', function(req, res) {
   
           var user_api = JSON.parse(body);
 
-          console.log(user_api);
           if(!user_api.user.records[0] ){
               return res.status(404).send("User not found");  
           }
@@ -93,8 +92,6 @@ app.post('/credits', function(req, res) {
     else{
       var credits_api = JSON.parse(body);
 
-      console.log(credits_api);
-
       if(!credits_api.records){
         return res.status(401).send("The user has no credits");  
       }
@@ -123,23 +120,6 @@ app.post('/credits', function(req, res) {
   
     });
 
-
-/*
-
-      [{
-        id: 2,
-        user_id: 1,
-        category_id: 1,
-        quantity: 1
-      },
-      {
-        id: 3,
-        user_id: 1,
-        category_id: 2,
-        quantity: 2
-      }
-      ]
-*/        
 });
 
 
@@ -149,7 +129,6 @@ app.post('/productsbycategory', function(req, res) {
   if (!req.body.category_id) {
     return res.status(400).send("You must send the categoryid");
   }
-  //connect with sql
 
   var options = {
       uri: 'http://162.243.200.232/bunge_api.php/product?category_id='+ "'"+req.body.category_id+"'",
@@ -162,8 +141,6 @@ app.post('/productsbycategory', function(req, res) {
     } 
     else{
       var products_api = JSON.parse(body);
-
-      console.log(products_api);
 
       if(!products_api.records){
         return res.status(401).send("The category has no credits");  
@@ -189,26 +166,51 @@ app.post('/productsbycategory', function(req, res) {
   
     });
 
-  
-    /*
-    res.status(201).send({
-      products: 
-      [{
-        id: 2,      
-        category_id: 1,
-        description: "auto a control remoto",
-        photo_url:"http://www.sanborns.com.mx/img/1200/7506300106358.jpg",    
-        stock: 1
-      },
-      {
-        id: 3,      
-        category_id: 1,
-        description: 'camiseta',
-        photo_url:'http://www.sanborns.com.mx/img/1200/7506300106358.jpg',
-        stock: 3
-      }
-      ]
-        
-    });*/
 });
+
+
+app.post('/event', function(req, res) {
+  
+  var options = {
+      uri: 'http://162.243.200.232/bunge_api.php/event',
+      port: 80
+  };
+
+  request(options, function(error, response, body){
+    
+    if(error){
+      console.log(error);
+    } 
+    else{
+      var events_api = JSON.parse(body);
+
+      if(!events_api.records){
+        return res.status(401).send("no events");  
+      }
+
+      var event_list = [];
+
+      events_api.product.records.forEach(function(element) {
+        event_list.push(
+        {
+          id: element[0],
+          start_date: element[1],
+          end_date: element[2],
+          description: element[3]
+        });
+      });
+
+        res.status(201).send({
+          events: event_list        
+        });
+      };
+  
+    });
+
+});
+
+
+
+
+
 
