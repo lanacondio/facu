@@ -1622,6 +1622,57 @@ class PHP_CRUD_API {
 			echo json_encode(self::php_crud_api_transform($data));
 		}
 	}
+	protected function makeSale($parameters){
+		extract($parameters);
+		if (!$inputs || !$inputs[0]) $this->exitWith404('input');
+		$this->startOutput();		
+		$ids = array();
+		$this->db->beginTransaction();
+
+		//validar credits
+		$this->$db->query('first query');
+		if ($result===null || $result === 0) {
+				$this->db->rollbackTransaction();
+				return null;
+			}
+
+		//validar stock
+    	$this->$db->query('second query');
+    	if ($result===null || $result ===0) {
+				$this->db->rollbackTransaction();
+				return null;
+			}
+
+    	//restar credits
+    	$this->$db->query('third query');
+
+    	//restar stock
+    	$this->$db->query('third query');
+
+    	//insertar transaccion
+    	$this->$db->query('third query');
+
+
+		foreach ($inputs as $input) {
+			$result = $this->createObject($input,$tables);
+			if ($result===null) {
+				$this->db->rollbackTransaction();
+				return null;
+			}
+			$ids[] = $result;
+		}
+
+
+
+
+
+		$this->db->commitTransaction();
+		return $ids;
+
+		if ($multi) echo json_encode($this->createObjects($inputs,$tables));
+
+	}
+
 	protected function retrievePostData() {
 		if ($_FILES) {
 			$files = array();

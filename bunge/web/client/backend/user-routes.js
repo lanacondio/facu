@@ -3,6 +3,7 @@ var express = require('express'),
     config  = require('./config'),
     jwt     = require('jsonwebtoken');
     request = require('request');
+    Client = require('node-rest-client').Client;
 
 var app = module.exports = express.Router();
 
@@ -213,3 +214,240 @@ app.post('/event', function(req, res) {
 
 
 
+
+
+app.post('/buyproductuser', function(req, res) {
+  if (!req.body.user_id || !req.body.product_id) {
+    return res.status(400).send("You must send the categoryid");
+  }
+
+
+  //verificar credito del usuario
+  //this.validate_subtract_credits();
+
+    var options = {
+      uri: 'http://162.243.200.232/bunge_api.php/credit?filter=user_id,eq,'+req.body.user_id,
+      port: 80
+    };
+
+    var credits_list = [];
+
+    //verifico creditos
+    request(options, function(error, response, body){
+    if(error){
+      console.log(error);
+    } 
+    else{
+      var credits_api = JSON.parse(body);      
+      if(credits_api.records === null){
+        return res.status(401).send("The user has no credits");  
+      }      
+
+      credits_api.credit.records.forEach(function(element) {
+        credits_list.push(
+        {
+          id: element[0],
+          user_id: element[1],
+          category_id: element[2],
+          quantity: element[3],
+          event_id: element[4]
+
+        });
+      });
+
+      var has_credits_for_this_product = false;
+      var valid_credit = [];
+      credits_list.forEach(function(element){
+
+          if(element.category_id == req.body.category_id){
+              has_credits_for_this_product = true;
+              valid_credit.push(element);
+          }
+      });
+
+      if(!has_credits_for_this_product){
+        return res.status(401).send("The user has no credits in this category");  
+      }
+
+
+        //verifico stock de producto
+        var product_options = {
+            uri: 'http://162.243.200.232/bunge_api.php/product?filter=product_id,eq,'+req.body.product_id,
+            port: 80
+        };
+
+       
+        request(product_options, function(error, response, body){
+          if(error){
+            console.log(error);
+          } 
+          else{
+            var products_api = JSON.parse(body);
+
+            if(products_api.records ===null){
+              return res.status(401).send("The category has no credits");  
+            }
+
+            var product_list = [];
+
+            products_api.product.records.forEach(function(element) {
+              product_list.push(
+              {
+                id: element[0],
+                category_id: element[1],
+                description: element[2],      
+                photo_url: element[3],
+                stock: element[4]
+              });
+            });
+
+              if(product_list[0].stock <= 0){
+                return res.status(401).send("The product has no stock");  
+              }
+                  //resto creditos
+                   var body_sub_cred = JSON.stringify({"quantity": valid_credit[0].quantity-1});   
+                   var sub_cred_options = {
+                          uri: 'http://162.243.200.232/bunge_api.php/credit/'+ valid_credit[0].id,
+                          port: 80
+                      };
+                    
+
+                  var client = new Client();
+ 
+                     // set content-type header and data as json in args parameter 
+                  var body_sub_cred_args = {
+                                  data: { quantity: valid_credit[0].quantity-1 },
+                                  headers: { "Content-Type": "application/json" }
+                              };
+   
+                  client.post('http://162.243.200.232/bunge_api.php/credit/'+ valid_credit[0].id, body_sub_cred_args, function (data, response) {
+                      // parsed response body as js object 
+                      console.log(data);
+                      // raw response 
+                      console.log(response);
+                  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+            };
+    
+          });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      res.status(201).send({
+      result: true;
+      });
+ 
+
+      };
+  
+    });
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //verificar stock
+  this.validate_subtract_stock();
+  //restar credito
+  //restar stock del producto
+  //put transaction
+  this.put_transaction();
+
+        res.status(201).send({
+          products: product_list        
+        });
+      };
+  
+    });
+
+});
+
+
+//get example
+/*
+var client = new Client();
+ 
+// direct way 
+client.get("http://remote.site/rest/xml/method", function (data, response) {
+    // parsed response body as js object 
+    console.log(data);
+    // raw response 
+    console.log(response);
+});
+post example
+
+
+var client = new Client();
+ 
+// set content-type header and data as json in args parameter 
+var args = {
+    data: { test: "hello" },
+    headers: { "Content-Type": "application/json" }
+};
+ 
+client.post("http://remote.site/rest/xml/method", args, function (data, response) {
+    // parsed response body as js object 
+    console.log(data);
+    // raw response 
+    console.log(response);
+});
+
+*/
