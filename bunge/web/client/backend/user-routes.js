@@ -42,7 +42,7 @@ app.post('/sessions/create', function(req, res) {
   }
 
     var options = {
-      uri: 'http://162.243.200.232/bunge_api.php/user?file='+ "'"+req.body.username+"'",
+      uri: 'http://162.243.200.232/bunge_api.php/user?filter=file,eq,'+ "'"+req.body.username+"'",
       port: 80
     };
 
@@ -80,7 +80,7 @@ app.post('/credits', function(req, res) {
   }
 
   var options = {
-      uri: 'http://162.243.200.232/bunge_api.php/credit?user_id='+ "'"+req.body.user_id+"'",
+      uri: 'http://162.243.200.232/bunge_api.php/credit?filter=user_id,eq,'+req.body.user_id,
       port: 80
   };
 
@@ -90,8 +90,7 @@ app.post('/credits', function(req, res) {
       console.log(error);
     } 
     else{
-      var credits_api = JSON.parse(body);
-      console.log(credits_api);
+      var credits_api = JSON.parse(body);      
       if(credits_api.records === null){
         return res.status(401).send("The user has no credits");  
       }
@@ -131,7 +130,7 @@ app.post('/productsbycategory', function(req, res) {
   }
 
   var options = {
-      uri: 'http://162.243.200.232/bunge_api.php/product?category_id='+ "'"+req.body.category_id+"'",
+      uri: 'http://162.243.200.232/bunge_api.php/product?filter=category_id,eq,'+req.body.category_id,
       port: 80
   };
 

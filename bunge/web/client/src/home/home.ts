@@ -23,8 +23,8 @@ export class Home implements OnInit{
   api: string;
   catalog: string;
   user_id: string;
-  private products: Product[] = [];
-  private credits: Credit[] = [];
+  private products: Product[];
+  private credits: Credit[];
   
   constructor(public router: Router, public http: Http, public authHttp: AuthHttp) {  
     
@@ -34,7 +34,6 @@ export class Home implements OnInit{
 
 
   ngOnInit(){
-    this.viewCatalog();
   }
 
 
@@ -43,25 +42,22 @@ export class Home implements OnInit{
     this.router.navigate(['login']);
   }
 
-  viewCatalog() {
-    
+  viewCatalog() {    
+    this.credits = [];
     let user_id = localStorage.getItem('id_usr');
     let body = JSON.stringify({user_id});        
+
     this.authHttp.post('http://localhost:3001/credits', body, { headers: contentHeaders }) 
       .subscribe(  
         response => {
-          let credits_response = response.json().credits;  
-          debugger;       
-          credits_response.forEach((credit,index) =>{
-            debugger;       
+          let credits_response = response.json().credits;            
+          credits_response.forEach((credit,index) =>{          
             let credit_aux: Credit = new Credit();
             credit_aux.id = credit.id;
             credit_aux.user_id = credit.user_id;
             credit_aux.quantity = credit.quantity;
             credit_aux.category_id = credit.category_id;
-
             this.credits.push(credit_aux);
-
           });
           
           if(!credits_response){
@@ -79,32 +75,36 @@ export class Home implements OnInit{
       
   }
 
-  callSecuredApi() {    
-    debugger;
-    this._callApi('Secured', 'http://localhost:3001/api/protected/random-quote');
+  buy(product_id) {    
+    
+  }
+
+  callSecuredApi(url) {    
+     this._callApi('Secured', url);
   }
 
   _populateProducts(){
     
-    this.credits.forEach((credit,index) =>{           
-      debugger;
+    this.credits.forEach((credit,index) =>{                 
       let category_id = credit.category_id.toString();
       let body = JSON.stringify({category_id});    
+      this.products = [];
+
       this.http.post('http://localhost:3001/productsbycategory', body, { headers: contentHeaders })
       .subscribe(
-      response => {                
-        debugger;
-          let productsr = response.json().products;          
-          productsr.forEach((prod) => {
-                      
-            let product_aux: Product = new Product();
-            product_aux.id = prod.id;
-            product_aux.description = prod.description;
-            product_aux.photo_url = prod.photo_url;
-            product_aux.category_id = prod.category_id;
-            //product_aux.stock = product.stock;
+      response => {                        
 
-            this.products.push(product_aux);
+            let productsr = response.json().products;          
+            productsr.forEach((prod) => {
+                      
+              let product_aux: Product = new Product();
+              product_aux.id = prod.id;
+              product_aux.description = prod.description;
+              product_aux.photo_url = prod.photo_url;
+              product_aux.category_id = prod.category_id;
+              //product_aux.stock = product.stock;
+
+              this.products.push(product_aux);
             });
           },
           error => {
@@ -127,7 +127,7 @@ export class Home implements OnInit{
           error => this.response = error.text()
         );
     }
-    if (type === 'Secured') {
+    if (type === 'Secured') { 
       // For protected routes, use AuthHttp
       this.authHttp.get(url)
         .subscribe(

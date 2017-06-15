@@ -8,18 +8,21 @@
     <p><a class="btn btn-primary btn-lg" role="button" (click)="viewCatalog()">View my catalog</a></p>
 
 
-    <div *ngIf="response">
-    <h2 *ngIf="response">Productos:</h2>
-    <table *ngIf="response">
-      <tbody *ngFor="let prod of products">
-        <tr>
-          <th >{{ prod.description }}</th>
-        </tr>
-        <tr>
-          <th ><img [attr.src]="prod.photo_url" ></th>
-        </tr>
-      </tbody>
-    </table>
+    <div *ngIf="products" class="row">
+    <h2 >Productos:</h2>
+    <div class="row">
+      <div class="row" *ngFor="let prod of products">        
+        <div class="col-md-3">
+          <a ><img width="80px" [attr.src]="prod.photo_url" ></a>
+        </div>
+        <div class="col-md-6">
+          <p>{{ prod.description }}</p>
+        </div>        
+        <div class="col-md-3">
+          <a class="btn btn-primary btn-lg" ng-click="buy(prod.id)">Select</a>
+        </div>
+      </div>
+    </div>
     </div>
 
     <p><a class="btn btn-primary btn-lg" role="button" (click)="callSecuredApi()">Check my data</a></p>
