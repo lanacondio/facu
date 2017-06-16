@@ -1644,14 +1644,15 @@ class PHP_CRUD_API {
 		$arr[$keywords[$i]] = $keywords[++$i];
 		}
 		$obj =(object)$arr;
-	#	$param = json_encode($obj,true);
-		$param =  (json_encode($obj));
-		echo $param;
-		echo $param -> id_user;
+		$user_id = $arr['id_user'];
+		$product = $arr['id_product'];
+		print_r($arr);
+		#echo $product_id;
+		
 
-		if (!$param -> id_user || !$param -> id_product) $this->exitWith404('input');
-		$this->startOutput();		
-		$ids = array();
+		if (!$user_id || !$product) echo 'entre';
+	#	$this->startOutput();		
+	#	$ids = array();
 		$this->db->beginTransaction();
 
 		//validar credits
