@@ -1646,6 +1646,7 @@ class PHP_CRUD_API {
 		$obj =(object)$arr;
 		$user_id = $arr['id_user'];
 		$product = $arr['id_product'];
+		$credit_id = $arr['id_credit'];
 		print_r($arr);
 		#echo $product_id;
 		
@@ -1655,28 +1656,41 @@ class PHP_CRUD_API {
 	#	$ids = array();
 		$this->db->beginTransaction();
 
-		//validar credits
-		$this->$db->query('first query');
-		if ($result===null || $result === 0) {
-				$this->db->rollbackTransaction();
-				return null;
-			}
+		//validar credits		
+		$credit_result = $this->db->query('select quantity from credit where id='.$credit_id);
+ 		$credit_row = mysqli_fetch_array($credit_result);
+        $quantity = $credit_row['quantity'];
+        echo $quantity;
+
+        if($quantity <= 0){
+
+        }
+
+		
+		$product_result = $this->db->query('select strock from product where id='.$product_id);
+ 		$product_row = mysqli_fetch_array($credit_result);
+        $stock = $product_row['stock'];
+		if($quantity <= 0){
+
+        }
+
+        $stock = $strock -1;
+        $quantity = $quantity -1;
+
+
+        $this->$db->query('update credit set quantity ='.$quantity.'where id ='.$credit_id);
+        $this->$db->query('update product set stock ='.$stock.'where id ='.$product_id);
+		$date = date("D M d, Y G:i");	
+        $result = $this->db->query('insert into transaction (date,product_id,user_id) values ('. $date.','. $product_id.','.$user_id.')');
+
 
 		//validar stock
-    	$this->$db->query('second query');
+    	
     	if ($result===null || $result ===0) {
 				$this->db->rollbackTransaction();
 				return null;
 			}
 
-    	//restar credits
-    	$this->$db->query('third query');
-
-    	//restar stock
-    	$this->$db->query('third query');
-
-    	//insertar transaccion
-    	$this->$db->query('third query');
 
 
 		foreach ($inputs as $input) {
