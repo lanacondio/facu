@@ -1635,8 +1635,7 @@ class PHP_CRUD_API {
 		}
 	}
 	protected function makeSale($parameters){		
-		extract($parameters);
-
+		
 		$keywords = preg_split("/[\s,=,&]+/", $parameters);
 		$arr=array();
 		for($i=0;$i<sizeof($keywords);$i++)
@@ -1644,73 +1643,79 @@ class PHP_CRUD_API {
 		$arr[$keywords[$i]] = $keywords[++$i];
 		}
 		$obj =(object)$arr;
-		$user_id = $arr['id_user'];
-		$product = $arr['id_product'];
-		$credit_id = $arr['id_credit'];
-		print_r($arr);
-		#echo $product_id;
-		
+		$user_id = $arr['user_id'];
+		$product_id = $arr['product_id'];
+		$credit_id = $arr['credit_id'];
 
-		if (!$user_id || !$product) echo 'entre';
+		if (!$user_id || !$product_id) {
+			 $this->exitWith422(array($user_id));
+		}
 	#	$this->startOutput();		
 	#	$ids = array();
 		$this->db->beginTransaction();
 
 		//validar credits		
-		$credit_result = $this->db->query('select quantity from credit where id='.$credit_id);
+
+		$qparams = array($credit_id);
+
+		$credit_result = $this->db->query('select quantity, user_id, category_id from credit where id=(?)', $qparams);
  		$credit_row = mysqli_fetch_array($credit_result);
         $quantity = $credit_row['quantity'];
-        echo $quantity;
+        $credit_user = $credit_row['user_id'];
+        $credit_category_id = $credit_row['category_id'];
+        
 
+        //si no es del usuario salgo
+        if($credit_user != $user_id){
+			$this->exitWith422(array($credit_user, $user_id));
+        }
+
+        //si no tengo creditos salgo
         if($quantity <= 0){
-
+			$this->exitWith422(array($quantity));
         }
 
-		
-		$product_result = $this->db->query('select strock from product where id='.$product_id);
- 		$product_row = mysqli_fetch_array($credit_result);
+
+		$qparams = array($product_id);		
+		$product_result = $this->db->query('select stock, category_id from product where id=(?)', $qparams);
+ 		$product_row = mysqli_fetch_array($product_result);
         $stock = $product_row['stock'];
-		if($quantity <= 0){
+        $product_category_id = $product_row['category_id'];
 
+        //si no es de la misma categoria salgo
+        if($product_category_id != $credit_category_id){
+			$this->exitWith422(array($product_category_id, $credit_category_id));		
         }
 
-        $stock = $strock -1;
+        //si no tiene stock salgo
+		if($stock <= 0){
+			$this->exitWith422(array($stock));
+        }
+
+        $stock = $stock -1 ;
         $quantity = $quantity -1;
 
+		$qparams = array($quantity, $credit_id);		
 
-        $this->$db->query('update credit set quantity ='.$quantity.'where id ='.$credit_id);
-        $this->$db->query('update product set stock ='.$stock.'where id ='.$product_id);
+        $this->db->query('update credit set quantity =(?) where id =(?)',$qparams);
+        
+
+        $qparams = array($stock, $product_id);		
+        $this->db->query('update product set stock =(?) where id =(?)',$qparams);
+        
 		$date = date("D M d, Y G:i");	
-        $result = $this->db->query('insert into transaction (date,product_id,user_id) values ('. $date.','. $product_id.','.$user_id.')');
 
-
-		//validar stock
+		$qparams = array($date, $product_id, $user_id);		
+        $result = $this->db->query('insert into transaction (date,product_id,user_id) values (?,?,?)', $qparams);
+		
     	
     	if ($result===null || $result ===0) {
 				$this->db->rollbackTransaction();
 				return null;
 			}
-
-
-
-		foreach ($inputs as $input) {
-			$result = $this->createObject($input,$tables);
-			if ($result===null) {
-				$this->db->rollbackTransaction();
-				return null;
-			}
-			$ids[] = $result;
-		}
-
-
-
-
-
+			
 		$this->db->commitTransaction();
-		return $ids;
-
-		if ($multi) echo json_encode($this->createObjects($inputs,$tables));
-
+		return $result;
 	}
 
 	protected function retrievePostData() {
@@ -2194,8 +2199,8 @@ class PHP_CRUD_API {
 // uncomment the lines below when running in stand-alone mode:
  $api = new PHP_CRUD_API(array(
  	'dbengine'=>'MySQL',
- 	'hostname'=>'localhost',
- 	'username'=>'bunge_user',
+ 	'hostname'=>'127.0.0.1',
+ 	'username'=>'bunge_user2',
  	'password'=>'123456789',
  	'database'=>'bunge',
  	'charset'=>'utf8'
