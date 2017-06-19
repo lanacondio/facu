@@ -11,6 +11,8 @@
     "typings/tsd.d.ts",  
     "src/app.ts",
     "src/home/index.ts",
+    "src/events/index.ts",    
+    "src/transactions/index.ts",
     "src/login/index.ts",
     "src/signup/index.ts",
     "src/index.ts",
