@@ -1,0 +1,19 @@
+.red {
+  color: red;
+}
+
+.event-title{
+	text-align:center;
+	font-size: 20px;
+	font-weight: bolder;	
+	text-transform: uppercase;
+
+}
+
+.event-image{
+	width: 100%;
+}
+
+.event-image:hover{
+	cursor:pointer; cursor: hand
+}

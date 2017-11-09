@@ -4,6 +4,7 @@ import android.content.Context;
 import android.preference.PreferenceActivity;
 
 import com.google.gson.Gson;
+import com.lanacondio.diccionarioguarani.repository.com.lanacondio.diccionarioguarani.repository.models.Evaluation;
 import com.lanacondio.diccionarioguarani.repository.com.lanacondio.diccionarioguarani.repository.models.Translation;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -57,6 +58,7 @@ public class GdiccApiClient {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
             }
 
             @Override
@@ -75,6 +77,61 @@ public class GdiccApiClient {
                 // Do something with the response
             }
         });
+    }
+
+    public void getEvaluations() throws JSONException {
+
+        for(int i=0; i< translations.size(); i++)
+        {
+            final List<Evaluation> eval = new ArrayList<Evaluation>();
+            HttpUtils.get("/evaluation?filter=id_translation,eq,"+translations.get(i).getId(), null, new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    // If the response is JSONObject instead of expected JSONArray
+                    try {
+
+                        JSONObject jsonObject = (JSONObject)response.get("evaluation"); // root JsonObject. i.e. "locations"
+
+                        JSONArray jsonArray = (JSONArray)jsonObject.get("records");
+
+                        if (jsonArray != null) {
+                            int len = jsonArray.length();
+                            for (int i=0;i<len;i++){
+                                String[] properties = jsonArray.get(i).toString().replace("[","").replace("]","").replace('"', ' ').split(",");
+                                Evaluation aux = new Evaluation();
+                                aux.setId(Integer.parseInt(properties[0]));
+                                aux.setIdTranslation(Integer.parseInt(properties[1]));
+                                aux.setPoints(Integer.parseInt(properties[2]));
+                                aux.setDeviceId(properties[3]);
+                                eval.add(aux);
+
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONArray translations) {
+                    // Pull out the first event on the public timeline
+                    JSONObject firstEvent = null;
+                    try {
+                        firstEvent = translations.getJSONObject(0);
+
+                        String translation = firstEvent.getString("evaluation");
+                        System.out.println(translation);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    // Do something with the response
+                }
+            });
+            translations.get(i).setEvaluations(eval);
+        }
+
+
     }
 
 
@@ -113,11 +170,54 @@ public class GdiccApiClient {
 
 
             public void onFailure(int statusCode, Header[] headers, String response, Throwable exception){
-
                 String ex = response;
             }
 
         });
 
     }
+
+    public void postEvaluation(Context context, Evaluation evaluation) throws JSONException {
+
+        RequestParams rp = new RequestParams();
+        rp.add("id_translation", evaluation.getIdTranslation().toString());
+        rp.add("points", evaluation.getPoints().toString());
+        rp.add("device_id", evaluation.getDeviceId());
+
+        HttpUtils.post(context, "/evaluation", rp, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                // If the response is JSONObject instead of expected JSONArray
+                try {
+                    JSONObject serverResp = new JSONObject(response.toString());
+                    webId = Integer.parseInt(response.toString());
+                } catch (JSONException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                // Pull out the first event on the public timeline
+                try {
+                    webId = Integer.parseInt(response.getString(0));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+            public void onFailure(int statusCode, Header[] headers, String response, Throwable exception){
+                String ex = response;
+            }
+
+            public void onFailure(Throwable exception, JSONObject response){
+                String ex = response.toString();
+            }
+
+        });
+
+    }
+
 }

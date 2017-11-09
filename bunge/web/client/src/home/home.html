@@ -1,35 +1,307 @@
 <div>
-  <div class="home jumbotron centered">
-    <h1>Welcome to Bunge!</h1>
+<nav class="left-menu" left-menu>
+    <div class="logo-container">
+        <a href="index.html" class="logo">
+            <img src="../assets/common/img/logo.png" alt="BUNGE - TU ELECCION" />
+            <img class="logo-inverse" src="../assets/common/img/logo-inverse.png" alt="Clean UI Admin Template" />
+        </a>
+    </div>
+    <div class="left-menu-inner scroll-pane">
+        <ul class="left-menu-list left-menu-list-root list-unstyled">
+            <li class="left-menu-list-submenu">
+                
+                <ul class="left-menu-list list-unstyled">
+                    <li>
+                        <div class="left-menu-item">
+                            <div class="left-menu-block">
+                                
+                               
+                               
+                                <div class="left-menu-block-item">
+                                    <span class="font-weight-600"><sup>Fixed Top Menu</sup>:</span>
+                                </div>
+                                <div class="left-menu-block-item" id="options-menu">
+                                    <div class="btn-group btn-group-justified" data-toggle="buttons">
+                                        <div class="btn-group">
+                                            <label class="btn btn-default active">
+                                                <input type="radio" name="options-menu" value="menu-fixed" checked=""> On
+                                            </label>
+                                        </div>
+                                        <div class="btn-group">
+                                            <label class="btn btn-default">
+                                                <input type="radio" name="options-menu" value="menu-static"> Off
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                                
+                                
+                                
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+           
+           
+            
+        
+            
+            <li class="left-menu-list-submenu">
+                                    
+                <li>
+                    <a class="left-menu-link" href="apps-profile.html">
+                        <i class="left-menu-link-icon icmn-home"><!-- --></i>
+                       HOME
+                    </a>
+                </li>
+                <li>
+                    <a class="left-menu-link" href="apps-profile.html">
+                        <i class="left-menu-link-icon icmn-profile"><!-- --></i>
+                        Mis datos
+                    </a>
+                </li>
+                 <li class="left-menu-list-separator">
+                     
+                 </li>
+                <li class="left-menu-list-submenu">
+                    <a class="left-menu-link" href="javascript: void(0);">
+                        <i class="left-menu-link-icon icmn-files-empty2"><!-- --></i>
+                        Eventos
+                    </a>
+                    <ul class="left-menu-list list-unstyled">
+                        <li>
+                            <a class="left-menu-link" href="pages-login.html">
+                                Todos los eventos
+                            </a>
+                        </li>
+                        <li>
+                            <a class="left-menu-link" href="pages-login.html">
+                                Dia del Niño 2017
+                            </a>
+                        </li>
+                        <li class="left-menu-list-disabled">
+                            <a class="left-menu-link" href="pages-register.html">
+                                Día del Niño 2016
+                            </a>
+                        </li>
+                         <li class="left-menu-list-disabled">
+                            <a class="left-menu-link" href="pages-lockscreen.html">
+                                Navidad 2016
+                            </a>
+                        </li>
+                        
+                        
+                        
+                        
+                       
+                    </ul> 
+                    
+                </li>
+
+            <!-- <li>
+                <a class="left-menu-link" href="mensajes.html">
+                    <i class="left-menu-link-icon icmn-mail2"></i>
+                    Mensajes
+                </a>
+            </li>
+            <li>
+                <a class="left-menu-link" href="calendario.html">
+                    <i class="left-menu-link-icon icmn-calendar"></i>
+                    Calendario
+                </a>
+            </li>
+            <li>
+                <a class="left-menu-link" href="galeria.html">
+                    <i class="left-menu-link-icon icmn-images"></i>
+                    Galería de Fotos
+                </a>
+            </li>-->
+          
+            <li>
+                <a class="left-menu-link" href="bunge-faqs.html">
+                    <i class="left-menu-link-icon icmn-question"></i>
+                    Preguntas Frecuentes
+                </a>
+            </li>  
+           <li>
+                <a *ngIf="event" class="left-menu-link" href="apps-gallery.html">                    
+                    <h6 > <span class="label label-warning">IMPORTANTE </span></h6>
+                    ESTE EVENTO FINALIZA EL {{event.end_date}}                    
+                </a>
+            </li>
+                      
+            <li>
+                <div *ngIf="cart" class="form-group">
+                            <label>Regalos Elegidos</label>
+                            <select2 class="select2" ng-model="select2" multiple class="col-lg-12">
+                                <option *ngFor="let sel of cart" selected (click)="removeFromCart(sel)">{{sel.title}}</option>
+                                
+                            </select2>
+                            <br/>
+                            <button style="margin-top:10px" type="button" *ngIf="show_buy_button"  (click)="buy()" class="btn btn-icon btn-primary btn-rounded margin-inline"><i class="icmn-cart" aria-hidden="true"></i> COMPRAR!</button>
+                </div>
+
+            </li>
+
+        </ul>
+    </div>
+</nav>
+
+<nav class="top-menu">
+    <div class="menu-icon-container hidden-md-up">
+        <div class="animate-menu-button left-menu-toggle">
+            <div><!-- --></div>
+        </div>
+    </div>
+    <div class="menu">
+        <div class="menu-user-block">
+            <div class="dropdown dropdown-avatar">
+                <a *ngIf="user" href="javascript: void(0);" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                   LEGAJO NRO: {{user.file}} <span class="avatar" href="javascript:void(0);">
+                    </span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="" role="menu">
+                    <a class="dropdown-item" href="javascript:void(0)"><i class="dropdown-icon icmn-user"></i> Mis datos</a>
+                    <div class="dropdown-divider"></div>
+                    
+                  
+                    <a class="dropdown-item" (click)="logout()"><i class="dropdown-icon icmn-exit"></i> Salir</a>
+                </ul>
+            </div>
+        </div>
+        <div class="menu-info-block">
+            <div class="left">
+                <div class="header-buttons">
+                            <span class="hidden-lg-down">Bienvenidos a BUNGE TU ELECCION! </span>                                                            
+                </div>
+            </div>
+            
+           
+            
+        </div>
+    </div>
+</nav>
+
+
+
+<section class="page-content">
+    <section class="page-content-inner">
+
+        <!-- Top Submenu -->
+        <nav class="top-submenu top-submenu-with-background">
+                        
+            <h3 *ngIf="event">{{event.description}}</h3>        
+            <ul class="list-unstyled breadcrumb">
+                <li>
+                    <a href="javascript: void(0);">Home Bunge</a>
+                </li>
+                <li>
+                    <a href="javascript: void(0);">Eventos</a>
+                </li>
+                <li>
+                    <a href="javascript: void(0);">Dia del Niño</a>
+                </li>
+                
+            </ul>
+        </nav>
+       
+        <!-- End Top Submenu -->
+        <div *ngIf="!final_user">
+        <div *ngIf="categories" >
+            <section  *ngFor="let cat of categories"  class="panel panel-with-sidebar panel-with-right-sidebar">
+                    <div class="panel-sidebar">
+                            <div class="btn-group-vertical btn-group-justified">
+                                <button type="button" class="btn">CREDITOS: {{cat.available_credit}}</button>
+                                <br />
+                                <button *ngIf="cat.selected_products"  type="button" class="btn">Usados: {{cat.selected_products.length}}</button>
+                            </div><!-- Select2 Multiple Item -->
+                                        
+                                       
+                                        <!-- End Select2 Multiple Item -->
+                            <br />
+                            <p>La cantidad elecciones de juguetes que podes hacer por rango etario es igual a la cantidad de hijos que posees en la misma. </p>
+                    </div>
+                    <div class="panel-heading">            
+                        <h3><span class="label label-primary"> PARA CHIC@S DE {{cat.description}}</span></h3>
+                    </div>
+
+                    <div class="panel-body">
+                        <div *ngIf="cat.available_products" class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-4" *ngFor="let prod of cat.available_products">
+                                        <h4>{{prod.title}}</h4>
+                  
+                                        <br />  
+                                        <div class="margin-bottom-10">
+                                            <img width="80px" [attr.src]="prod.photo_url" />
+                                             <p>
+                                             {{prod.description}}
+                                            </p>
+
+                                            <button type="button" (click)="addToCart(prod)" class="btn btn-icon btn-primary btn-rounded margin-inline"><i class="icmn-cart" aria-hidden="true"></i> Lo Quiero!</button>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                        </div>
+
+
+                    </div>
+
+            </section>
+
+        </div>
+        </div>
+
+        <div *ngIf="final_user">
+            <section  class="panel panel-with-sidebar panel-with-right-sidebar">
+                    <div class="panel-heading">            
+                        <h3><span class="label label-primary">FELICITACIONES! CANJEASTE:</span></h3>
+
+                            <div  class="row" *ngFor="let cat of categories" >
+                                    <div class="col-lg-12">
+                                        <div class="col-lg-4" *ngFor="let prod of cat.selected_products">
+                                            <h4>{{prod.title}}</h4>
+                      
+                                            <br />  
+                                            <div class="margin-bottom-10">
+                                                <img width="80px" [attr.src]="prod.photo_url" />
+                                                 <p>
+                                                 {{prod.description}}
+                                                </p>                                            
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                            </div>
+
+
+                    </div>
+
+
+            </section>
+
+        </div>
+
+
+
+        <br/><br/>Todos los derechos Reservados BUNGE  /  Terminos y condiciones / <a href="bunge-faqs.html"> Preguntas Frecuentes </a>
     
-    <pre *ngIf="jwt" class="jwt"><code>{{ jwt }}</code></pre>
-    <pre *ngIf="jwt" class="jwt"><code>{{ decodedJwt | json }}</code></pre>
-    <p>What do you want?</p>
-    <p><a class="btn btn-primary btn-lg" role="button" (click)="viewCatalog()">View my catalog</a></p>
 
 
-    <div *ngIf="products" class="row">
-    <h2 >Productos:</h2>
-    <div class="row">
-      <div class="row" *ngFor="let prod of products">        
-        <div class="col-md-3">
-          <a ><img width="80px" [attr.src]="prod.photo_url" ></a>
-        </div>
-        <div class="col-md-6">
-          <p>{{ prod.description }}</p>
-        </div>        
-        <div class="col-md-3">
-          <a class="btn btn-primary btn-lg" ng-click="buy(prod.id)">Select</a>
-        </div>
-      </div>
-    </div>
-    </div>
-
-    <p><a class="btn btn-primary btn-lg" role="button" (click)="callSecuredApi()">Check my data</a></p>
-    <p><a class="btn btn-primary btn-lg" role="button" (click)="logout()">Logout</a></p>
-    <h2 *ngIf="response">The response of calling the <span class="red">{{ api }}</span> API is:</h2>
-    <h3 *ngIf="response">{{ response }}</h3>
+    </section>
+    <script>
+    
+    </script>
+</section>
 
 
-  </div>
+<div class="main-backdrop"><!-- --></div>
+
 </div>

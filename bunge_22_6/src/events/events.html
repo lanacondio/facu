@@ -1,0 +1,66 @@
+<div>
+
+<nav class="top-menu">
+ <div class="menu">
+        <div class="menu-info-block">
+          <a href="#" class="left">
+              <img src="../assets/common/img/logo.png" alt="Bunge" width="80px;" />            
+          </a>
+        </div>                        
+    </div>
+  </nav>
+
+
+  <div class="home jumbotron centered">    
+
+    <section class="page-content">
+    <div class="page-content-inner">
+
+
+        <!--  -->
+        <section *ngIf="events" class="panel margin-top-50" style="width:100%" >        
+            <div class="panel-body">       
+                <div class="row">
+                    <div class="col-lg-12">
+                    
+                        <br />
+
+
+                        <div class="margin-bottom-50">
+                                                        
+                                <div *ngFor="let evt of events" class="row">
+                                
+
+
+                                <div class="col-lg-3"></div>
+                                <div class="col-lg-6">
+                                    <h4 class="event-title">{{evt.description}}</h4>
+                                    <a (click)="showEventHome(evt)">
+                                    <img class="event-image" [attr.src]="evt.banner_url" >
+                                    </a>
+
+                                </div>
+                                <div class="col-lg-3"></div>
+
+                                    
+                                
+                                </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section *ngIf="!events" class="panel margin-top-50" style="width:100%" >
+        <p>No hay eventos</p> 
+        </section>       
+        <!-- End  -->
+
+    </div>
+
+    <!-- Page Scripts -->    
+    <!-- End Page Scripts -->
+    </section>
+
+  </div>
+</div>

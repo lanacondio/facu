@@ -141,6 +141,8 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.action_select_language:
                 // User chose the "Select  Language" action, mark the current item
+                mResultList = (ListView) findViewById(R.id.predictiveLV);
+                mResultList.setAdapter(null);
                 RotateAnimation ra =new RotateAnimation(0, 360);
                 ra.setFillAfter(true);
                 ra.setDuration(1000);
@@ -161,13 +163,15 @@ public class MainActivity extends AppCompatActivity {
                 final Animation out = new AlphaAnimation(1.0f, 0.0f);
                 out.setDuration(1000);
 
-                //wordtf.setQuery("",false);
+
                 String valueToFind = wordtf.getQuery().toString();
+
                 swtoFind = valueToFind;
+                mResultList.setAdapter(null);
+                wordtf.setQuery("",false);
 
+                /*
                 if(swtoFind != null && !swtoFind.isEmpty()){
-
-                    mResultList = (ListView) findViewById(R.id.predictiveLV);
 
                     mResultAdapter = new PredictiveResultCursorAdapter(MainActivity.this, null, valueToFind);
 
@@ -180,12 +184,15 @@ public class MainActivity extends AppCompatActivity {
                     // Carga de datos
                     loadPredictiveResults();
 
+                    wordtf.setQuery(swtoFind,false);
+
                 }else{
-                    mResultList = (ListView) findViewById(R.id.predictiveLV);
                     // Setup
                     mResultList.setAdapter(null);
 
                 }
+                */
+
 
                 if(languajeText.getText().toString() == getResources().getString(R.string.Guarani)){
                     languajeText.startAnimation(out);

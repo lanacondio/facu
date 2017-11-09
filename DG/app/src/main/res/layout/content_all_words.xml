@@ -98,15 +98,16 @@
 
     <Button
         android:text="@string/look_web"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:background="@drawable/roundcorner"
         android:textColor="#fff"
         android:layout_height="wrap_content"
         android:id="@+id/webRequestButton"
-        android:layout_alignTop="@+id/addFavorite"
+        android:layout_marginRight="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_alignBottom="@+id/addFavorite"
         android:layout_toLeftOf="@+id/addFavorite"
         android:layout_toStartOf="@+id/addFavorite"
-        android:layout_marginRight="25dp"
-        android:layout_marginEnd="25dp" />
+        android:layout_alignTop="@+id/addFavorite" />
 
 </RelativeLayout>

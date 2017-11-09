@@ -6,6 +6,7 @@ import android.database.MergeCursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.lanacondio.diccionarioguarani.repository.com.lanacondio.diccionariogu
 import com.lanacondio.diccionarioguarani.repository.com.lanacondio.diccionarioguarani.repository.models.TranslationDbHelper;
 import com.lanacondio.diccionarioguarani.service.GdiccApiClient;
 import com.lanacondio.diccionarioguarani.service.ResultCursorAdapter;
+import com.lanacondio.diccionarioguarani.service.WebResultCursorAdapter;
 
 import org.json.JSONException;
 
@@ -42,7 +44,7 @@ public class AllWordsWebFragment extends Fragment {
     private TranslationDbHelper mTranslationDbHelper;
     private ListView mResultList;
     private TextView mWord;
-    private ResultCursorAdapter mResultAdapter;
+    private WebResultCursorAdapter mResultAdapter;
     private GdiccApiClient mApiServiceClient;
     private String wtoFind;
     private Integer originalLanguaje;
@@ -83,7 +85,7 @@ public class AllWordsWebFragment extends Fragment {
         getActivity().setTitle(wtoFind.toUpperCase());
         mResultList = (ListView) root.findViewById(R.id.all_words_web_list);
 
-        mResultAdapter = new ResultCursorAdapter(getActivity(), null);
+        mResultAdapter = new WebResultCursorAdapter(getActivity(), null);
 
        // Setup
         mResultList.setAdapter(mResultAdapter);
@@ -143,29 +145,65 @@ public class AllWordsWebFragment extends Fragment {
             MatrixCursor matrixCursor = new MatrixCursor(new String[] {TranslationContract.TranslationEntry._ID,
                     TranslationContract.TranslationEntry.TRANSLATION,
                     TranslationContract.TranslationEntry.CONTEXT,
-                    TranslationContract.TranslationEntry.TYPE });
+                    TranslationContract.TranslationEntry.TYPE,
+                    TranslationContract.TranslationEntry.GCM_ID,
+                    TranslationContract.TranslationEntry.WORD,
+                    TranslationContract.TranslationEntry.WEB_ID,
+                    TranslationContract.TranslationEntry.LANGUAGE_ID,
+                    "evaluations",
+                    "negevaluations",
+                    "canEvaluate"
+            });
 
 
             GdiccApiClient client = new GdiccApiClient();
             List<Translation> translations = new ArrayList<>();
             try {
                 client.getWords(wtoFind);
+                client.getEvaluations();
                 translations =  client.getTranslations();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
+
             for(int i = 0; i<translations.size(); i++)
             {
-
+                String eval = CanEvaluate(translations.get(i));
                 matrixCursor.addRow(new Object[] {translations.get(i).getId(),
                         translations.get(i).getTranslationResult(),
                         translations.get(i).getContext(),
-                        translations.get(i).getType() });
-                mTranslationDbHelper.addTranslation(translations.get(i));
+                        translations.get(i).getType(),
+                        translations.get(i).getDeviceId(),
+                        translations.get(i).getWordToFind(),
+                        translations.get(i).getWebId(),
+                        translations.get(i).getCountryId(),
+                        translations.get(i).getPositiveEvaluationsAverage(),
+                        translations.get(i).getNegativeEvaluationsAverage(),
+                        eval
+                });
+
+                //  mTranslationDbHelper.addTranslation(translations.get(i));
             }
 
             return matrixCursor;
+        }
+
+        public String CanEvaluate(Translation translation){
+            boolean result = true;
+            String deviceId = Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+
+            if(translation.getDeviceId().trim().equals(deviceId)){
+                result= false;
+            }
+            for (int i= 0; i< translation.getEvaluations().size(); i++){
+                if(translation.getEvaluations().get(i).getDeviceId().trim().equals(deviceId)){
+                    result = false;
+                }
+            }
+
+            return String.valueOf(result);
+
         }
 
         @Override
@@ -175,9 +213,20 @@ public class AllWordsWebFragment extends Fragment {
             }
             else
             {
-                MatrixCursor matrixCursor = new MatrixCursor(new String[] {TranslationContract.TranslationEntry._ID, TranslationContract.TranslationEntry.TRANSLATION,
-                        TranslationContract.TranslationEntry.CONTEXT,TranslationContract.TranslationEntry.TYPE });
-                matrixCursor.addRow(new Object[] { 1, getContext().getString(R.string.not_found_word), "", "" });
+                MatrixCursor matrixCursor = new MatrixCursor(new String[] {TranslationContract.TranslationEntry._ID,
+                    TranslationContract.TranslationEntry.TRANSLATION,
+                    TranslationContract.TranslationEntry.CONTEXT,
+                    TranslationContract.TranslationEntry.TYPE,
+                    TranslationContract.TranslationEntry.GCM_ID,
+                    TranslationContract.TranslationEntry.WORD,
+                    TranslationContract.TranslationEntry.WEB_ID,
+                    TranslationContract.TranslationEntry.LANGUAGE_ID,
+                    "evaluations",
+                    "negevaluations",
+                    "canEvaluate"
+            });
+
+                matrixCursor.addRow(new Object[] { 1, getContext().getString(R.string.not_found_word), "", "", "","",0,0,0,0,true});
                 MergeCursor mergeCursor = new MergeCursor(new Cursor[] { matrixCursor });
                 mResultAdapter.swapCursor(mergeCursor);
             }

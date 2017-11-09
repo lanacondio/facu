@@ -12,6 +12,10 @@
     <string name="share_app_messages">Gdic diccionario guaraní-español. https://play.google.com/store/apps/details?id=</string>
     <string name="copy_to_clipboard">Copiado a portapapeles</string>
     <string name="add_word_text">Palabra agregada</string>
+    <string name="donwload_word_text">Palabra disponible offline</string>
+    <string name="evaluation_thanks_text">Gracias por evaluar la traducción!</string>
+    <string name="evaluation_done_text">Ya evaluaste esta traducción</string>
+    <string name="delete_word_text">Palabra eliminada</string>
     <string name="action_bar_button_search">Ingrese texto</string>
     <string name="select_language">Seleccione lenguaje</string>
     <string name="share_app">Compartir GDicc</string>

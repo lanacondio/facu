@@ -1,0 +1,466 @@
+
+<nav class="left-menu" left-menu>
+    <div class="logo-container">
+       <a href="bunge-home.html" class="logo">
+            <img src="../assets/common/img/logo.png" alt="BUNGE - TU ELECCION" />
+           <!-- <img class="logo-inverse" src="../assets/common/img/logo-inverse.png" alt="Clean UI Admin Template" />-->
+        </a>
+    </div>
+    <div class="left-menu-inner scroll-pane">
+        <ul class="left-menu-list left-menu-list-root list-unstyled">
+            <li class="left-menu-list-submenu">
+                
+                <ul class="left-menu-list list-unstyled">
+                    <li>
+                        <div class="left-menu-item">
+                            <div class="left-menu-block">
+                                
+                               
+                               
+                                <div class="left-menu-block-item">
+                                    <span class="font-weight-600">Fixed Top Menu:</span>
+                                </div>
+                                <div class="left-menu-block-item" id="options-menu">
+                                    <div class="btn-group btn-group-justified" data-toggle="buttons">
+                                        <div class="btn-group">
+                                            <label class="btn btn-default active">
+                                                <input type="radio" name="options-menu" value="menu-fixed" checked=""> On
+                                            </label>
+                                        </div>
+                                        <div class="btn-group">
+                                            <label class="btn btn-default">
+                                                <input type="radio" name="options-menu" value="menu-static"> Off
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                                
+                                
+                                
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+           
+           
+            
+        
+            
+            <li class="left-menu-list-submenu">
+                
+                 <li>
+                    <a class="left-menu-link" href="/#/home">
+                        <i class="left-menu-link-icon icmn-home"><!-- --></i>
+                       HOME
+                    </a>
+                </li>
+            
+            <li>
+                <a class="left-menu-link" href="/#/profile">
+                    <i class="left-menu-link-icon icmn-profile"><!-- --></i>
+                    Mis datos
+                </a>
+            </li>
+             <li class="left-menu-list-separator"><!-- --></li>
+            <li class="left-menu-list-submenu">
+                <a class="left-menu-link" href="/#/events">
+                    <i class="left-menu-link-icon icmn-files-empty2"><!-- --></i>
+                    Eventos
+                </a>
+             <!--   <ul class="left-menu-list list-unstyled">
+                    <li>
+                        <a class="left-menu-link" href="bunge-eventos.html">
+                            Todos los eventos
+                        </a>
+                    </li>
+                    <li>
+                        <a class="left-menu-link" href="bunge-evento-dianino.html">
+                            Dia del Niño 2017
+                        </a>
+                    </li>
+                    <li class="left-menu-list-disabled">
+                        <a class="left-menu-link" href="#">
+                            Día del Niño 2016
+                        </a>
+                    </li>
+                     <li class="left-menu-list-disabled">
+                        <a class="left-menu-link" href="#">
+                            Navidad 2016
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                   
+                </ul> -->
+            </li>
+            <!-- <li>
+                <a class="left-menu-link" href="mensajes.html">
+                    <i class="left-menu-link-icon icmn-mail2"></i>
+                    Mensajes
+                </a>
+            </li>
+            <li>
+                <a class="left-menu-link" href="calendario.html">
+                    <i class="left-menu-link-icon icmn-calendar"></i>
+                    Calendario
+                </a>
+            </li>
+            <li>
+                <a class="left-menu-link" href="galeria.html">
+                    <i class="left-menu-link-icon icmn-images"></i>
+                    Galería de Fotos
+                </a>
+            </li>-->
+          
+            <li>
+                <a class="left-menu-link" href="bunge-faqs.html">
+                    <i class="left-menu-link-icon icmn-question"></i>
+                    Preguntas Frecuentes
+                </a>
+            </li>  
+            
+           <li>
+                <a class="left-menu-link" href="#">
+                    
+                </a>
+            </li>
+            
+            
+           
+           
+            
+        </ul>
+    </div>
+</nav>
+<nav class="top-menu">
+    <div class="menu-icon-container hidden-md-up">
+        <div class="animate-menu-button left-menu-toggle">
+            <div><!-- --></div>
+        </div>
+    </div>
+    <div class="menu">
+        <div class="menu-user-block">
+            <div class="dropdown dropdown-avatar">
+                <a *ngIf="user" href="javascript: void(0);" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                   LEGAJO NRO: {{user.file}} <span class="avatar" href="javascript:void(0);">
+                    </span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="" role="menu">
+                    <a class="dropdown-item" href="/#/profile"><i class="dropdown-icon icmn-user"></i> Mis datos</a>
+                    <div class="dropdown-divider"></div>
+                    
+                  
+                    <a class="dropdown-item" (click)="logout()"><i class="dropdown-icon icmn-exit"></i> Salir</a>
+                </ul>
+            </div>
+        </div>
+        <div class="menu-info-block">
+            <div class="left">
+                <div class="header-buttons">
+                            <span class="hidden-lg-down">Bienvenidos a BUNGE TU ELECCION! </span>                                                            
+                </div>
+            </div>
+            
+           
+            
+        </div>
+    </div>
+</nav>
+
+<section class="page-content">
+<section class="page-content-inner">
+
+    <!-- Top Submenu -->
+    <nav *ngIf="event"  class="top-submenu top-submenu-with-background">
+        <h3>{{event.description}}</h3>
+        <ul class="list-unstyled breadcrumb">
+            <li>
+                <a href="javascript: void(0);">Home Bunge</a>
+            </li>
+            <li>
+                <a href="javascript: void(0);">Eventos</a>
+            </li>
+          
+            
+        </ul>
+    </nav>
+   
+    <!-- End Top Submenu -->
+
+    <section class="panel">
+
+<div class="panel-body">
+   
+<div class="row">
+    <div class="col-xl-12">
+     <div class="col-xl-4">
+                <div class="widget widget-seven background-default">
+                    <div class="widget-body">
+                        <div href="javascript: void(0);" class="widget-body-inner">
+                            <h5 class="text-uppercase">Pedidos Completos</h5>
+                            <i class="counter-icon fa fa-shopping-cart fa-3x"></i>
+                            <span class="counter-count">
+                                <i class="icmn-arrow-down5"></i>
+                                <span class="counter-init" data-from="0" data-to="99">{{transactionPercentage}}</span>%
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 ">
+                <div class="widget widget-seven">
+                    <div class="widget-body">
+                        <div href="javascript: void(0);" class="widget-body-inner">
+                            <h5 class="text-uppercase">Pedidos Completos</h5>
+                            <i class="counter-icon icmn-users"></i>
+                            <span class="counter-count">
+                                <i class="icmn-arrow-up5"></i>
+                                <span class="counter-init" data-from="0" data-to="67">{{completeTransactions}}</span>/<span class="counter-init" data-from="0" data-to="67">{{totalTransactions}}</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 ">
+                <div class="widget widget-seven">
+                    <div class="widget-body">
+                        <div href="javascript: void(0);" class="widget-body-inner">
+                            <h5 class="text-uppercase">Usuarios</h5>
+                            <i class="counter-icon icmn-users"></i>
+                            <span class="counter-count">
+                                <i class="icmn-arrow-up5"></i>
+                                <span class="counter-init" data-from="0" data-to="9999">{{totalUsers}}</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            </div>
+</div>
+<div class="row">
+
+                <div *ngIf="laboral_bases"  class="col-xl-4">
+                    <label>Elegir Base</label>
+                    <select [ngModel]="selected_filter" (ngModelChange)="onChange($event)"  >                                        
+                                        <option *ngFor="let lb of laboral_bases" [ngValue]="lb" >{{lb}}</option>
+                                    </select>
+
+
+
+
+                </div>
+                
+
+                <div *ngIf="laboral_bases" class="col-xl-4" style="margin-bottom: 20px;">
+                    <button type="button"  (click)="filter()" class="btn btn-primary width-150">FILTRAR
+                    </button> 
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div *ngIf="laboral_bases" class="col-xl-4"></div>
+
+    
+    <div *ngIf="transactions"  class="col-xl-12">
+            <div class="panel panel-with-borders">
+                <div class="panel-body">
+
+
+
+
+                    <div class="nav-tabs-horizontal margin-bottom-20">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="javascript: void(0);" data-toggle="tab" data-target="#h1" role="tab">LISTADO DE CANJES</a>
+                            </li>                                            
+                            <li class="nav-item">
+                            
+                            <button (click)="exportTransactionsToCsv(transactions)" type="button" class="btn btn-default" aria-label="Left Align">
+                            EXPORTAR CSV
+                                <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+                            </button> 
+
+                            </li>
+
+
+                        </ul>
+                    </div>
+                    <table class="table table-hover nowrap margin-bottom-0" id="example1" width="100%">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Fecha</th>
+                            <th>Legajo</th>
+                            <th>Base Laboral</th>
+                            <th>Producto</th>                                                    
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>Id</th>
+                            <th>Fecha</th>
+                            <th>Legajo</th>
+                            <th>Base Laboral</th>
+                            <th>Producto</th>                                                                              
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                        <tr *ngFor="let transaction of transactions">
+                            <td>{{transaction.id}}</td>
+                            <td>{{transaction.date}}</td>
+                            <td *ngIf="transaction.user" >{{transaction.user.file}}</td>
+                            <td *ngIf="transaction.user" >{{transaction.user.laboral_base}}</td>
+                            <td *ngIf="transaction.product">{{transaction.product.title}}</td>
+                                                    
+                        </tr>
+                        
+                       
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <div *ngIf="inactives"  class="col-xl-12">
+            <div class="panel panel-with-borders">
+                <div class="panel-body">
+                    <div class="nav-tabs-horizontal margin-bottom-20">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="javascript: void(0);" data-toggle="tab" data-target="#h1" role="tab">USUARIOS SIN CANJES</a>
+                            </li>
+                            <li class="nav-item">                            
+                            <button (click)="exportInactivesToCsv(inactives)" type="button" class="btn btn-default" aria-label="Left Align">
+                            EXPORTAR CSV
+                                <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+                            </button> 
+                            </li>
+                           
+                        </ul>
+                    </div>
+                    <table class="table table-hover nowrap margin-bottom-0" id="example1" width="100%">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Legajo</th>
+                            <th>Base Laboral</th>
+                            <th>Email</th>                                                    
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>Id</th>
+                            <th>Legajo</th>
+                            <th>Base Laboral</th>
+                            <th>Email</th>                                                    
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                        <tr *ngFor="let usr of inactives">
+                            <td>{{usr.id}}</td>
+                            <td>{{usr.file}}</td>
+                            <td>{{usr.laboral_base}}</td>
+                            <td>{{usr.email}}</td>
+                                                    
+                        </tr>
+                                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div *ngIf="products"  class="col-xl-12">
+            <div class="panel panel-with-borders">
+                <div class="panel-body">
+                    <div class="nav-tabs-horizontal margin-bottom-20">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="javascript: void(0);" data-toggle="tab" data-target="#h1" role="tab">PRODUCTOS</a>
+                            </li>
+                            <li class="nav-item">                            
+                            <button (click)="exportProductsToCsv(products)" type="button" class="btn btn-default" aria-label="Left Align">
+                            EXPORTAR CSV
+                                <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+                            </button> 
+                            </li>
+                           
+                        </ul>
+                    </div>
+                    <table class="table table-hover nowrap margin-bottom-0" id="example1" width="100%">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Titulo</th>
+                            <th>Descripción</th>
+                            <th>Stock</th>                                                    
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>Id</th>
+                            <th>Titulo</th>
+                            <th>Descripción</th>
+                            <th>Stock</th>                                                    
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                        <tr *ngFor="let prod of products">
+                            <td>{{prod.id}}</td>
+                            <td>{{prod.title}}</td>
+                            <td>{{prod.description}}</td>
+                            <td>{{prod.stock}}</td>
+                                                    
+                        </tr>
+                                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+    
+    </section>
+         
+    
+    
+    
+</section>
+<script>
+    $(function(){
+
+        $('.select2').select2();
+        $('.select2-tags').select2({
+            tags: true,
+            tokenSeparators: [',', ' ']
+        });
+
+    })
+</script>
+</section>
+
+<div class="main-backdrop"><!-- --></div>

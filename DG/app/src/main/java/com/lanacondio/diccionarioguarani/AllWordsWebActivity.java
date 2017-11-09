@@ -6,11 +6,13 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
+import android.provider.Settings;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -44,6 +46,7 @@ import org.json.JSONException;
 
 import java.util.List;
 
+import static android.R.attr.color;
 import static android.R.attr.duration;
 
 
@@ -175,7 +178,6 @@ public class AllWordsWebActivity extends AppCompatActivity {
         });
 
         addWord.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
                 LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -192,7 +194,6 @@ public class AllWordsWebActivity extends AppCompatActivity {
                 );
                 addPopupWindow.setOutsideTouchable(true);
                 addPopupWindow.setFocusable(true);
-                addPopupWindow.setElevation(10);
 
                 if(Build.VERSION.SDK_INT>=21){
                     addPopupWindow.setElevation(5.0f);
@@ -201,7 +202,9 @@ public class AllWordsWebActivity extends AppCompatActivity {
                 ImageButton closeButton = (ImageButton) customView.findViewById(R.id.ib_close);
                 Button acceptButton = (Button) customView.findViewById(R.id.popup_button_accept);
                 acceptButton.setText("Aceptar");
-
+                TextView terr = (TextView) customView.findViewById(R.id.terror);
+                terr.setTextColor(Color.RED);
+                terr.setVisibility(View.GONE);
                 String wtoFind = getIntent().getStringExtra("wordtf");
                 EditText nword = (EditText) customView.findViewById(R.id.et_new_word);
                 nword.setText(wtoFind);
@@ -224,6 +227,7 @@ public class AllWordsWebActivity extends AppCompatActivity {
                         EditText ncontext = (EditText) customView.findViewById(R.id.et_new_context);
                         EditText ntype = (EditText) customView.findViewById(R.id.et_new_type);
 
+
                         Translation translation = new Translation();
                         translation.setWordToFind(nword.getText().toString().toLowerCase().trim());
                         translation.setTranslationResult(ntrad.getText().toString());
@@ -231,17 +235,25 @@ public class AllWordsWebActivity extends AppCompatActivity {
                         translation.setType(ntype.getText().toString());
                         int originalLanguaje = getIntent().getIntExtra("olanguage",1);
                         translation.setCountryId(originalLanguaje);
-                        translation.setDeviceId("my device");
-
-                        mTranslationDbHelper = new TranslationDbHelper(getApplicationContext());
-                        ResultPostTask task = new ResultPostTask(translation);
-                        task.execute();
-                        addPopupWindow.dismiss();
-                        int duration = Toast.LENGTH_SHORT;
-                        CharSequence text = getApplicationContext().getString(R.string.add_word_text);
-                        Toast toast = Toast.makeText(getApplicationContext(), text, duration);
-                        toast.show();
-                        AllWordsWebActivity.super.onBackPressed();
+                        String deviceId = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+                        translation.setDeviceId(deviceId);
+                        TextView terr = (TextView) customView.findViewById(R.id.terror);
+                        try {
+                            ValidateTranslation(translation);
+                            terr.setVisibility(View.GONE);
+                            mTranslationDbHelper = new TranslationDbHelper(getApplicationContext());
+                            ResultPostTask task = new ResultPostTask(translation);
+                            task.execute();
+                            addPopupWindow.dismiss();
+                            int duration = Toast.LENGTH_SHORT;
+                            CharSequence text = getApplicationContext().getString(R.string.add_word_text);
+                            Toast toast = Toast.makeText(getApplicationContext(), text, duration);
+                            toast.show();
+                            AllWordsWebActivity.super.onBackPressed();
+                        }catch (Exception ex){
+                            terr.setVisibility(View.VISIBLE);
+                            terr.setText(ex.getMessage());
+                        }
                     }
                 });
 
@@ -331,6 +343,31 @@ public class AllWordsWebActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
 
         }
+
+    }
+
+    private void ValidateTranslation(Translation translation) throws Exception {
+        if(translation.getWordToFind().equals(null)
+            ||translation.getWordToFind().equals("")
+            ||translation.getWordToFind().contains(".")
+            ||translation.getWordToFind().contains(",")){
+            throw new Exception("Palabra inválida");
+        }
+
+        if(translation.getTranslationResult().equals(null)
+                ||translation.getTranslationResult().equals("")
+                ||translation.getTranslationResult().contains(".")
+                ||translation.getTranslationResult().contains(",")){
+            throw new Exception("Traducción inválida");
+        }
+
+        if(translation.getType().equals(null)
+            ||translation.getType().equals("")
+            ||translation.getType().contains(",")
+            ||translation.getType().length() >10){
+            throw new Exception("Tipo inválido");
+        }
+
 
     }
 

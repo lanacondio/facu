@@ -1,0 +1,101 @@
+<div>
+
+<nav class="top-menu">
+ <div class="menu">
+
+        <div class="menu-user-block">
+            <div class="dropdown dropdown-avatar">
+                <a href="javascript: void(0);" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <span class="avatar" href="javascript:void(0);">
+                        <img src="../assets/common/img/temp/avatars/1.png" >
+                    </span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="" role="menu">
+                    <a class="dropdown-item" href="javascript:void(0)"><i class="dropdown-icon icmn-user"></i> Perfil</a>
+                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-header">Home</div>
+                    <a class="dropdown-item" href="javascript:void(0)"><i class="dropdown-icon icmn-circle-right"></i>Mis elecciones</a>
+                    <a class="dropdown-item" href="javascript:void(0)"><i class="dropdown-icon icmn-circle-right"></i>Mis creditos</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" (click)="logout()"><i class="dropdown-icon icmn-exit"></i> Logout</a>
+                </ul>
+            </div>
+        </div>        
+        <div class="menu-info-block">
+          <a href="#" class="left">
+              <img src="../assets/common/img/logo.png" alt="Bunge" width="80px;" />            
+          </a>
+        </div>                        
+    </div>
+  </nav>
+
+
+  <div class="home jumbotron centered">    
+
+<section class="page-content">
+<div class="page-content-inner">
+
+
+    <!--  -->
+    <section *ngIf="events" class="panel margin-top-50" style="width:100%" >        
+        <div class="panel-body">       
+            <div class="row">
+                <div class="col-lg-12">
+                    <h4>Eventos</h4>
+                    <br />
+                    <div class="margin-bottom-50">
+                        <table class="table  nowrap" id="event-table" width="100%">
+                            <thead>
+                            <tr>
+                                <th>Descripción</th>
+                                <th>Fecha inicio</th>
+                                <th>Fecha finalización</th>
+                                <th>Estado</th>                                
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th>Descripción</th>
+                                <th>Fecha inicio</th>
+                                <th>Fecha finalización</th>
+                                <th>Estado</th>
+                            </tr>
+                            </tfoot>
+                            <tbody *ngFor="let evt of events">
+                            <tr>
+                                <td> {{evt.description}}</td>
+                                <td> {{evt.start_date}}</td>
+                                <td> {{evt.end_date}}</td>
+                                <td>{{ prod.description }}</td>
+                                <td></td>                                
+                            </tr>                                        
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section *ngIf="!events" class="panel margin-top-50" style="width:100%" >
+    <p>No hay eventos</p> 
+    </section>       
+    <!-- End  -->
+
+</div>
+
+<!-- Page Scripts -->
+<script>
+    $(function(){
+
+        $('#prod-table').DataTable({
+            autoWidth: true,
+            scrollX: true,
+            fixedColumns: true
+        });
+    });
+</script>
+<!-- End Page Scripts -->
+</section>
+
+  </div>
+</div>

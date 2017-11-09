@@ -4,10 +4,15 @@ var express = require('express'),
     jwt     = require('jsonwebtoken');
     request = require('request');
     Client = require('node-rest-client').Client;
+    querystring = require('querystring');
+    http = require('http');
+    fs = require('fs');
+
 
 var app = module.exports = express.Router();
+var api_user_url = 'http://localhost/bunge/bunge_api.php';
+var api_transaction_url = 'http://localhost/bunge/transaction.php';
 
-// XXX: This should be a database of users :).
 var users = [{
   id: 1,
   username: 'gonto',
@@ -36,43 +41,36 @@ app.post('/users', function(req, res) {
   });
 });
 
+
 app.post('/sessions/create', function(req, res) {
   
   if (!req.body.username || !req.body.password) {
     return res.status(400).send("You must send the username and the password");
   }
 
-    var options = {
-      uri: 'http://162.243.200.232/bunge_api.php/user?filter=file,eq,'+ "'"+req.body.username+"'",
-      port: 80
-    };
+    var client = new Client();    
 
+    client.get(api_user_url + '/user?transform=1&filter=file,eq,'+req.body.username
+      , function (data, response) {
+    
+      var user_api = data;      
+      if(!user_api.user[0]){
+          return res.status(404).send("User not found");  
+      }
 
-    request(options, function(error, response, body){
-        if(error){
-          console.log(error);
-        } 
-        else{
-  
-          var user_api = JSON.parse(body);
+      if(!req.body.password === user_api.user[0].password){          
+        return res.status(401).send("The username or password don't match");                      
+      } 
 
-          if(!user_api.user.records[0] ){
-              return res.status(404).send("User not found");  
-          }
-
-          if(!req.body.password === user_api.user.records[0][5]){          
-              return res.status(401).send("The username or password don't match");                      
-           } 
-
-              res.status(201).send({
-              id_token: createToken(user_api.user),
-              username:  user_api.user.records[0][2],
-              id: user_api.user.records[0][0],         
-            });          
-
-        };
-  
+      //hacer un put de last login date
+      res.status(201).send({
+        id_token: createToken(user_api.user[0]),
+        username:  user_api.user[0].name,
+        id: user_api.user[0].id,         
+      });              
+      
     });
+
 });
 
 app.post('/credits', function(req, res) {
@@ -80,45 +78,41 @@ app.post('/credits', function(req, res) {
     return res.status(400).send("You must send the userid");
   }
 
-  var options = {
-      uri: 'http://162.243.200.232/bunge_api.php/credit?filter=user_id,eq,'+req.body.user_id,
-      port: 80
-  };
 
+  var client = new Client();
 
-  request(options, function(error, response, body){
-    if(error){
-      console.log(error);
-    } 
-    else{
-      var credits_api = JSON.parse(body);      
-      if(credits_api.records === null){
+  client.get(api_user_url +'/credit?transform=1&filter=user_id,eq,'+req.body.user_id
+  , function (data, response) {
+
+      var credits_api = data;      
+      
+      if(!credits_api.credit[0]){
         return res.status(401).send("The user has no credits");  
       }
 
-
       var credits_list = [];
 
-      credits_api.credit.records.forEach(function(element) {
-        credits_list.push(
-        {
-          id: element[0],
-          user_id: element[1],
-          category_id: element[2],
-          quantity: element[3],
-          event_id: element[4]
+      credits_api.credit.forEach(function(element) {        
 
-        });
+        if(element.quantity > 0){
+          credits_list.push(
+          {
+            id: element.id,
+            user_id: element.user_id,
+            category_id: element.category_id,
+            quantity: element.quantity,
+            event_id: element.event_id
+
+          });  
+        }
+        
       });
 
       res.status(201).send({
       credits: credits_list        
       });
  
-
-      };
-  
-    });
+  });
 
 });
 
@@ -130,40 +124,33 @@ app.post('/productsbycategory', function(req, res) {
     return res.status(400).send("You must send the categoryid");
   }
 
-  var options = {
-      uri: 'http://162.243.200.232/bunge_api.php/product?filter=category_id,eq,'+req.body.category_id,
-      port: 80
-  };
 
-  request(options, function(error, response, body){
-    if(error){
-      console.log(error);
-    } 
-    else{
-      var products_api = JSON.parse(body);
+  var client = new Client();
 
-      if(products_api.records ===null){
+  client.get(api_user_url +'/product?transform=1&filter=category_id,eq,'+req.body.category_id
+  , function (data, response) {
+      var products_api = data;
+
+      if(!products_api.product[0]){
         return res.status(401).send("The category has no credits");  
       }
 
       var product_list = [];
 
-      products_api.product.records.forEach(function(element) {
-        product_list.push(
-        {
-          id: element[0],
-          category_id: element[1],
-          description: element[2],      
-          photo_url: element[3],
-          stock: element[4]
+      products_api.product.forEach(function(element) {
+          product_list.push(
+          {
+            id: element.id,
+            category_id: element.category_id,
+            description: element.description,      
+            photo_url: element.photo_url,
+            stock: element.stock
+          });
         });
-      });
 
         res.status(201).send({
           products: product_list        
         });
-      };
-  
     });
 
 });
@@ -171,283 +158,75 @@ app.post('/productsbycategory', function(req, res) {
 
 app.post('/event', function(req, res) {
   
-  var options = {
-      uri: 'http://162.243.200.232/bunge_api.php/event',
-      port: 80
-  };
 
-  request(options, function(error, response, body){
-    
-    if(error){
-      console.log(error);
-    } 
-    else{
-      var events_api = JSON.parse(body);
+  var client = new Client();
 
-      if(!events_api.records){
+  client.get(api_user_url+'/event?transform=1' , function (data, response) {
+
+      var events_api = data;
+
+      if(!events_api.event[0]){
         return res.status(401).send("no events");  
       }
 
       var event_list = [];
 
-      events_api.product.records.forEach(function(element) {
-        event_list.push(
-        {
-          id: element[0],
-          start_date: element[1],
-          end_date: element[2],
-          description: element[3]
+      events_api.event.forEach(function(element) {
+          event_list.push(
+          {
+            id: element.id,
+            start_date: element.start_date,
+            end_date: element.end_date,
+            description: element.description,
+            banner_url: element.banner_url
+
+          });
         });
-      });
 
         res.status(201).send({
           events: event_list        
         });
-      };
-  
-    });
+      
+  });
 
 });
-
-
-
-
 
 
 
 
 app.post('/buyproductuser', function(req, res) {
-  if (!req.body.user_id || !req.body.product_id) {
-    return res.status(400).send("You must send the categoryid");
+
+  if (!req.body.user_id || !req.body.product_id || !req.body.credit_id) {
+    return res.status(400).send("You must send the all parameters");
   }
 
-
-  //verificar credito del usuario
-  //this.validate_subtract_credits();
-
-    var options = {
-      uri: 'http://162.243.200.232/bunge_api.php/credit?filter=user_id,eq,'+req.body.user_id,
-      port: 80
-    };
-
-    var credits_list = [];
-
-    //verifico creditos
-    request(options, function(error, response, body){
+  // We need this to build our post string
+  // Build the post string from an object
+  var request = require('request');
+  request.post({
+    headers: {'content-type' : 'application/x-www-form-urlencoded'},
+    url:     api_transaction_url+"/sale",
+    body:    "user_id="+req.body.user_id+"&product_id="+req.body.product_id+"&credit_id="+req.body.credit_id,
+  }, function(error, response, body){
+    
     if(error){
-      console.log(error);
-    } 
-    else{
-      var credits_api = JSON.parse(body);      
-      if(credits_api.records === null){
-        return res.status(401).send("The user has no credits");  
-      }      
+      return res.status(400).send(error);
+    }
 
-      credits_api.credit.records.forEach(function(element) {
-        credits_list.push(
-        {
-          id: element[0],
-          user_id: element[1],
-          category_id: element[2],
-          quantity: element[3],
-          event_id: element[4]
 
-        });
-      });
-
-      var has_credits_for_this_product = false;
-      var valid_credit = [];
-      credits_list.forEach(function(element){
-
-          if(element.category_id == req.body.category_id){
-              has_credits_for_this_product = true;
-              valid_credit.push(element);
-          }
-      });
-
-      if(!has_credits_for_this_product){
-        return res.status(401).send("The user has no credits in this category");  
+    var transaction_res = JSON.parse(body);
+      if(!transaction_res.transaction){
+        return res.status(401).send("no transactions");  
       }
 
 
-        //verifico stock de producto
-        var product_options = {
-            uri: 'http://162.243.200.232/bunge_api.php/product?filter=product_id,eq,'+req.body.product_id,
-            port: 80
-        };
+    res.status(201).send({
+      transactions: transaction_res
+    });
 
-       
-        request(product_options, function(error, response, body){
-          if(error){
-            console.log(error);
-          } 
-          else{
-            var products_api = JSON.parse(body);
-
-            if(products_api.records ===null){
-              return res.status(401).send("The category has no credits");  
-            }
-
-            var product_list = [];
-
-            products_api.product.records.forEach(function(element) {
-              product_list.push(
-              {
-                id: element[0],
-                category_id: element[1],
-                description: element[2],      
-                photo_url: element[3],
-                stock: element[4]
-              });
-            });
-
-              if(product_list[0].stock <= 0){
-                return res.status(401).send("The product has no stock");  
-              }
-                  //resto creditos
-                   var body_sub_cred = JSON.stringify({"quantity": valid_credit[0].quantity-1});   
-                   var sub_cred_options = {
-                          uri: 'http://162.243.200.232/bunge_api.php/credit/'+ valid_credit[0].id,
-                          port: 80
-                      };
-                    
-
-                  var client = new Client();
- 
-                     // set content-type header and data as json in args parameter 
-                  var body_sub_cred_args = {
-                                  data: { quantity: valid_credit[0].quantity-1 },
-                                  headers: { "Content-Type": "application/json" }
-                              };
-   
-                  client.post('http://162.243.200.232/bunge_api.php/credit/'+ valid_credit[0].id, body_sub_cred_args, function (data, response) {
-                      // parsed response body as js object 
-                      console.log(data);
-                      // raw response 
-                      console.log(response);
-                  });
-
-
-
-
-
-
-
-
-
-
-
-
-
-            };
     
-          });
+  });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      res.status(201).send({
-      result: true;
-      });
- 
-
-      };
-  
-    });
 
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  //verificar stock
-  this.validate_subtract_stock();
-  //restar credito
-  //restar stock del producto
-  //put transaction
-  this.put_transaction();
-
-        res.status(201).send({
-          products: product_list        
-        });
-      };
-  
-    });
-
-});
-
-
-//get example
-/*
-var client = new Client();
- 
-// direct way 
-client.get("http://remote.site/rest/xml/method", function (data, response) {
-    // parsed response body as js object 
-    console.log(data);
-    // raw response 
-    console.log(response);
-});
-post example
-
-
-var client = new Client();
- 
-// set content-type header and data as json in args parameter 
-var args = {
-    data: { test: "hello" },
-    headers: { "Content-Type": "application/json" }
-};
- 
-client.post("http://remote.site/rest/xml/method", args, function (data, response) {
-    // parsed response body as js object 
-    console.log(data);
-    // raw response 
-    console.log(response);
-});
-
-*/

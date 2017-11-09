@@ -9,7 +9,7 @@
     <ListView
         android:id="@+id/all_words_web_list"
         android:layout_width="match_parent"
-        android:layout_height="311dp"
+        android:layout_height="440dp"
         android:divider="@null"
         android:layout_alignParentTop="true" />
 

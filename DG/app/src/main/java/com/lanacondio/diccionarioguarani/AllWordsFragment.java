@@ -149,8 +149,10 @@ public class AllWordsFragment extends Fragment {
             else
             {
                 MatrixCursor matrixCursor = new MatrixCursor(new String[] {TranslationContract.TranslationEntry._ID, TranslationContract.TranslationEntry.TRANSLATION,
-                        TranslationContract.TranslationEntry.CONTEXT,TranslationContract.TranslationEntry.TYPE });
-                matrixCursor.addRow(new Object[] { 1, getContext().getString(R.string.not_found_word), "", "" });
+                        TranslationContract.TranslationEntry.CONTEXT,TranslationContract.TranslationEntry.TYPE,
+                        TranslationContract.TranslationEntry.GCM_ID,TranslationContract.TranslationEntry.WORD,TranslationContract.TranslationEntry.WEB_ID
+                        ,TranslationContract.TranslationEntry.LANGUAGE_ID});
+                matrixCursor.addRow(new Object[] { 1, getContext().getString(R.string.not_found_word), "", "",0,"",0,0 });
                 MergeCursor mergeCursor = new MergeCursor(new Cursor[] { matrixCursor });
                 mResultAdapter.swapCursor(mergeCursor);
             }

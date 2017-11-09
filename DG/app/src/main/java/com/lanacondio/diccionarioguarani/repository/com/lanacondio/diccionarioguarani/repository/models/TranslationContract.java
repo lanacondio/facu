@@ -20,6 +20,7 @@ public class TranslationContract {
         public static final String CONTEXT = "context";
         public static final String TYPE = "type";
         public static final String WEB_ID = "web_id";
+        public static final String GCM_ID = "gcm_id";
 
     }
 }
