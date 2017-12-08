@@ -10,46 +10,56 @@ namespace ConsoleTpMetaheuristica.Services
 {
     public class GraspService
     {
+
+        private static Random x = new Random();
+        private static Random r = new Random();
         public Matrix GetResult(Matrix matrix)
         {
             var result = matrix;
-
-            //ver condicion de parada
-            //var stopCondition = false;
             
             var maxSeeds = int.Parse(ConfigurationManager.AppSettings["MaxSeeds"]);
-            var maxIterations = int.Parse(ConfigurationManager.AppSettings["MaxIterations"]);
-
+            
+            var seeds = new  List<Matrix>();
+            var results = new List<Matrix>();
 
             for (int i = 0; i < maxSeeds; i++)
             {
-                var seed = this.MakeSeed(matrix);
-
-                if (IsBetter(seed, result)) result = seed;
-
-                for (int j = 0; j < maxIterations; j++)
-                {
-                    var localSolution = this.MakeOtherSolution(seed);
-
-                    if (IsBetter(localSolution, result)) result = localSolution;
-
-                }
-
+                var seed = this.MakeSeed(matrix);                
+                seeds.Add(seed);
+                
             }
 
+            Parallel.ForEach(seeds, (actualSeed) =>
+            {
+                var worker = new LocalSearchWorker(actualSeed);
+                worker.Run();
+                results.Add(worker.resultSeed);
+            });
+
+
+            result = this.GetBest(results);
+            return result;
+        }
+
+        public Matrix GetBest(List<Matrix> results)
+        {
+            var result = results[0];
+
+            for (int i = 1; i < results.Count; i++)
+            {
+                if (results[i].IsBetter(result)) result = results[i];
+            }
 
             return result;
         }
 
         public Matrix MakeSeed(Matrix matrix)
         {
-            var result = matrix;
-
+            var result = matrix.Clone();
             for (int i = result.Rows.Count - 1; i > 0; i--)
-            {
-                //var bestColumnIndex = GetBestColumnIndexBetween(0, i, result);
+            {               
                 var bestColumnIndex = GetBestColumnIndexBetweenWithRandomPercentage(0, i, result);
-                this.Permute(result, bestColumnIndex, i);
+                result.Permute(bestColumnIndex, i);
             }
 
             return result;
@@ -114,14 +124,14 @@ namespace ConsoleTpMetaheuristica.Services
                 }
             }
 
-            Random r = new Random();
+            
             int resultKeyIndex = r.Next(0, possibleResults.Keys.Count);
             var key = possibleResults.Keys.ToArray()[resultKeyIndex];
             var resultIndex = possibleResults[key];
             var result = 0;
             if (resultIndex.Count > 1)
             {
-                Random x = new Random();
+            
                 int xIndex = r.Next(0, resultIndex.Count);
                 result = resultIndex[xIndex];
             }
@@ -141,74 +151,6 @@ namespace ConsoleTpMetaheuristica.Services
             }
             return sum;
         }
-
-
-        public Matrix MakeOtherSolution(Matrix matrix)
-        {
-            Random r = new Random();
-            int sourceIndex = r.Next(0, matrix.Rows.Count);
-            var destIndex = r.Next(0, matrix.Rows.Count);
-            var result = this.Permute(matrix, sourceIndex, destIndex);
-            return result;
-
-        }
-
-
-        public Matrix Permute(Matrix matrix, int sourceIndex, int destIndex)
-        {
-            var result = matrix;
-            this.PermuteRows(result, sourceIndex, destIndex);
-            this.PermuteColumns(result, sourceIndex, destIndex);
-            return result;
-        }
-
-        public Matrix PermuteRows(Matrix matrix, int sourceIndex, int destIndex)
-        {
-            var originalRow = matrix.Rows[destIndex];
-            matrix.Rows[destIndex] = matrix.Rows[sourceIndex];
-            matrix.Rows[sourceIndex] = originalRow;
-            return matrix;
-        }
-
-        public Matrix PermuteColumns(Matrix matrix, int sourceIndex, int destIndex)
-        {
-            for (int i = 0; i < matrix.Rows.Count; i++)
-            {
-                var aux = matrix.Rows[i][destIndex];
-                matrix.Rows[i][destIndex] = matrix.Rows[i][sourceIndex];
-                matrix.Rows[i][sourceIndex] = aux;
-
-            }
-
-            return matrix;
-        }
-
-
-
-        public bool IsBetter(Matrix first, Matrix second)
-        {
-            var fValue = this.Evaluate(first);
-            var sValue = this.Evaluate(second);
-            return fValue > sValue;
-
-        }
-
-        public int Evaluate(Matrix matrix)
-        {
-            //ver si hay q sumar la diagonal
-            int sum = 0;
-            for (int j = 0; j < matrix.Rows.Count; j++)
-            {
-                for (int i = 0; i < matrix.Rows.Count; i++)
-                {
-                    if (i < j)
-                    {
-                        sum += matrix.Rows[i][j];
-                    }
-                }
-            }
-            return sum;
-        }
-
+        
     }
 }

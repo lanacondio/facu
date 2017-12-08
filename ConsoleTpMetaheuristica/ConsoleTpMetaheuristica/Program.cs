@@ -25,7 +25,7 @@ namespace ConsoleTpMetaheuristica
                 GraspService GraspService = new GraspService();
                 var heuristicResult = GraspService.GetResult(matrix);
                 
-                MatrixReader.Write(path, heuristicResult, GraspService.Evaluate(heuristicResult));
+                MatrixReader.Write(path, heuristicResult, heuristicResult.Evaluate());
             }
             catch (Exception ex)
             {
