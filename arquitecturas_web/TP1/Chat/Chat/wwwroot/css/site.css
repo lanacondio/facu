@@ -16,6 +16,30 @@
     line-height: 1.4;
 }
 
+#users,
+#rooms,
+#messages {
+    border: 3px solid blue;
+    list-style: none;
+    max-height: 300px;
+    overflow: scroll;
+}
+
+    #messages li {
+        font-size: 12px;
+        font-weight: bold;
+        border-bottom: 1px solid #f7f5f5;
+        padding: 10px 0px;
+        display: block;
+    }
+
+    #messages li p{
+        float:right;
+    }
+
+    #messages li span{
+        font-weight:normal;
+    }
 /* Make .svg files in the carousel display properly in older browsers */
 .carousel-inner .item img[src$=".svg"] {
     width: 100%;

@@ -6,17 +6,23 @@
 
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3">
+        <h2>Salas</h2>
+        <div id="roomDiv" class="col-md-12">
+            <ul id="rooms">
+                <li><a> @Model.Name</a></li>
+            </ul>
 
-    </div>
-    <div class="col-md-4">
+        </div>
+    </div>    
+    <div class="col-md-6">
         <h2>Chat Arquitecturas Web</h2>
         @if (Model.Messages != null)
         {
-            <ul id="messages">
+            <ul id="messages" >
                 @foreach (var message in Model.Messages)
                 {
-                    <li>@message.Sender.Name: <span>@message.Content</span> <p>@message.Date</p></li>
+                    <li>@message.Sender.Name: <span>@message.Content</span> <p>@message.Date.ToShortTimeString()</p></li>
                 }
 
             </ul>
@@ -31,18 +37,29 @@
 
 
         <form method="post" action="/Chat/PostMessage">
-            <input name="content" id="content" type="text" />
+            <input name="content" id="content" type="text" style="width: 87%;"/>
             <input type="hidden" name="roomName" id="roomName" value="@Model.Name" />
             <button class="success" value="Aceptar" type="submit">Aceptar</button>
         </form>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
+        <h2>Usuarios</h2>
+        <div id="usersDiv" class="col-md-12">
+            <ul id="users">
+                @foreach(var user in Model.Users)
+                {
+                    <li><a>@user</a></li>
 
-    </div>
+                 }
+
+            </ul>
+
+        </div>
+    </div>    
 </div>
 
 <script>
-    setInterval("reloadMessages()", 10000);
+    //setInterval("reloadMessages()", 10000);
 
          var reloadMessages = function () {
             $("#messages").empty();
@@ -56,7 +73,7 @@
                     // states contains the JSON formatted list
                     // of states passed from the controller
                     $.each(messages, function (i, message) {
-                        debugger
+                        
                         $("#messages").append('<li>' + message.sender.name + ': <span>' + message.content + '</span> <p>' + message.date + '</p></li>');
 
                     });
