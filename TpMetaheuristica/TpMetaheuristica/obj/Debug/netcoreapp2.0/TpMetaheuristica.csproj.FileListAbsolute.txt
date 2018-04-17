@@ -9,3 +9,14 @@ C:\Users\lanacondio\source\repos\TpMetaheuristica\TpMetaheuristica\obj\Debug\net
 C:\Users\lanacondio\source\repos\TpMetaheuristica\TpMetaheuristica\bin\Debug\netcoreapp2.0\TpMetaheuristica.pdb
 C:\Users\lanacondio\source\repos\TpMetaheuristica\TpMetaheuristica\obj\Debug\netcoreapp2.0\TpMetaheuristica.dll
 C:\Users\lanacondio\source\repos\TpMetaheuristica\TpMetaheuristica\obj\Debug\netcoreapp2.0\TpMetaheuristica.pdb
+C:\Users\lanacondio\Documents\facu\facu\TpMetaheuristica\TpMetaheuristica\bin\Debug\netcoreapp2.0\TpMetaheuristica.deps.json
+C:\Users\lanacondio\Documents\facu\facu\TpMetaheuristica\TpMetaheuristica\bin\Debug\netcoreapp2.0\TpMetaheuristica.runtimeconfig.json
+C:\Users\lanacondio\Documents\facu\facu\TpMetaheuristica\TpMetaheuristica\bin\Debug\netcoreapp2.0\TpMetaheuristica.runtimeconfig.dev.json
+C:\Users\lanacondio\Documents\facu\facu\TpMetaheuristica\TpMetaheuristica\bin\Debug\netcoreapp2.0\TpMetaheuristica.dll
+C:\Users\lanacondio\Documents\facu\facu\TpMetaheuristica\TpMetaheuristica\bin\Debug\netcoreapp2.0\TpMetaheuristica.pdb
+C:\Users\lanacondio\Documents\facu\facu\TpMetaheuristica\TpMetaheuristica\obj\Debug\netcoreapp2.0\TpMetaheuristica.csprojResolveAssemblyReference.cache
+C:\Users\lanacondio\Documents\facu\facu\TpMetaheuristica\TpMetaheuristica\obj\Debug\netcoreapp2.0\TpMetaheuristica.csproj.CoreCompileInputs.cache
+C:\Users\lanacondio\Documents\facu\facu\TpMetaheuristica\TpMetaheuristica\obj\Debug\netcoreapp2.0\TpMetaheuristica.AssemblyInfoInputs.cache
+C:\Users\lanacondio\Documents\facu\facu\TpMetaheuristica\TpMetaheuristica\obj\Debug\netcoreapp2.0\TpMetaheuristica.AssemblyInfo.cs
+C:\Users\lanacondio\Documents\facu\facu\TpMetaheuristica\TpMetaheuristica\obj\Debug\netcoreapp2.0\TpMetaheuristica.dll
+C:\Users\lanacondio\Documents\facu\facu\TpMetaheuristica\TpMetaheuristica\obj\Debug\netcoreapp2.0\TpMetaheuristica.pdb

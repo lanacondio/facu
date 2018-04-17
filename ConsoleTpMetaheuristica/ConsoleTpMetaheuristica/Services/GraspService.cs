@@ -10,8 +10,7 @@ namespace ConsoleTpMetaheuristica.Services
 {
     public class GraspService
     {
-
-        private static Random x = new Random();
+        
         private static Random r = new Random();
         public Matrix GetResult(Matrix matrix)
         {
@@ -118,8 +117,7 @@ namespace ConsoleTpMetaheuristica.Services
                         {
                             possibleResults.Add(columnValue, new List<int>() { i });
                         }
-                        
-                        
+                                                
                     }
                 }
             }

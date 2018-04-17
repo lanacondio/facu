@@ -1,0 +1,71 @@
+﻿
+@model Chat.DomainModel.Room
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<div class="row">
+    <div class="col-md-4">
+
+    </div>
+    <div class="col-md-4">
+        <h2>Chat Arquitecturas Web</h2>
+        @if (Model.Messages != null)
+        {
+            <ul id="messages">
+                @foreach (var message in Model.Messages)
+                {
+                    <li>@message.Sender.Name: <span>@message.Content</span> <p>@message.Date</p></li>
+                }
+
+            </ul>
+
+        }
+        else
+        {
+
+            <textarea>Sala vacia</textarea>
+        }
+        
+
+
+        <form method="post" action="/Chat/PostMessage">
+            <input name="content" id="content" type="text" />
+            <input type="hidden" name="roomName" id="roomName" value="@Model.Name" />
+            <button class="success" value="Aceptar" type="submit">Aceptar</button>
+        </form>
+    </div>
+    <div class="col-md-4">
+
+    </div>
+</div>
+
+<script>
+    setInterval("reloadMessages()", 10000);
+
+         var reloadMessages = function () {
+            $("#messages").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetMessagesByRoom", "Chat")', // we are calling json method
+                dataType: 'json',
+                data: { roomName: '@Model.Name' },
+
+                success: function (messages) {
+                    // states contains the JSON formatted list
+                    // of states passed from the controller
+                    $.each(messages, function (i, message) {
+                        debugger
+                        $("#messages").append('<li>' + message.sender.name + ': <span>' + message.content + '</span> <p>' + message.date + '</p></li>');
+
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve messages.' + ex);
+                }
+            });
+            return false;
+        };
+
+</script>

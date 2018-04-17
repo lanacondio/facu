@@ -44,12 +44,9 @@ namespace ConsoleTpMetaheuristica.Models
             int sum = 0;
             for (int j = 0; j < matrix.Rows.Count; j++)
             {
-                for (int i = 0; i < matrix.Rows.Count; i++)
+                for (int i = 0; i < j; i++)
                 {
-                    if (i < j)
-                    {
-                        sum += matrix.Rows[i][j];
-                    }
+                    sum += matrix.Rows[i][j];
                 }
             }
             return sum;

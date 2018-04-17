@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using TpMetaheuristica.Models;
@@ -14,21 +16,109 @@ namespace TpMetaheuristica.Services
 
             //ver condicion de parada
             //var stopCondition = false;
-            int i = 0;
-            while (i<matrix.Rows.Count * 100)
-            {
-                var localSolution = this.MakeOtherSolution(matrix);
+            var builder = new ConfigurationBuilder()
+              .SetBasePath(Directory.GetCurrentDirectory())
+              .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+              .AddEnvironmentVariables();
 
-                if (IsBetter(localSolution, result))
+            IConfigurationRoot configuration = builder.Build();
+
+            var maxSeeds = int.Parse(configuration.GetSection("Grasp:MaxSeeds").Value);
+            var maxIterations = int.Parse(configuration.GetSection("Grasp:MaxIterations").Value);
+
+
+            for (int i = 0; i < maxSeeds; i++)
+            {
+                var seed = this.MakeSeed(matrix, configuration);
+
+                if (IsBetter(seed, result)) result = seed;
+                
+                for (int j = 0; j < maxIterations; j++)
                 {
-                    result = localSolution;
+                    var localSolution = this.MakeOtherSolution(seed);
+
+                    if (IsBetter(localSolution, result)) result = localSolution;
+
                 }
 
-                i++;
             }
+
 
             return result;
         }
+
+        public Matrix MakeSeed(Matrix matrix, IConfigurationRoot configuration)
+        {
+            var result = matrix;
+
+            for (int i = result.Rows.Count-1; i > 0 ; i--)
+            {
+                //var bestColumnIndex = GetBestColumnIndexBetween(0, i, result);
+                var bestColumnIndex = GetBestColumnIndexBetweenWithRandomPercentage(0, i, result, configuration);
+                this.Permute(result, bestColumnIndex, i);
+            }
+
+            return result;
+
+        }
+
+        public int GetBestColumnIndexBetween(int lowerIndex, int upperIndex, Matrix matrix)
+        {
+            var resultIndex = lowerIndex;
+            var resultValue = this.EvaluateColumn(lowerIndex, upperIndex, matrix,lowerIndex);
+            for (int i = lowerIndex; i <= upperIndex; i++)
+            {
+                var columnValue = this.EvaluateColumn(lowerIndex, upperIndex, matrix,i);
+                if (columnValue > resultValue) resultIndex = i;
+            }
+            return resultIndex;
+        }
+
+        public int GetBestColumnIndexBetweenWithRandomPercentage(int lowerIndex, int upperIndex, Matrix matrix, IConfigurationRoot configuration)
+        {
+
+            var randomPercentage = int.Parse(configuration.GetSection("Grasp:RandomPercentage").Value);
+            var resultLenght = int.Parse(Math.Round((decimal)(matrix.Rows.Count * randomPercentage / 100)).ToString());
+            var possibleResults = new Dictionary<int, int>();
+            
+            var resultValue = this.EvaluateColumn(lowerIndex, upperIndex, matrix, lowerIndex);
+
+            possibleResults.Add(resultValue, lowerIndex);
+            
+            for (int i = lowerIndex; i <= upperIndex; i++)
+            {
+                var columnValue = this.EvaluateColumn(lowerIndex, upperIndex, matrix, i);
+                if (possibleResults.Count < resultLenght)
+                {
+                    possibleResults.Add(columnValue, i);
+                }
+                else{
+                    if (columnValue > possibleResults.Keys.Min())
+                    {
+                        possibleResults.Remove(possibleResults.Keys.Min());
+                        possibleResults.Add(columnValue, i);
+                    }                
+                }
+            }
+
+            Random r = new Random();
+            int resultKeyIndex = r.Next(0, possibleResults.Keys.Count);
+            var key = possibleResults.Keys.ToArray()[resultKeyIndex];
+            var resultIndex = possibleResults[key];
+
+            return resultIndex;
+        }
+
+        public int EvaluateColumn(int lowerIndex, int upperIndex, Matrix matrix,int columnIndex)
+        {
+            var sum = 0;
+            for (int i = lowerIndex; i < upperIndex; i++)
+            {
+                sum += matrix.Rows[i][columnIndex];
+            }
+            return sum;
+        }
+
 
         public Matrix MakeOtherSolution(Matrix matrix)
         {

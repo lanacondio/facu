@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MembershipApi.DomainModel\MembershipApi.DomainModel.csproj" />
+    <ProjectReference Include="..\MembershipApi.Repository\MembershipApi.Repository.csproj" />
+  </ItemGroup>
+
+</Project>
