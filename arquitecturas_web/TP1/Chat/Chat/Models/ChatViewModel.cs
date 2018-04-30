@@ -8,7 +8,8 @@ namespace Chat.Models
 {
     public class ChatViewModel
     {
-        public User user { get; set; }
+        public User User { get; set; }
+        public IList<string> Users { get; set; }
         public string RoomName { get; set; }
         public IList<Message> Messages { get; set; }
     }

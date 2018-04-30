@@ -17,15 +17,28 @@
 }
 
 #users,
-#rooms,
-#messages {
+#rooms-messages textarea,
+#rooms-messages ul {
     border: 3px solid blue;
     list-style: none;
     max-height: 300px;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    min-height: 300px;
+    margin-left: 0px;
+    padding: 0 10px 0 10px;
+    border-radius: 5px;
 }
 
-    #messages li {
+    #users li:hover{
+        cursor:pointer;
+    }
+    
+    #rooms-messages textarea {
+        width: 100%;
+    }
+
+#rooms-messages ul li {
         font-size: 12px;
         font-weight: bold;
         border-bottom: 1px solid #f7f5f5;
@@ -33,12 +46,42 @@
         display: block;
     }
 
-    #messages li p{
-        float:right;
+    #rooms-messages ul li p {
+        float: right;
     }
 
-    #messages li span{
-        font-weight:normal;
+    #rooms-messages ul li span {
+        font-weight: normal;
+    }
+
+#inputAudio,
+#inputImage {
+    padding-left: 3px;
+}
+
+#stopButton,
+#recordButton {
+    float: left;
+    margin-left: -12px;
+    margin-right: 10px;
+}
+
+    #stopButton:hover,
+    #recordButton:hover {
+        cursor: pointer;
+        cursor: pointer;
+        background-color: blue;
+        border-radius: 5px;
+        color: white;
+    } 
+    
+    #inputAudio:hover,
+    #inputImage:hover {
+        cursor: pointer;
+        cursor: pointer;
+        background-color: blue;
+        border-radius: 5px;
+        color: white;
     }
 /* Make .svg files in the carousel display properly in older browsers */
 .carousel-inner .item img[src$=".svg"] {

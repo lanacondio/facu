@@ -1,5 +1,5 @@
 ﻿
-@model Chat.DomainModel.Room
+@model Chat.Models.ChatViewModel
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -8,81 +8,472 @@
 <div class="row">
     <div class="col-md-3">
         <h2>Salas</h2>
-        <div id="roomDiv" class="col-md-12">
-            <ul id="rooms">
-                <li><a> @Model.Name</a></li>
+        <div id="roomDiv" class="col-md-12">           
+            <ul class="nav nav-pills nav-stacked" id="rooms">
+                <li class="active"><a href="#">@Model.RoomName</a></li>                
             </ul>
-
         </div>
     </div>    
-    <div class="col-md-6">
+    <div class="col-md-6" >
         <h2>Chat Arquitecturas Web</h2>
-        @if (Model.Messages != null)
-        {
-            <ul id="messages" >
-                @foreach (var message in Model.Messages)
+        <div id="rooms-messages">
+            @if (Model.Messages != null)
+            {
+                <ul id="General">
+                    @foreach (var message in Model.Messages)
                 {
-                    <li>@message.Sender.Name: <span>@message.Content</span> <p>@message.Date.ToShortTimeString()</p></li>
-                }
+                        <li>@message.Sender.Name: <span>@message.Content</span> <p>@message.Date.ToShortTimeString()</p></li>
+                    }
 
-            </ul>
+                </ul>
+            }
+            else
+            {
 
-        }
-        else
-        {
+                <ul id="General"></ul>
+            }
 
-            <textarea>Sala vacia</textarea>
-        }
+        </div>
+        <input name="content" id="content" type="text" style="width:80%" />
+        <input type="hidden" name="roomName" id="roomName" value="@Model.RoomName" />
+        <input type="hidden" name="userName" id="userName" value="@Model.User.Name" />            
         
-
-
-        <form method="post" action="/Chat/PostMessage">
-            <input name="content" id="content" type="text" style="width: 87%;"/>
-            <input type="hidden" name="roomName" id="roomName" value="@Model.Name" />
-            <button class="success" value="Aceptar" type="submit">Aceptar</button>
+        <form enctype="multipart/form-data" id="formuploadajax" style="width:10%;float:left;" >
+            <span id="inputImage">
+                <i class="glyphicon glyphicon-picture"></i>
+            </span>        
+            <span id="inputAudio">
+                <i class="glyphicon glyphicon-bullhorn"></i>
+            </span>
+            <input id="avatar" type="file" name="chatimage" class="fileInput" style="z-index: 999;line-height: 0;font-size: 50px;position: relative;height:0px;top: -2px;left: -700px;opacity: 0;filter: alpha(opacity = 0);-ms-filter: "alpha(opacity=0)";cursor: pointer;_cursor: hand;margin: 0;padding: 0;" />                        
         </form>
+        <span  id="recordButton"><i class="glyphicon glyphicon-ice-lolly"></i></span>
+        <span id="stopButton" style="display:none"><i class="glyphicon glyphicon-remove"></i></span>
+        
+            
     </div>
+    
     <div class="col-md-3">
         <h2>Usuarios</h2>
         <div id="usersDiv" class="col-md-12">
             <ul id="users">
                 @foreach(var user in Model.Users)
                 {
-                    <li><a>@user</a></li>
-
-                 }
+                    <li><a class="user-a"><i class="glyphicon glyphicon-comment"></i>  @user</a></li>
+                }
 
             </ul>
-
         </div>
     </div>    
 </div>
 
-<script>
-    setInterval("reloadMessages()", 10000);
 
-         var reloadMessages = function () {
-            $("#messages").empty();
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("GetMessagesByRoom", "Chat")', // we are calling json method
-                dataType: 'json',
-                data: { roomName: '@Model.Name' },
 
-                success: function (messages) {
-                    // states contains the JSON formatted list
-                    // of states passed from the controller
-                    $.each(messages, function (i, message) {
-                        
-                        $("#messages").append('<li>' + message.sender.name + ': <span>' + message.content + '</span> <p>' + message.date + '</p></li>');
 
-                    });
-                },
-                error: function (ex) {
-                    alert('Failed to retrieve messages.' + ex);
-                }
+@section Scripts {
+    <script>
+
+        var audio_context;
+        var recorder;
+
+        $("#roomDiv").find('li').each(function () {
+            $(this).click(function () {
+
+                displayRoom($(this));
             });
-            return false;
+
+        });
+
+        $(function () {
+            var usrName = '@Model.User.Name';
+
+        var protocol = location.protocol === "https:" ? "wss:" : "ws:";
+        var wsUri = protocol + "//" + window.location.host;
+        var socket = new WebSocket(wsUri);
+        socket.onopen = e => {
+            console.log("socket opened", e);
         };
 
+        socket.onclose = function (e) {
+            console.log("socket closed", e);
+        };
+
+
+        socket.onmessage = function (e) {
+            debugger
+            var msgobj = JSON.parse(e.data);
+            console.log(msgobj);
+            var name = $('#userName').val();
+
+            if ((msgobj.type == "Create") && (msgobj.content == name)) {
+                    var message = msgobj;
+                    var newRoomName = message.roomName;
+
+                    createRoom(newRoomName);
+
+            }
+            else {
+                    if (msgobj.type == "Message") {
+                        //checkeo si es de alguna sala a la que pertenezco y lo agrego
+                        if ($('#' + msgobj.roomName).html() != undefined) {
+                            $('#' + msgobj.roomName).append('<li>' + msgobj.content + '</li>');
+                        }
+                        $('#' + msgobj.roomName).animate({ scrollTop: $('#' + msgobj.roomName).prop("scrollHeight") }, 1000);
+                    }
+                    if (msgobj.type == "Image") {
+                        //checkeo si es de alguna sala a la que pertenezco y lo agrego
+                        if ($('#' + msgobj.roomName).html() != undefined) {
+                            var datetime = new Date();
+                            var hours = datetime.getHours(); //returns 0-23
+                            var minutes = datetime.getMinutes(); //returns 0-59
+                            var seconds = datetime.getSeconds(); //returns 0-59
+
+                            if (minutes < 10)
+                                minutesString = 0 + minutes + "";
+                            else
+                                minutesString = minutes;
+
+                            var sender = msgobj.userName;
+                            var mcontent = sender + ': <span>  <img src="' + msgobj.content + '" style="width:250px" /> </span> <p>' + hours + ':' + minutes + ':' + seconds;
+
+
+                            $('#' + msgobj.roomName).append('<li>' + mcontent + ' </li>');
+                        }
+                        $('#' + msgobj.roomName).animate({ scrollTop: $('#' + msgobj.roomName).prop("scrollHeight") }, 1000);
+                    }
+                     if (msgobj.type == "Audio") {
+                    //checkeo si es de alguna sala a la que pertenezco y lo agrego
+                     if ($('#' + msgobj.roomName).html() != undefined) {
+                        var datetime = new Date();
+                        var hours = datetime.getHours(); //returns 0-23
+                        var minutes = datetime.getMinutes(); //returns 0-59
+                        var seconds = datetime.getSeconds(); //returns 0-59
+
+                        if (minutes < 10)
+                            minutesString = 0 + minutes + "";
+                        else
+                            minutesString = minutes;
+
+                        var sender = msgobj.userName;
+                        var mcontent = sender + ': <span><audio controls><source src="' + msgobj.content + '" type="audio/ogg"><source src="' + msgobj.content + '" type="audio/mpeg">Your browser does not support the audio element.</audio></span> <p>' + hours + ':' + minutes + ':' + seconds;
+
+
+                        $('#' + msgobj.roomName).append('<li>' + mcontent + ' </li>');
+                       }
+                       $('#' + msgobj.roomName).animate({ scrollTop: $('#' + msgobj.roomName).prop("scrollHeight") }, 1000);
+                    }
+
+                     if (msgobj.type == "Logout") {
+                         var usersList = $("#users").find('li');
+                         usersList.each(function () {
+                             debugger;
+                             var liUserName = $(this).find('a').html().replace('<i class="glyphicon glyphicon-comment"></i>', '').trim();
+                             if (msgobj.userName == liUserName) {
+                                 $(this).remove();
+                             }
+                         });
+
+                     }
+            }
+
+
+        };
+
+        socket.onerror = function (e) {
+            console.error(e.data);
+        };
+
+        $("#avatar").on("change", function () { uploadFile("Image"); });
+        $("#sound").on("change", function () { uploadFile("Audio"); });
+
+        function uploadFile(msgtype) {
+            debugger
+            var usrName = '@Model.User.Name';
+            var formData = new FormData(document.getElementById("formuploadajax"));
+            var fileName = $("#formuploadajax").find('input').val();
+            var extension = fileName.substr((fileName.lastIndexOf('.') + 1));
+            switch (extension) {
+                case 'jpg':
+                case 'png':
+                case 'gif':
+                    msgtype = "Image";
+                    break;
+                case 'zip':
+                case 'rar':
+                    alert('not supported');
+                    return false;
+                    break;
+                case 'pdf':
+                    alert('not supported');
+                    return false;
+                    break;
+                case 'mp3':
+                case 'mp4':
+                case 'avi':
+                case 'wav':
+                    msgtype = "Audio";
+                    break;
+                default:
+                    break;
+            }
+
+
+            //formData.append(f.attr("name"), $(this)[0].files[0]);
+            $.ajax({
+                url: "/Multimedia/Upload",
+                type: "post",
+                dataType: "html",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    debugger;
+                    console.log("done");
+                    console.log(data);
+                },
+                error: function (data) {
+                    debugger;
+                    console.log("error");
+                    console.log(data);
+
+                }
+            }).done(function (res) {
+
+                debugger;
+                var baseUrl = document.location.origin;
+                var msgobj = JSON.parse(res);
+                console.log(msgobj);
+                var toRoom = $(".active").find('a').html();
+                var message = '{ "type": "' + msgtype + '", "content":"' + baseUrl + msgobj.relativePath + '", "userName":"' + usrName + '","roomName":"' + toRoom + '"}';
+                //ENVIO AL SOCKET
+                socket.send(message);
+
+            });
+
+        }
+
+        function startUserMedia(stream) {
+            debugger;
+            var input = audio_context.createMediaStreamSource(stream);
+            //__log('Media stream created.');
+            // Uncomment if you want the audio to feedback directly
+            //input.connect(audio_context.destination);
+            //__log('Input connected to audio context destination.');
+
+            recorder = new Recorder(input);
+            //__log('Recorder initialised.');
+        }
+        function startRecording(button) {
+            recorder && recorder.record();
+            button.disabled = true;
+            button.nextElementSibling.disabled = false;
+            //__log('Recording...');
+        }
+        function stopRecording(button) {
+            recorder && recorder.stop();
+            button.disabled = true;
+            button.previousElementSibling.disabled = false;
+            //__log('Stopped recording.');
+
+            // create WAV download link using audio data blob
+            createDownloadLink();
+
+            recorder.clear();
+        }
+        function createDownloadLink() {
+            recorder && recorder.exportWAV(function (blob) {
+                debugger;
+                var url = URL.createObjectURL(blob);
+
+                var usrName = '@Model.User.Name';
+                var baseUrl = document.location.origin;
+                var toRoom = $(".active").find('a').html();
+                var message = '{ "type": "Audio", "content":"' + url + '", "userName":"' + usrName + '","roomName":"' + toRoom + '"}';
+                //ENVIO AL SOCKET
+                socket.send(message);
+            });
+        }
+
+        $(document).ready(function () {
+            try {
+                // webkit shim
+                debugger;
+                window.AudioContext = window.AudioContext || window.webkitAudioContext;
+                navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
+                window.URL = window.URL || window.webkitURL;
+
+                audio_context = new AudioContext;
+                var input = audio_context.createMediaStreamSource(stream);
+                recorder = new Recorder(input);
+                //__log('Audio context set up.');
+                //__log('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
+            } catch (e) {
+                //alert('No web audio support in this browser!');
+            }
+
+            navigator.getUserMedia({ audio: true }, startUserMedia, function (e) {
+                //__log('No live audio input: ' + e);
+            });
+
+        });
+
+
+
+
+
+        $('#content').keypress(function (e) {
+            if (e.which != 13) {
+                return;
+            }
+
+            var datetime = new Date();
+            var hours = datetime.getHours(); //returns 0-23
+            var minutes = datetime.getMinutes(); //returns 0-59
+            var seconds = datetime.getSeconds(); //returns 0-59
+
+            if (minutes < 10)
+                minutesString = 0 + minutes + "";
+            else
+                minutesString = minutes;
+
+            e.preventDefault();
+
+            var toRoom = $(".active").find('a').html();
+
+            var mcontent =  usrName + ": <span>" + $('#content').val() + '</span> <p>' + hours + ":" + minutes + ":" + seconds;
+
+            var message =  '{ "type": "Message", "content":"'+mcontent+'", "userName":"'+usrName+'","roomName":"'+toRoom+'"}';
+            //ENVIO AL SOCKET
+            socket.send(message);
+
+            $('#content').val('');
+        });
+
+        $('.user-a').click(function (e) {
+
+            debugger;
+            e.preventDefault();
+
+            var name = $('#userName').val();
+            var otherUserName = $(this).html().replace('<i class="glyphicon glyphicon-comment"></i>', '').trim();
+
+            if (otherUserName != name) {
+
+                var roomName = otherUserName + "-" + name;
+
+                var message = '{ "type":"Create","content":"' + otherUserName + '","userName":"' + name + '","roomName":"' + roomName + '"}';
+
+                socket.send(message);
+
+                createRoom(roomName);
+            }
+
+        });
+
+        $("#recordButton").click(function () {
+            startRecording(this);
+            $(this).hide();
+            $("#stopButton").show();
+        });
+
+        $("#stopButton").click(function () {
+            stopRecording(this);
+            $(this).hide();
+            $("#recordButton").show();
+        });
+
+        $('#inputImage').click(function () {
+            $('#avatar').click();
+        });
+
+        $('#inputAudio').click(function () {
+            $('#avatar').click();
+        });
+
+        $('#logoutBtn').click(function () {
+            logout();
+        });
+
+         function logout() {
+             debugger;
+             var token = '@Model.User.Token';
+            var usrName = '@Model.User.Name';
+            $.ajax({
+                url: "/Home/LogOutAsync?token=" + token,
+                type: "get",
+                dataType: "html",
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    console.log("done");
+                    console.log(data);
+                },
+                error: function (data) {
+                    console.log("error");
+                    console.log(data);
+
+                }
+            }).done(function () {
+                debugger;
+
+           
+                var message = '{ "type": "Logout", "content":"-", "userName":"' + usrName + '","roomName":"-"}';
+                //ENVIO AL SOCKET
+                socket.send(message);
+                window.location.replace(document.location.origin);
+            });
+
+        }
+
+
+        });
+
+        function createRoom(roomName) {
+
+            $('#rooms').find('li.active').removeClass('active');
+            $('#rooms').append("<li class='active'><a href='#'>" + roomName + "</a></li>");
+
+            $('#rooms').find('li.active').click(function () {
+                displayRoom($(this));
+            });
+
+            //mensaje de nueva sala
+
+            $("#rooms-messages").find('ul').each(function () {
+                $(this).hide();
+            })
+
+            $("#rooms-messages").append("<ul id='" + roomName + "'></ul>");
+
+            $('#messages').html('');
+        }
+
+        function displayRoom(li) {
+
+            $('#rooms').find('li.active').removeClass('active');
+            $(li).addClass('active');
+
+            var name = $(li).find('a').html();
+
+            $("#rooms-messages").find('ul').each(function () {
+                $(this).hide();
+            })
+
+            $("#" + name).show();
+        }
+
+
+
+
+
+    </script>
+<script>
+
+      
+
 </script>
+
+}
+

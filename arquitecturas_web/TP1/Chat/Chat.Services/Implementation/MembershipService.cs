@@ -20,7 +20,29 @@ namespace Chat.Services.Implementation
             this.RoomRepository = roomRepository;
         }
 
-        public User Login(string name)
+        public User Login(string name, string password)
+        {
+            var user = this.UserRepository.GetAll().Where(x => x.Name == name).FirstOrDefault();
+
+            if(user.Password == password)
+            {
+                var generalRoom = this.RoomRepository.GetAll().Where(x => x.Name == "General").FirstOrDefault();
+
+                generalRoom.Users.Add(user.Name);
+
+                this.RoomRepository.Update(generalRoom);
+
+                return user;
+
+            }
+            else
+            {
+                throw new Exception("incorrect user or password");
+            }
+            
+        }
+
+        public User Create(string name, string password, int age, string city)
         {
             var users = this.UserRepository.GetAll();
 
@@ -29,28 +51,24 @@ namespace Chat.Services.Implementation
             var user = new User()
             {
                 Name = name,
+                Password = password,
+                Age = age,
+                City = city,
                 Token = Guid.NewGuid().ToString()
             };
 
-            this.UserRepository.Insert(user);
-
-            var generalRoom = this.RoomRepository.GetAll().Where(x => x.Name == "General").FirstOrDefault();
-
-            generalRoom.Users.Add(user.Name);
-
-            this.RoomRepository.Update(generalRoom);
+            this.UserRepository.Insert(user);            
 
             return user;
 
         }
 
-        public void LogOut(Guid id, string token)
+
+        public void LogOut(string token)
         {
-            var user = this.UserRepository.GetById(id);
+            var user = this.UserRepository.GetByToken(token);
 
             if (user.Token != token) { throw new Exception("invalid token"); }
-
-            this.UserRepository.Delete(id);
 
             var rooms = this.RoomRepository.GetAll().Where(x => x.Users.Contains(user.Name) && x.Name != "General").ToList();
 

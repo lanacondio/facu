@@ -24,6 +24,12 @@ namespace Chat.Repository.Implementations
             return user;
         }
 
+        public User GetByToken(string token)
+        {
+            var user = this.Context.Database.GetCollection<User>("user").Find(m => m.Token == token).FirstOrDefault();
+            return user;
+        }
+
         public IList<User> GetAll()
         {
             var users = this.Context.Database.GetCollection<User>("user").Find(m => true).ToList();

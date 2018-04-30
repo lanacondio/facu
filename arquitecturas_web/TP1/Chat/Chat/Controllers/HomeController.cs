@@ -44,12 +44,12 @@ namespace Chat.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(string nick)
+        public IActionResult Login(string nick, string password)
         {
             try
             {
-                var user = this.MembershipService.Login(nick);
-
+                var user = this.MembershipService.Login(nick, password);
+                
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, user.Name),
@@ -81,6 +81,34 @@ namespace Chat.Controllers
             
         }
 
+        [HttpPost]
+        public IActionResult Create(CreateUserViewModel userModel)
+        {
+            try
+            {
+                var user = this.MembershipService.Create(userModel.Name, userModel.Password, userModel.Age, userModel.City);
+                
+                return View("CreateSuccess");
+            }
+            catch (Exception ex)
+            {
+                return Error();
+            }
+
+
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> LogOutAsync(string token)
+        {
+            this.MembershipService.LogOut(token);
+
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            return Redirect("/Home/Index");
+
+        }
 
     }
 }

@@ -1,21 +1,101 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
+@model Chat.Models.CreateUserViewModel
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-2">
     
     </div>
-    <div class="col-md-4">
-        <h2>Chat Arquitecturas Web</h2>
+    <div class="col-md-8">
+        <h2 style="text-align: center;">Chat Arquitecturas Web</h2>
+        @using (Html.BeginForm("Create", "Home", FormMethod.Post, htmlAttributes: new { @class = "form-horizontal form-bordered", enctype = "multipart/form-data" }))
+        {
 
-        <form method="post" action="Home/Login">
-            <input name="nick" id="nick" type="text"/>
-            <button class="success" value="Aceptar" type="submit">Aceptar</button>
-        </form>
-    </div>
-    <div class="col-md-4">
+            <div class="form-group row">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class='col-md-3 '>
+                    @Html.EditorFor(model => model.Name, new
+                           {
+                               htmlAttributes = new
+                               {
+                                   @class = "form-control",
+                                   @placeholder = "Nick",
+                                   @required = "required",
+                                   @oninvalid = "this.setCustomValidity('Ingrese nombre')",
+                                   @oninput = "setCustomValidity('')"
+                               }
+                           })
+                    <span class="help-block">Coloque el nickname</span>
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class='col-md-3 '>
+                    @Html.EditorFor(model => model.Password, new
+               {
+                   htmlAttributes = new
+                   {
+                       @class = "form-control",
+                       @placeholder = "Password",
+                       @required = "required",
+                       @oninvalid = "this.setCustomValidity('Ingrese contraseña')",
+                       @oninput = "setCustomValidity('')"
+                   }
+               })
+                    <span class="help-block">Coloque la contraseña</span>
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+
+            <div class="form-group row">
+                @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class='col-md-3 '>
+                    @Html.EditorFor(model => model.Age, new
+               {
+                   htmlAttributes = new
+                   {
+                       @class = "form-control",
+                       @placeholder = "Edad",
+                       @required = "required",
+                       @oninvalid = "this.setCustomValidity('Ingrese edad')",
+                       @type="number",
+                       @oninput = "setCustomValidity('')"
+                   }
+               })
+                    <span class="help-block">Coloque la edad</span>
+                    @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class='col-md-3 '>
+                    @Html.EditorFor(model => model.City, new
+               {
+                   htmlAttributes = new
+                   {
+                       @class = "form-control",
+                       @placeholder = "Ciudad",
+                       @required = "required",
+                       @oninvalid = "this.setCustomValidity('Ingrese ciudad')",
+                       @oninput = "setCustomValidity('')"
+                   }
+               })
+                    <span class="help-block">Coloque la ciudad</span>
+                    @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <button class="btn btn-default" value="Aceptar" style="float: right;" type="submit">Crear</button>
+            </div>
+
+                
+                }
+
+
+
+            </div>
+    <div class="col-md-2">
         
     </div>    
 </div>

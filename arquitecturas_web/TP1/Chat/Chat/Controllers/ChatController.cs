@@ -20,7 +20,17 @@ namespace Chat.Controllers
         {
 
             var room = this.RoomService.GetRoom("General");
-            return View(room);
+            var userName = HttpContext.User.Identity.Name;
+            var user = this.MembershipService.GetUserByName(userName);
+            var chatViewModel = new ChatViewModel()
+            {
+                Messages = room.Messages,
+                RoomName = room.Name,
+                User = user,
+                Users = room.Users
+            };
+            
+            return View(chatViewModel);
         }
 
 
@@ -33,9 +43,37 @@ namespace Chat.Controllers
 
             var room = this.RoomService.GetRoom(model.roomName);
 
-            return View("Index",room);
+            var chatViewModel = new ChatViewModel()
+            {
+                Messages = room.Messages,
+                RoomName = room.Name,
+                User = user,
+                Users = room.Users
+            };
+
+            return View("Index", chatViewModel);
 
         }
+
+        public IActionResult CreateRoom(CreateRoomViewModel model)
+        {
+            var userName = HttpContext.User.Identity.Name;
+            var user = this.MembershipService.GetUserByName(userName);
+
+            var nroom = this.RoomService.CreateRoom(model.SenderName, model.ReceiverName);                
+
+            var chatViewModel = new ChatViewModel()
+            {
+                Messages = nroom.Messages,
+                RoomName = nroom.Name,
+                User = user,
+                Users = nroom.Users
+            };
+
+            return View("Index", chatViewModel);
+
+        }
+
 
         public JsonResult GetMessagesByRoom(string roomName)
         {
@@ -43,6 +81,11 @@ namespace Chat.Controllers
             return Json(room.Messages);
         }
 
+        public JsonResult GetUsersByRoom(string roomName)
+        {
+            var room = this.RoomService.GetRoom("General");
+            return Json(room.Users);
+        }
 
     }
 }

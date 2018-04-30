@@ -38,10 +38,7 @@ namespace Chat.Repository.Implementations
         }
 
         public void Update(Room room)
-        {
-            //this.Context.Database.GetCollection<Room>("room").DeleteOne(x => x.Id == room.Id);
-            //this.Context.Database.GetCollection<Room>("room").InsertOne(room);
-
+        {         
             this.Context.Database.GetCollection<Room>("room").ReplaceOne(x => x.Id == room.Id, room);
         }
     }

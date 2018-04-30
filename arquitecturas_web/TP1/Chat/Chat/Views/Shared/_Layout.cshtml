@@ -29,11 +29,23 @@
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Chat</a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                </ul>
+                @{
+                    if (this.User != null && this.User.Identity.IsAuthenticated)
+                    {
+                        @*<button style="float: right;margin-top: 5px;" class="btn btn-default" value="Aceptar" onclick="location.href='/Home/LogOutAsync?token=@this.User.Claims.Where(x => x.Type=="Token").FirstOrDefault().Value'" type="submit">Logout</button>*@
+
+                        <button style="float: right;margin-top: 5px;" class="btn btn-default" value="Aceptar" id="logoutBtn" type="submit">Logout</button>
+                    }
+                    else
+                    {
+                        <form method="post" action="/Home/Login" style="float:right;">
+                            <input placeholder="nick" name="nick" id="nick" type="text" style="margin-top:11px;height: 34px;padding: 6px 12px;font-size: 14px;line-height: 1.42857143;color: #555;background-color: #fff;background-image: none;border: 1px solid #ccc;border-radius: 4px;" />
+                            <input placeholder="contraseña" name="password" id="password" type="text" style="height: 34px;padding: 6px 12px;font-size: 14px;line-height: 1.42857143;color: #555;background-color: #fff;border: 1px solid #ccc;border-radius: 4px;" />
+                            <button class="btn btn-default" value="Aceptar" type="submit">Login</button>
+                        </form>
+                    }
+                }
+                
             </div>
         </div>
     </nav>

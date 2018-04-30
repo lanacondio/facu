@@ -16,5 +16,7 @@ namespace Chat.Repository.Contracts
         void Update(User entity);
 
         void Delete(Guid id);
+
+        User GetByToken(string token);
     }
 }

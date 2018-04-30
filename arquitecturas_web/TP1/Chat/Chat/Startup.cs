@@ -13,6 +13,8 @@ using Chat.Services.Implementation;
 using Chat.Repository;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
+using Chat.Middlewares;
+using Microsoft.AspNetCore.Http.Features;
 
 namespace Chat
 {
@@ -43,6 +45,12 @@ namespace Chat
                 options.LoginPath = new PathString("/Home/Index");                
             });
 
+            services.Configure<FormOptions>(x =>
+            {
+                x.ValueLengthLimit = int.MaxValue;
+                x.MultipartBodyLengthLimit = int.MaxValue; // In case of multipart
+            });
+
             MongoDBContext.ConnectionString = Configuration.GetSection("MongoConnection:ConnectionString").Value;
             MongoDBContext.DatabaseName = Configuration.GetSection("MongoConnection:DatabaseName").Value;
             MongoDBContext.IsSSL = Convert.ToBoolean(Configuration.GetSection("MongoConnection:IsSSL").Value);
@@ -65,6 +73,9 @@ namespace Chat
             app.UseStaticFiles();
 
             app.UseAuthentication();
+
+            app.UseWebSockets();
+            app.UseMiddleware<ChatWebSocketMiddleware>();
 
             app.UseMvc(routes =>
             {

@@ -10,7 +10,9 @@ namespace Chat.Repository.Contracts
         IList<Room> GetAll();
 
         Room GetById(Guid id);
-        
+
+        Guid Insert(Room entity);
+
         void Update(Room entity);
 
         void Delete(Guid id);

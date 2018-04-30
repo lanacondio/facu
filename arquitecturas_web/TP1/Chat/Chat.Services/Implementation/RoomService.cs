@@ -11,6 +11,7 @@ namespace Chat.Services.Implementation
     public class RoomService : IRoomService
     {
         public virtual IRoomRepository RoomRepository {get;set;}
+        public virtual IMembershipService UserService { get; set; }
         public RoomService(IRoomRepository roomRepository)
         {
             this.RoomRepository = roomRepository;
@@ -51,6 +52,22 @@ namespace Chat.Services.Implementation
             return room;
         }
 
-        
+        public Room CreateRoom(string srcUser, string dstUser)
+        {
+            var srcUserObj = this.UserService.GetUserByName(srcUser);
+            var dstUserObj = this.UserService.GetUserByName(dstUser);
+
+            var room = new Room()
+            {
+                Messages = new List<Message>(),
+                Name = srcUser+"-"+dstUser,
+                Subject = srcUser + "-" + dstUser,
+                Users = new List<string>() {srcUser, dstUser }
+            };
+
+            room.Id = this.RoomRepository.Insert(room);
+            return room;
+            
+        }
     }
 }

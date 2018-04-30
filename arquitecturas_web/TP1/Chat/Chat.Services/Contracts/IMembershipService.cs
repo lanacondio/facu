@@ -7,10 +7,11 @@ namespace Chat.Services.Contracts
 {
     public interface IMembershipService
     {
-        User Login(string name);
+        User Login(string name, string password);
 
-        void LogOut(Guid id, string token);
+        void LogOut(string token);
 
         User GetUserByName(string userName);
+        User Create(string name, string password, int age, string city);
     }
 }
