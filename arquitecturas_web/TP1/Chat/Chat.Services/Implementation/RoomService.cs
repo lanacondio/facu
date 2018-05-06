@@ -12,9 +12,10 @@ namespace Chat.Services.Implementation
     {
         public virtual IRoomRepository RoomRepository {get;set;}
         public virtual IMembershipService UserService { get; set; }
-        public RoomService(IRoomRepository roomRepository)
+        public RoomService(IRoomRepository roomRepository, IMembershipService memService)
         {
             this.RoomRepository = roomRepository;
+            this.UserService = memService;
         }
         public void AddMessage(User user, string content, string roomName)
         {
@@ -52,22 +53,25 @@ namespace Chat.Services.Implementation
             return room;
         }
 
-        public Room CreateRoom(string srcUser, string dstUser)
+        public Room CreateRoom(string name, string subject, string userName)
         {
-            var srcUserObj = this.UserService.GetUserByName(srcUser);
-            var dstUserObj = this.UserService.GetUserByName(dstUser);
-
+            var userObj = this.UserService.GetUserByName(userName);
             var room = new Room()
             {
                 Messages = new List<Message>(),
-                Name = srcUser+"-"+dstUser,
-                Subject = srcUser + "-" + dstUser,
-                Users = new List<string>() {srcUser, dstUser }
+                Name = name,
+                Subject = subject,
+                Users = new List<User>() { userObj}
             };
 
             room.Id = this.RoomRepository.Insert(room);
             return room;
             
+        }
+
+        public IList<Room> GetAll()
+        {
+            return this.RoomRepository.GetAll();
         }
     }
 }

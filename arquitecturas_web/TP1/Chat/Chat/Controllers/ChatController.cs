@@ -22,12 +22,15 @@ namespace Chat.Controllers
             var room = this.RoomService.GetRoom("General");
             var userName = HttpContext.User.Identity.Name;
             var user = this.MembershipService.GetUserByName(userName);
+            var rooms = this.RoomService.GetAll();
+
             var chatViewModel = new ChatViewModel()
             {
                 Messages = room.Messages,
                 RoomName = room.Name,
                 User = user,
-                Users = room.Users
+                Users = room.Users,
+                Rooms = rooms
             };
             
             return View(chatViewModel);
@@ -55,23 +58,11 @@ namespace Chat.Controllers
 
         }
 
-        public IActionResult CreateRoom(CreateRoomViewModel model)
+        public IActionResult CreateRoom(string name, string subject)
         {
             var userName = HttpContext.User.Identity.Name;
-            var user = this.MembershipService.GetUserByName(userName);
-
-            var nroom = this.RoomService.CreateRoom(model.SenderName, model.ReceiverName);                
-
-            var chatViewModel = new ChatViewModel()
-            {
-                Messages = nroom.Messages,
-                RoomName = nroom.Name,
-                User = user,
-                Users = nroom.Users
-            };
-
-            return View("Index", chatViewModel);
-
+            var nroom = this.RoomService.CreateRoom(name, subject, userName);
+            return Ok();
         }
 
 
@@ -85,6 +76,12 @@ namespace Chat.Controllers
         {
             var room = this.RoomService.GetRoom("General");
             return Json(room.Users);
+        }
+
+        public JsonResult GetRoom(string name)
+        {
+            var room = this.RoomService.GetRoom(name);
+            return Json(room);
         }
 
     }

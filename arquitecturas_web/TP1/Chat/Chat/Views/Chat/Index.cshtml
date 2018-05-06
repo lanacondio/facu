@@ -7,13 +7,21 @@
 
 <div class="row">
     <div class="col-md-3">
-        <h2>Salas</h2>
-        <div id="roomDiv" class="col-md-12">           
-            <ul class="nav nav-pills nav-stacked" id="rooms">
-                <li class="active"><a href="#">@Model.RoomName</a></li>                
-            </ul>
+        <div class="col-md-6">
+            <h2>Salas</h2>
         </div>
-    </div>    
+        <div class="col-md-3">
+            <button class="btn btn-success" data-toggle="modal" data-target="#allRoomsModal" style="margin-top: 18px;margin-left: -32px;" >More</button>
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-success" data-toggle="modal" data-target="#createRoomsModal" style="margin-top: 18px;margin-left: -32px;">Create</button>
+        </div>
+            <div id="roomDiv" class="col-md-12">
+                <ul class="nav nav-pills nav-stacked" id="rooms">
+                    <li class="active"><a href="#">@Model.RoomName</a></li>
+                </ul>
+            </div>
+        </div>    
     <div class="col-md-6" >
         <h2>Chat Arquitecturas Web</h2>
         <div id="rooms-messages">
@@ -34,19 +42,20 @@
             }
 
         </div>
-        <input name="content" id="content" type="text" style="width:80%" />
+        <input name="content" id="content" type="text" style="width:80%;margin-top: 24px;" />
         <input type="hidden" name="roomName" id="roomName" value="@Model.RoomName" />
         <input type="hidden" name="userName" id="userName" value="@Model.User.Name" />            
         
-        <form enctype="multipart/form-data" id="formuploadajax" style="width:10%;float:left;" >
+        <form enctype="multipart/form-data" id="formuploadajax" style="width:10%;float:left;margin-top: 26px;" >
             <span id="inputImage">
                 <i class="glyphicon glyphicon-picture"></i>
             </span>        
             <span id="inputAudio">
                 <i class="glyphicon glyphicon-bullhorn"></i>
             </span>
-            <input id="avatar" type="file" name="chatimage" class="fileInput" style="z-index: 999;line-height: 0;font-size: 50px;position: relative;height:0px;top: -2px;left: -700px;opacity: 0;filter: alpha(opacity = 0);-ms-filter: "alpha(opacity=0)";cursor: pointer;_cursor: hand;margin: 0;padding: 0;" />                        
+            <input id="avatar" type="file" name="chatimage" class="fileInput" style="z-index: 999;line-height: 0;font-size: 50px;position: relative;height:0px;top: -2px;left: -700px;opacity: 0;filter: alpha(opacity = 0);" />                        
         </form>
+        <input type="hidden" id="recordInput" value="" />
         <span  id="recordButton"><i class="glyphicon glyphicon-ice-lolly"></i></span>
         <span id="stopButton" style="display:none"><i class="glyphicon glyphicon-remove"></i></span>
         
@@ -54,21 +63,82 @@
     </div>
     
     <div class="col-md-3">
-        <h2>Usuarios</h2>
-        <div id="usersDiv" class="col-md-12">
-            <ul id="users">
-                @foreach(var user in Model.Users)
-                {
-                    <li><a class="user-a"><i class="glyphicon glyphicon-comment"></i>  @user</a></li>
-                }
-
-            </ul>
+        <div class="col-md-6">
+            <h2>Usuarios</h2>
         </div>
-    </div>    
+        <div class="col-md-3">
+            <button style="margin-top:23px" id="sort-age" class="btn btn-default btn-sm" onclick="sortByAge()">
+                <span class="glyphicon glyphicon-sort"></span>Age
+            </button>
+        </div>
+        <div class="col-md-3">
+            <button style="margin-top:23px" id="sort-city" class="btn btn-default btn-sm" onclick="sortByCity()"><span class="glyphicon glyphicon-sort"></span>City</button>
+        </div>
+            
+
+            
+            <div id="usersDiv" class=" col-md-12">
+                <ul id="General-users" class="list users">
+                    @foreach (var user in Model.Users)
+                    {
+                        <li data-city="@user.City" data-age="@user.Age"><a class="user-a" data-user-name="@user.Name"><i class="glyphicon glyphicon-comment"></i>  @user.Name <p class="age">- @user.Age</p> <p class="city">- @user.City</p> </a></li>
+                    }
+
+                </ul>
+                <ul class="pagination"></ul>
+            </div>
+
+        
+        </div>    
+</div>
+
+<div class="modal fade" id="allRoomsModal" tabindex="-1" role="dialog" aria-labelledby="watchrooms" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Rooms</h5>
+                <button type="button" id="closeEnterRoom" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+               <ul id="allRoomsList">
+                   @foreach (var room in Model.Rooms)
+                   {
+                        <li><a class="enter-room-a" data-room="@room.Name" ><i class="glyphicon glyphicon-eye-open"></i> @room.Name - @room.Subject</a></li>
+                   }                   
+               </ul>
+            </div>      
+        </div>
+    </div>
 </div>
 
 
 
+<div class="modal fade" id="createRoomsModal" tabindex="-1" role="dialog" aria-labelledby="createroom" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+@using (Html.BeginForm("CreateRoom", "Chat", FormMethod.Post, htmlAttributes: new { @class = "form-horizontal form-bordered",@id="newroomform", enctype = "multipart/form-data" }))
+{
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Create Room</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">                               
+                        <input name="name" id="name" placeholder="nombre" type="text" />
+                        <input name="subject" id="subject" placeholder="asunto" type="text" />           
+
+            </div>
+            <div class="modal-footer">
+                <button id="closeNewRoom" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="postNewRoomButton" type="button" class="btn btn-primary">Save</button>
+            </div>
+            }
+        </div>
+    </div>
+</div>
 
 @section Scripts {
     <script>
@@ -167,7 +237,7 @@
                          var usersList = $("#users").find('li');
                          usersList.each(function () {
                              debugger;
-                             var liUserName = $(this).find('a').html().replace('<i class="glyphicon glyphicon-comment"></i>', '').trim();
+                             var liUserName = $(this).attr("data-user-name");
                              if (msgobj.userName == liUserName) {
                                  $(this).remove();
                              }
@@ -185,6 +255,86 @@
 
         $("#avatar").on("change", function () { uploadFile("Image"); });
         $("#sound").on("change", function () { uploadFile("Audio"); });
+        $("#postNewRoomButton").on("click", function ()
+        {
+            debugger;
+            var usrName = '@Model.User.Name';
+            var formData = new FormData(document.getElementById("newroomform"));
+            var newRoomName = $("#newroomform").find("#name").val();
+
+            $.ajax({
+                url: "/Chat/CreateRoom",
+                type: "post",
+                dataType: "html",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    debugger;
+                    console.log("done");
+                    console.log(data);
+                },
+                error: function (data) {
+                    debugger;
+                    console.log("error");
+                    console.log(data);
+
+                }
+            }).done(function (res) {
+                $("#closeNewRoom").click();
+                createRoom(newRoomName);
+            });
+
+
+        });
+
+        $(".enter-room-a").click(function () {
+
+                debugger;
+            var usrName = '@Model.User.Name';
+            
+            var newRoomName = $(this).attr("data-room");
+
+            $.ajax({
+                url: "/Chat/GetRoom?name=" + newRoomName,
+                type: "Get",
+                dataType: "html",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    debugger;
+                    console.log("done");
+                    console.log(data);
+                },
+                error: function (data) {
+                    debugger;
+                    console.log("error");
+                    console.log(data);
+
+                }
+            }).done(function (res) {
+                $("#closeEnterRoom").click();
+                debugger;
+                var baseUrl = document.location.origin;
+                var roomobj = JSON.parse(res);
+                console.log(roomobj);
+
+                createRoom(roomobj.Name);
+
+                //ver como avisar que entre a la sala - crear nuevo mensaje para que agregue usuario en la lista de esa sala
+
+                //var toRoom = $(".active").find('a').html();
+                //var message = '{ "type": "' + msgtype + '", "content":"' + baseUrl + msgobj.relativePath + '", "userName":"' + usrName + '","roomName":"' + toRoom + '"}';
+                //ENVIO AL SOCKET
+                //socket.send(message);
+
+                
+            });
+
+        });
 
         function uploadFile(msgtype) {
             debugger
@@ -281,19 +431,66 @@
 
             recorder.clear();
         }
+
         function createDownloadLink() {
+
             recorder && recorder.exportWAV(function (blob) {
                 debugger;
-                var url = URL.createObjectURL(blob);
+                //var file = new File([blob], "algo.avi");
+                var name = generateUUID();
+                    var audio = new File([blob], name+".wav")
+                    var fd = new FormData();
+                    fd.append('data', audio);
+                    //fd.append('fname', name + ".wav");
 
-                var usrName = '@Model.User.Name';
-                var baseUrl = document.location.origin;
-                var toRoom = $(".active").find('a').html();
-                var message = '{ "type": "Audio", "content":"' + url + '", "userName":"' + usrName + '","roomName":"' + toRoom + '"}';
-                //ENVIO AL SOCKET
-                socket.send(message);
+                    $.ajax({
+                        url: "/Multimedia/UploadVoice",
+                        type: "post",
+                        //dataType: "html",
+                        data: fd,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function (data) {
+                            debugger;
+                            console.log("done");
+                            console.log(data);
+                        },
+                        error: function (data) {
+                            debugger;
+                            console.log("error");
+                            console.log(data);
+
+                        }
+                    }).done(function (res) {
+
+                        debugger;
+                        var baseUrl = document.location.origin;
+                        var toRoom = $(".active").find('a').html();
+                        var message = '{ "type": "Audio", "content":"' + baseUrl + "/Images/" + name+".wav" + '", "userName":"' + usrName + '","roomName":"' + toRoom + '"}';
+                        //ENVIO AL SOCKET
+                        socket.send(message);
+
+                    });
+
+
+
             });
         }
+
+
+        function generateUUID() { // Public Domain/MIT
+            var d = new Date().getTime();
+            if (typeof performance !== 'undefined' && typeof performance.now === 'function') {
+                d += performance.now(); //use high-precision timer if available
+            }
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                var r = (d + Math.random() * 16) % 16 | 0;
+                d = Math.floor(d / 16);
+                return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+            });
+        }
+
 
         $(document).ready(function () {
             try {
@@ -315,6 +512,19 @@
             navigator.getUserMedia({ audio: true }, startUserMedia, function (e) {
                 //__log('No live audio input: ' + e);
             });
+            debugger
+            //var monkeyList = new List('test-list', {
+            //    valueNames: ['name'],
+            //    page: 3,
+            //    pagination: true
+            //});
+
+            var usersList = new List('usersDiv', {
+                valueNames: ['user-a'],
+                page: 2,
+                pagination: true
+            });
+
 
         });
 
@@ -356,7 +566,7 @@
             e.preventDefault();
 
             var name = $('#userName').val();
-            var otherUserName = $(this).html().replace('<i class="glyphicon glyphicon-comment"></i>', '').trim();
+            var otherUserName = $(this).attr("data-user-name"); //html().replace('<i class="glyphicon glyphicon-comment"></i>', '').trim();
 
             if (otherUserName != name) {
 
@@ -418,7 +628,7 @@
             }).done(function () {
                 debugger;
 
-           
+
                 var message = '{ "type": "Logout", "content":"-", "userName":"' + usrName + '","roomName":"-"}';
                 //ENVIO AL SOCKET
                 socket.send(message);
@@ -447,11 +657,18 @@
 
             $("#rooms-messages").append("<ul id='" + roomName + "'></ul>");
 
+            $("#usersDiv").find('ul').each(function () {
+                $(this).hide();
+            })
+
+            $("#usersDiv").append("<ul id='" + roomName + "-users' class='list users'></ul>");
+
+
             $('#messages').html('');
         }
 
         function displayRoom(li) {
-
+            debugger
             $('#rooms').find('li.active').removeClass('active');
             $(li).addClass('active');
 
@@ -459,21 +676,37 @@
 
             $("#rooms-messages").find('ul').each(function () {
                 $(this).hide();
-            })
+            });
+
+            $("#usersDiv").find('ul').each(function () {
+                $(this).hide();
+            });
 
             $("#" + name).show();
+            $("#" + name+"-users").show();
         }
 
 
+        function sortByCity() {
+            debugger;
+            $("#users li").sort(sort_li).appendTo('#users');
+            function sort_li(a, b) {
+                debugger;
+                return ($(b).data('city')) < ($(a).data('city')) ? 1 : -1;
+            }
+        };
 
+        function sortByAge() {
+            debugger;
+            $("#users li").sort(sort_li).appendTo('#users');
+            function sort_li(a, b) {
+                debugger;
+                return ($(b).data('age')) < ($(a).data('age')) ? 1 : -1;
+            }
+        };
 
 
     </script>
-<script>
-
-      
-
-</script>
 
 }
 

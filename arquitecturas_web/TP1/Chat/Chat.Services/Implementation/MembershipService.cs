@@ -28,7 +28,7 @@ namespace Chat.Services.Implementation
             {
                 var generalRoom = this.RoomRepository.GetAll().Where(x => x.Name == "General").FirstOrDefault();
 
-                generalRoom.Users.Add(user.Name);
+                generalRoom.Users.Add(user);
 
                 this.RoomRepository.Update(generalRoom);
 
@@ -70,13 +70,13 @@ namespace Chat.Services.Implementation
 
             if (user.Token != token) { throw new Exception("invalid token"); }
 
-            var rooms = this.RoomRepository.GetAll().Where(x => x.Users.Contains(user.Name) && x.Name != "General").ToList();
+            var rooms = this.RoomRepository.GetAll().Where(x => x.Users.Contains(user) && x.Name != "General").ToList();
 
             rooms.ForEach(x => this.RoomRepository.Delete(x.Id));
 
             var generalRoom = this.RoomRepository.GetAll().Where(x => x.Name == "General").FirstOrDefault();
 
-            generalRoom.Users.Remove(user.Name);
+            generalRoom.Users.Remove(user);
 
             this.RoomRepository.Update(generalRoom);
 

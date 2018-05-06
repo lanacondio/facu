@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Chat.Models;
 
 namespace Chat.Controllers
 {
@@ -35,7 +36,7 @@ namespace Chat.Controllers
                         await file.CopyToAsync(stream);
                     }
                     var relativePath = "/images/" + fileName;
-                return Ok(new { count = Request.Form.Files.Count, Request.Form.Files[0].Length, relativePath});
+                    return Ok(new { count = Request.Form.Files.Count, Request.Form.Files[0].Length, relativePath});
                 }
 
                 return Ok();
@@ -43,6 +44,32 @@ namespace Chat.Controllers
 
             return Ok();
 
+        }
+
+        public async Task<IActionResult> UploadVoice()
+        {
+            if (Request.Form.Files.Count > 0)
+            {
+                var file = Request.Form.Files[0];
+
+                if (file != null && file.Length > 0)
+                {
+                    var fileName = Path.GetFileName(file.FileName);
+
+                    var path = Path.Combine(_env.WebRootPath, "images", fileName);
+
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+                    var relativePath = "/images/" + fileName;
+                    return Ok(new { count = Request.Form.Files.Count, Request.Form.Files[0].Length, relativePath });
+                }
+
+                return Ok();
+            }
+
+            return Ok();
         }
     }
 }

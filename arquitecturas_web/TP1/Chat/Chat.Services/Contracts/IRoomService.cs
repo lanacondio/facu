@@ -13,6 +13,8 @@ namespace Chat.Services.Contracts
 
         void DeleteRoom(Guid id);
 
-        Room CreateRoom(string srcUser, string destUser);
+        Room CreateRoom(string name, string subject, string userName);
+
+        IList<Room> GetAll();
     }
 }

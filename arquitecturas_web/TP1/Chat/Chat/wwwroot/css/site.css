@@ -16,7 +16,8 @@
     line-height: 1.4;
 }
 
-#users,
+.users,
+#allRoomsList,
 #rooms-messages textarea,
 #rooms-messages ul {
     border: 3px solid blue;
@@ -30,7 +31,7 @@
     border-radius: 5px;
 }
 
-    #users li:hover{
+    .users li:hover{
         cursor:pointer;
     }
     
@@ -54,6 +55,12 @@
         font-weight: normal;
     }
 
+#allRoomsList li a:hover {
+    cursor:pointer;
+}
+
+
+
 #inputAudio,
 #inputImage {
     padding-left: 3px;
@@ -64,6 +71,7 @@
     float: left;
     margin-left: -12px;
     margin-right: 10px;
+    margin-top:26px;
 }
 
     #stopButton:hover,
@@ -83,6 +91,11 @@
         border-radius: 5px;
         color: white;
     }
+
+.age,
+.city {
+    display:inline;
+}
 /* Make .svg files in the carousel display properly in older browsers */
 .carousel-inner .item img[src$=".svg"] {
     width: 100%;
