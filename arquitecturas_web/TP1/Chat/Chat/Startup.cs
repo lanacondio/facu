@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Chat.Middlewares;
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.Extensions.Logging;
 
 namespace Chat
 {
@@ -76,7 +77,7 @@ namespace Chat
 
             app.UseWebSockets();
             app.UseMiddleware<ChatWebSocketMiddleware>();
-
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
