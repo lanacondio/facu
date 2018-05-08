@@ -43,6 +43,13 @@ namespace Chat.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        
+        public IActionResult Login()
+        {
+            return Redirect("/Home/Index");
+        }
+
+
         [HttpPost]
         public IActionResult Login(string nick, string password)
         {
@@ -75,7 +82,8 @@ namespace Chat.Controllers
             }
             catch (Exception ex)
             {
-                return Error();
+                ViewBag.Error = "Incorrect user or password";
+                return View("Index");
             }
             
             

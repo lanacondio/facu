@@ -76,7 +76,7 @@ namespace Chat.Services.Implementation
 
             var generalRoom = this.RoomRepository.GetAll().Where(x => x.Name == "General").FirstOrDefault();
 
-            generalRoom.Users.Remove(user);
+            generalRoom.Users = generalRoom.Users.Where(x => x.Id != user.Id).ToList(); // .Remove(user);
 
             this.RoomRepository.Update(generalRoom);
 

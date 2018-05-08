@@ -85,7 +85,7 @@
                     }
 
                 </ul>
-                <ul class="pagination"></ul>
+                <ul class="pagination General"></ul>
             </div>
 
         
@@ -293,14 +293,13 @@
 
                 debugger;
             var usrName = '@Model.User.Name';
-            
+
             var newRoomName = $(this).attr("data-room");
 
             $.ajax({
                 url: "/Chat/GetRoom?name=" + newRoomName,
                 type: "Get",
                 dataType: "html",
-                data: formData,
                 cache: false,
                 contentType: false,
                 processData: false,
@@ -322,7 +321,7 @@
                 var roomobj = JSON.parse(res);
                 console.log(roomobj);
 
-                createRoom(roomobj.Name);
+                createRoom(roomobj.name, roomobj.users);
 
                 //ver como avisar que entre a la sala - crear nuevo mensaje para que agregue usuario en la lista de esa sala
 
@@ -331,7 +330,7 @@
                 //ENVIO AL SOCKET
                 //socket.send(message);
 
-                
+
             });
 
         });
@@ -521,7 +520,7 @@
 
             var usersList = new List('usersDiv', {
                 valueNames: ['user-a'],
-                page: 2,
+                page: 20,
                 pagination: true
             });
 
@@ -640,7 +639,7 @@
 
         });
 
-        function createRoom(roomName) {
+        function createRoom(roomName, users) {
 
             $('#rooms').find('li.active').removeClass('active');
             $('#rooms').append("<li class='active'><a href='#'>" + roomName + "</a></li>");
@@ -663,6 +662,20 @@
 
             $("#usersDiv").append("<ul id='" + roomName + "-users' class='list users'></ul>");
 
+            if (users != null) {
+                users.forEach(function (user) {
+                    $("#" + roomName + "-users").append("<li data-city='"+user.city+"' data-age='"+user.age+"'><a class='user-a' data-user-name='"+user.name+"'><i class='glyphicon glyphicon-comment'></i>"+ user.name+" <p class='age'>- "+user.age+"</p> <p class='city'>- "+user.city+"</p> </a></li>");
+                 });
+            }
+
+            $("#usersDiv").append("<ul  class='pagination " + roomName+"'></ul>");
+
+
+            var usersList = new List('usersDiv', {
+                valueNames: ['user-a'],
+                page: 20,
+                pagination: true
+            });
 
             $('#messages').html('');
         }
@@ -683,13 +696,14 @@
             });
 
             $("#" + name).show();
-            $("#" + name+"-users").show();
+            $("#" + name + "-users").show();
+            $(".pagination." + name ).show();
         }
 
 
         function sortByCity() {
             debugger;
-            $("#users li").sort(sort_li).appendTo('#users');
+            $("#General-users li").sort(sort_li).appendTo('#General-users');
             function sort_li(a, b) {
                 debugger;
                 return ($(b).data('city')) < ($(a).data('city')) ? 1 : -1;
@@ -698,7 +712,7 @@
 
         function sortByAge() {
             debugger;
-            $("#users li").sort(sort_li).appendTo('#users');
+            $("#General-users li").sort(sort_li).appendTo('#General-users');
             function sort_li(a, b) {
                 debugger;
                 return ($(b).data('age')) < ($(a).data('age')) ? 1 : -1;

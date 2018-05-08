@@ -42,7 +42,7 @@ namespace Chat
 
             services.Configure<CookieAuthenticationOptions>(options =>
             {
-                options.LoginPath = new PathString("/Home/Index");                
+                options.LoginPath = new PathString("/");                
             });
 
             services.Configure<FormOptions>(x =>
