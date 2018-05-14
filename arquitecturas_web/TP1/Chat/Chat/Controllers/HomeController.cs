@@ -23,21 +23,7 @@ namespace Chat.Controllers
         {
             return View();
         }
-
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
+        
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
@@ -63,18 +49,12 @@ namespace Chat.Controllers
                     new Claim("Token", user.Token),
                     new Claim("Id", user.Id.ToString())
                 };
-
-                var claimsIdentity = new ClaimsIdentity(
-                    claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-                var authProperties = new AuthenticationProperties
-                {
-                };
-
+                
                 HttpContext.SignInAsync(
                     CookieAuthenticationDefaults.AuthenticationScheme,
-                    new ClaimsPrincipal(claimsIdentity),
-                    authProperties);
+                    new ClaimsPrincipal(new ClaimsIdentity(
+                    claims, CookieAuthenticationDefaults.AuthenticationScheme)),
+                    new AuthenticationProperties { });
 
                 ViewData["user"] = user;
                 
@@ -94,15 +74,13 @@ namespace Chat.Controllers
         {
             try
             {
-                var user = this.MembershipService.Create(userModel.Name, userModel.Password, userModel.Age, userModel.City);
-                
+                var user = this.MembershipService.Create(userModel.Name, userModel.Password, userModel.Age, userModel.City);                
                 return View("CreateSuccess");
             }
             catch (Exception ex)
             {
                 return Error();
             }
-
 
         }
 
@@ -111,9 +89,7 @@ namespace Chat.Controllers
         public async Task<IActionResult> LogOutAsync(string token)
         {
             this.MembershipService.LogOut(token);
-
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-
             return Redirect("/Home/Index");
 
         }

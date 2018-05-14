@@ -148,11 +148,11 @@
 
         $("#roomDiv").find('li').each(function () {
             $(this).click(function () {
-
                 displayRoom($(this));
             });
 
         });
+
 
         $(function () {
             var usrName = '@Model.User.Name';
@@ -160,6 +160,7 @@
         var protocol = location.protocol === "https:" ? "wss:" : "ws:";
         var wsUri = protocol + "//" + window.location.host;
         var socket = new WebSocket(wsUri);
+
         socket.onopen = e => {
             console.log("socket opened", e);
         };
@@ -168,9 +169,8 @@
             console.log("socket closed", e);
         };
 
-
         socket.onmessage = function (e) {
-            debugger
+            
             var msgobj = JSON.parse(e.data);
             console.log(msgobj);
             var name = $('#userName').val();
@@ -178,41 +178,33 @@
             if ((msgobj.type == "Create") && (msgobj.content == name)) {
                     var message = msgobj;
                     var newRoomName = message.roomName;
-
                     createRoom(newRoomName);
-
-            }
-            else {
-                    if (msgobj.type == "Message") {
-                        //checkeo si es de alguna sala a la que pertenezco y lo agrego
-                        if ($('#' + msgobj.roomName).html() != undefined) {
-                            $('#' + msgobj.roomName).append('<li>' + msgobj.content + '</li>');
-                        }
-                        $('#' + msgobj.roomName).animate({ scrollTop: $('#' + msgobj.roomName).prop("scrollHeight") }, 1000);
+            } else
+            {
+                if (msgobj.type == "Message") {
+                        
+                    if ($('#' + msgobj.roomName).html() != undefined) {
+                        $('#' + msgobj.roomName).append('<li>' + msgobj.content + '</li>');
                     }
-                    if (msgobj.type == "Image") {
-                        //checkeo si es de alguna sala a la que pertenezco y lo agrego
-                        if ($('#' + msgobj.roomName).html() != undefined) {
-                            var datetime = new Date();
-                            var hours = datetime.getHours(); //returns 0-23
-                            var minutes = datetime.getMinutes(); //returns 0-59
-                            var seconds = datetime.getSeconds(); //returns 0-59
 
-                            if (minutes < 10)
-                                minutesString = 0 + minutes + "";
-                            else
-                                minutesString = minutes;
+                    $('#' + msgobj.roomName).animate({ scrollTop: $('#' + msgobj.roomName).prop("scrollHeight") }, 1000);
+                }
 
-                            var sender = msgobj.userName;
-                            var mcontent = sender + ': <span>  <img src="' + msgobj.content + '" style="width:250px" /> </span> <p>' + hours + ':' + minutes + ':' + seconds;
+                if (msgobj.type == "Image") {
+                
+                    if ($('#' + msgobj.roomName).html() != undefined) {
+                        
+                        var sender = msgobj.userName;
+                        var mcontent = sender + ': <span>  <img src="' + msgobj.content + '" style="width:250px" /> </span>';
+                        mcontent = AppendTime(mcontent);
 
-
-                            $('#' + msgobj.roomName).append('<li>' + mcontent + ' </li>');
-                        }
-                        $('#' + msgobj.roomName).animate({ scrollTop: $('#' + msgobj.roomName).prop("scrollHeight") }, 1000);
+                        $('#' + msgobj.roomName).append('<li>' + mcontent + ' </li>');
                     }
-                     if (msgobj.type == "Audio") {
-                    //checkeo si es de alguna sala a la que pertenezco y lo agrego
+
+                    $('#' + msgobj.roomName).animate({ scrollTop: $('#' + msgobj.roomName).prop("scrollHeight") }, 1000);
+                }
+                if (msgobj.type == "Audio") {
+                 
                      if ($('#' + msgobj.roomName).html() != undefined) {
                         var datetime = new Date();
                         var hours = datetime.getHours(); //returns 0-23
@@ -236,16 +228,16 @@
                      if (msgobj.type == "Logout") {
                          var usersList = $("#users").find('li');
                          usersList.each(function () {
-                             debugger;
-                             var liUserName = $(this).attr("data-user-name");
-                             if (msgobj.userName == liUserName) {
-                                 $(this).remove();
-                             }
-                         });
+                     
+                        var liUserName = $(this).attr("data-user-name");
+                        if (msgobj.userName == liUserName) {
+                            $(this).remove();
 
-                     }
+                        }
+
+                     });
+                }
             }
-
 
         };
 
@@ -255,9 +247,9 @@
 
         $("#avatar").on("change", function () { uploadFile("Image"); });
         $("#sound").on("change", function () { uploadFile("Audio"); });
+
         $("#postNewRoomButton").on("click", function ()
         {
-            debugger;
             var usrName = '@Model.User.Name';
             var formData = new FormData(document.getElementById("newroomform"));
             var newRoomName = $("#newroomform").find("#name").val();
@@ -271,12 +263,10 @@
                 contentType: false,
                 processData: false,
                 success: function (data) {
-                    debugger;
                     console.log("done");
                     console.log(data);
                 },
                 error: function (data) {
-                    debugger;
                     console.log("error");
                     console.log(data);
 
@@ -285,13 +275,10 @@
                 $("#closeNewRoom").click();
                 createRoom(newRoomName);
             });
-
-
+            
         });
 
-        $(".enter-room-a").click(function () {
-
-                debugger;
+        $(".enter-room-a").click(function () {            
             var usrName = '@Model.User.Name';
 
             var newRoomName = $(this).attr("data-room");
@@ -304,39 +291,27 @@
                 contentType: false,
                 processData: false,
                 success: function (data) {
-                    debugger;
                     console.log("done");
                     console.log(data);
                 },
                 error: function (data) {
-                    debugger;
                     console.log("error");
                     console.log(data);
 
                 }
             }).done(function (res) {
                 $("#closeEnterRoom").click();
-                debugger;
                 var baseUrl = document.location.origin;
                 var roomobj = JSON.parse(res);
                 console.log(roomobj);
-
                 createRoom(roomobj.name, roomobj.users);
-
-                //ver como avisar que entre a la sala - crear nuevo mensaje para que agregue usuario en la lista de esa sala
-
-                //var toRoom = $(".active").find('a').html();
-                //var message = '{ "type": "' + msgtype + '", "content":"' + baseUrl + msgobj.relativePath + '", "userName":"' + usrName + '","roomName":"' + toRoom + '"}';
-                //ENVIO AL SOCKET
-                //socket.send(message);
-
-
+                
             });
 
         });
 
         function uploadFile(msgtype) {
-            debugger
+            
             var usrName = '@Model.User.Name';
             var formData = new FormData(document.getElementById("formuploadajax"));
             var fileName = $("#formuploadajax").find('input').val();
@@ -365,9 +340,7 @@
                 default:
                     break;
             }
-
-
-            //formData.append(f.attr("name"), $(this)[0].files[0]);
+            
             $.ajax({
                 url: "/Multimedia/Upload",
                 type: "post",
@@ -377,19 +350,16 @@
                 contentType: false,
                 processData: false,
                 success: function (data) {
-                    debugger;
                     console.log("done");
                     console.log(data);
                 },
                 error: function (data) {
-                    debugger;
                     console.log("error");
                     console.log(data);
 
                 }
             }).done(function (res) {
-
-                debugger;
+                
                 var baseUrl = document.location.origin;
                 var msgobj = JSON.parse(res);
                 console.log(msgobj);
@@ -397,83 +367,62 @@
                 var message = '{ "type": "' + msgtype + '", "content":"' + baseUrl + msgobj.relativePath + '", "userName":"' + usrName + '","roomName":"' + toRoom + '"}';
                 //ENVIO AL SOCKET
                 socket.send(message);
-
             });
-
         }
 
-        function startUserMedia(stream) {
-            debugger;
-            var input = audio_context.createMediaStreamSource(stream);
-            //__log('Media stream created.');
-            // Uncomment if you want the audio to feedback directly
-            //input.connect(audio_context.destination);
-            //__log('Input connected to audio context destination.');
-
-            recorder = new Recorder(input);
-            //__log('Recorder initialised.');
+        function startUserMedia(stream) {            
+            var input = audio_context.createMediaStreamSource(stream);            
+            recorder = new Recorder(input);            
         }
+
         function startRecording(button) {
             recorder && recorder.record();
             button.disabled = true;
-            button.nextElementSibling.disabled = false;
-            //__log('Recording...');
+            button.nextElementSibling.disabled = false;            
         }
+
         function stopRecording(button) {
             recorder && recorder.stop();
             button.disabled = true;
-            button.previousElementSibling.disabled = false;
-            //__log('Stopped recording.');
-
-            // create WAV download link using audio data blob
+            button.previousElementSibling.disabled = false;            
             createDownloadLink();
-
             recorder.clear();
         }
 
         function createDownloadLink() {
 
             recorder && recorder.exportWAV(function (blob) {
-                debugger;
-                //var file = new File([blob], "algo.avi");
+
                 var name = generateUUID();
-                    var audio = new File([blob], name+".wav")
-                    var fd = new FormData();
-                    fd.append('data', audio);
-                    //fd.append('fname', name + ".wav");
+                var audio = new File([blob], name+".wav")
+                var fd = new FormData();
+                fd.append('data', audio);
+            
+                $.ajax({
+                    url: "/Multimedia/UploadVoice",
+                    type: "post",                    
+                    data: fd,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                    
+                        console.log("done");
+                        console.log(data);
+                    },
+                    error: function (data) {
+                        console.log("error");
+                        console.log(data);
+                    }
 
-                    $.ajax({
-                        url: "/Multimedia/UploadVoice",
-                        type: "post",
-                        //dataType: "html",
-                        data: fd,
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        success: function (data) {
-                            debugger;
-                            console.log("done");
-                            console.log(data);
-                        },
-                        error: function (data) {
-                            debugger;
-                            console.log("error");
-                            console.log(data);
-
-                        }
-                    }).done(function (res) {
-
-                        debugger;
+                }).done(function (res) {
                         var baseUrl = document.location.origin;
                         var toRoom = $(".active").find('a').html();
-                        var message = '{ "type": "Audio", "content":"' + baseUrl + "/Images/" + name+".wav" + '", "userName":"' + usrName + '","roomName":"' + toRoom + '"}';
-                        //ENVIO AL SOCKET
+                        var message = '{ "type": "Audio", "content":"' + baseUrl + "/Images/" + name+".wav" + '", "userName":"' + usrName + '","roomName":"' + toRoom + '"}';                        
                         socket.send(message);
 
                     });
-
-
-
+                
             });
         }
 
@@ -502,21 +451,15 @@
                 audio_context = new AudioContext;
                 var input = audio_context.createMediaStreamSource(stream);
                 recorder = new Recorder(input);
-                //__log('Audio context set up.');
-                //__log('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
+            
             } catch (e) {
-                //alert('No web audio support in this browser!');
+            
             }
 
             navigator.getUserMedia({ audio: true }, startUserMedia, function (e) {
-                //__log('No live audio input: ' + e);
+            
             });
-            debugger
-            //var monkeyList = new List('test-list', {
-            //    valueNames: ['name'],
-            //    page: 3,
-            //    pagination: true
-            //});
+            
 
             var usersList = new List('usersDiv', {
                 valueNames: ['user-a'],
@@ -526,55 +469,33 @@
 
 
         });
-
-
-
-
-
+            
         $('#content').keypress(function (e) {
             if (e.which != 13) {
                 return;
             }
-
-            var datetime = new Date();
-            var hours = datetime.getHours(); //returns 0-23
-            var minutes = datetime.getMinutes(); //returns 0-59
-            var seconds = datetime.getSeconds(); //returns 0-59
-
-            if (minutes < 10)
-                minutesString = 0 + minutes + "";
-            else
-                minutesString = minutes;
-
+            
             e.preventDefault();
-
             var toRoom = $(".active").find('a').html();
-
-            var mcontent =  usrName + ": <span>" + $('#content').val() + '</span> <p>' + hours + ":" + minutes + ":" + seconds;
+            var mcontent =  usrName + ": <span>" + $('#content').val() + '</span>';
+            mcontent = AppendTime(mcontent);
 
             var message =  '{ "type": "Message", "content":"'+mcontent+'", "userName":"'+usrName+'","roomName":"'+toRoom+'"}';
-            //ENVIO AL SOCKET
+            
             socket.send(message);
-
             $('#content').val('');
         });
 
         $('.user-a').click(function (e) {
-
-            debugger;
+            
             e.preventDefault();
-
             var name = $('#userName').val();
-            var otherUserName = $(this).attr("data-user-name"); //html().replace('<i class="glyphicon glyphicon-comment"></i>', '').trim();
+            var otherUserName = $(this).attr("data-user-name");
 
             if (otherUserName != name) {
-
                 var roomName = otherUserName + "-" + name;
-
                 var message = '{ "type":"Create","content":"' + otherUserName + '","userName":"' + name + '","roomName":"' + roomName + '"}';
-
                 socket.send(message);
-
                 createRoom(roomName);
             }
 
@@ -639,6 +560,20 @@
 
         });
 
+        function AppendTime(content) {
+            var datetime = new Date();
+            var hours = datetime.getHours(); //returns 0-23
+            var minutes = datetime.getMinutes(); //returns 0-59
+            var seconds = datetime.getSeconds(); //returns 0-59
+
+            if (minutes < 10)
+                minutesString = 0 + minutes + "";
+            else
+                minutesString = minutes;
+
+            return content + "<p>" + hours + ":" + minutes + ":" + seconds;
+        }
+
         function createRoom(roomName, users) {
 
             $('#rooms').find('li.active').removeClass('active');
@@ -680,8 +615,7 @@
             $('#messages').html('');
         }
 
-        function displayRoom(li) {
-            debugger
+        function displayRoom(li) {            
             $('#rooms').find('li.active').removeClass('active');
             $(li).addClass('active');
 
@@ -701,8 +635,7 @@
         }
 
 
-        function sortByCity() {
-            debugger;
+        function sortByCity() {            
             $("#General-users li").sort(sort_li).appendTo('#General-users');
             function sort_li(a, b) {
                 debugger;
@@ -710,8 +643,7 @@
             }
         };
 
-        function sortByAge() {
-            debugger;
+        function sortByAge() {            
             $("#General-users li").sort(sort_li).appendTo('#General-users');
             function sort_li(a, b) {
                 debugger;

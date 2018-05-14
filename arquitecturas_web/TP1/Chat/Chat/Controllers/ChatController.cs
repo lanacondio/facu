@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Chat.Services.Contracts;
 using Chat.Models;
 using System.Security.Claims;
+using System.Linq;
 
 namespace Chat.Controllers
 {
@@ -18,11 +19,10 @@ namespace Chat.Controllers
         }
         public IActionResult Index()
         {
-
-            var room = this.RoomService.GetRoom("General");
             var userName = HttpContext.User.Identity.Name;
             var user = this.MembershipService.GetUserByName(userName);
             var rooms = this.RoomService.GetAll();
+            var room = rooms.Where(x => x.Name == "General").FirstOrDefault();
 
             var chatViewModel = new ChatViewModel()
             {
@@ -35,28 +35,7 @@ namespace Chat.Controllers
             
             return View(chatViewModel);
         }
-
-
-        public IActionResult PostMessage(MessageViewModel model)
-        {
-            var userName = HttpContext.User.Identity.Name;
-            var user = this.MembershipService.GetUserByName(userName);
-
-            this.RoomService.AddMessage(user, model.Content, model.roomName);
-
-            var room = this.RoomService.GetRoom(model.roomName);
-
-            var chatViewModel = new ChatViewModel()
-            {
-                Messages = room.Messages,
-                RoomName = room.Name,
-                User = user,
-                Users = room.Users
-            };
-
-            return View("Index", chatViewModel);
-
-        }
+        
 
         public IActionResult CreateRoom(string name, string subject)
         {
@@ -64,7 +43,6 @@ namespace Chat.Controllers
             var nroom = this.RoomService.CreateRoom(name, subject, userName);
             return Ok();
         }
-
 
         public JsonResult GetMessagesByRoom(string roomName)
         {
