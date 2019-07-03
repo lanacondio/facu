@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.provider.Settings;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,7 +58,7 @@ public class WebResultCursorAdapter extends CursorAdapter {
         final int position = cursor.getPosition()+1;
 
         TextView tIndex= (TextView) view.findViewById(R.id.tvIndex);
-        TextView ttype= (TextView) view.findViewById(R.id.tvType);
+        //TextView ttype= (TextView) view.findViewById(R.id.tvType);
         final TextView ttranslation = (TextView) view.findViewById(R.id.tvTranslation);
         TextView tcontext = (TextView) view.findViewById(R.id.tvContext);
         FloatingActionButton downloadButton = (FloatingActionButton) view.findViewById(R.id.download_word);
@@ -92,7 +93,7 @@ public class WebResultCursorAdapter extends CursorAdapter {
         translationsList.put(strres, ttadd);
 
         ttranslation.setText(strres);
-        ttype.setText(type);
+        //ttype.setText(type);
         tcontext.setText(contexts);
 
         if(evaluations>0)
@@ -109,18 +110,43 @@ public class WebResultCursorAdapter extends CursorAdapter {
             tnegevaluations.setText(String.valueOf(negEvaluations));
         }
 
-        if(strres != context.getString(R.string.not_found_word))
+        if(!strres.contains("No se encontraron resultados"))
         {
             tIndex.setText(String.valueOf(position)+".");
 
         }
         else
         {
+            /*
+            CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) downloadButton.getLayoutParams();
+            p.setAnchorId(View.NO_ID);
+            downloadButton.setLayoutParams(p);*/
             downloadButton.setVisibility(View.GONE);
+
+            /*
+            p = (CoordinatorLayout.LayoutParams) thumbUpButton.getLayoutParams();
+            p.setAnchorId(View.NO_ID);
+            thumbUpButton.setLayoutParams(p);*/
             thumbUpButton.setVisibility(View.GONE);
+
+            /*
+            p = (CoordinatorLayout.LayoutParams) thumbDownButton.getLayoutParams();
+            p.setAnchorId(View.NO_ID);
+            thumbDownButton.setLayoutParams(p);*/
             thumbDownButton.setVisibility(View.GONE);
+
+/*
+            p = (CoordinatorLayout.LayoutParams) tevaluations.getLayoutParams();
+            p.setAnchorId(View.NO_ID);
+            tevaluations.setLayoutParams(p);*/
             tevaluations.setVisibility(View.GONE);
+
+            /*
+            p = (CoordinatorLayout.LayoutParams) tnegevaluations.getLayoutParams();
+            p.setAnchorId(View.NO_ID);
+            tnegevaluations.setLayoutParams(p);*/
             tnegevaluations.setVisibility(View.GONE);
+            tIndex.setText("");
         }
 
         if(!gcmid.equals(deviceId))

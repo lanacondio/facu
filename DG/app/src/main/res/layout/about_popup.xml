@@ -25,7 +25,6 @@
         android:layout_height="wrap_content"
         android:textColor="#ffffff"
         android:id="@+id/textView"
-
         android:layout_below="@+id/ib_close"
         android:layout_centerHorizontal="true" />
 
@@ -34,25 +33,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#ffffff"
-        android:text="This is a sample popup window."
+        android:text=""
         android:padding="25sp"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:text="Aceptar"
+        android:id="@+id/popup_button_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/popup_button_cancel"
-        android:textColor="#3f51b5"
-        android:layout_marginTop="30dp"
-        tools:text="Aceptar"
-        android:background="@drawable/roundcorner_white"
         android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="119dp"
+        android:layout_marginEnd="148dp"
+        android:layout_marginRight="148dp"
+        android:background="@drawable/roundcorner_white"
+        android:text="Aceptar"
+        android:textColor="#3f51b5"
+        tools:text="Aceptar" />
 
     <TextView
-        android:text="Todos los derechos reservados"
+        android:text="Gdicc es un diccionario comunitario, aquí podrás: \n &#8226; Buscar definiciones en la web \n &#8226; Agregar nuevas \n &#8226; Calificarlas \n &#8226; Personalizar tu diccionario \n Gdicc es una aplicación sin fines de lucro, la idea es aprender y mantener viva esta lengua."
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#ffffff"

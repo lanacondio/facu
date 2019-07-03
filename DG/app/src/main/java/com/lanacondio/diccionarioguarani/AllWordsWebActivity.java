@@ -356,8 +356,10 @@ public class AllWordsWebActivity extends AppCompatActivity {
 
         if(translation.getTranslationResult().equals(null)
                 ||translation.getTranslationResult().equals("")
-                ||translation.getTranslationResult().contains(".")
-                ||translation.getTranslationResult().contains(",")){
+                ||translation.getTranslationResult().equals(".")
+                ||translation.getTranslationResult().equals(",")
+                ||translation.getTranslationResult().equals("text")
+        ){
             throw new Exception("Traducción inválida");
         }
 

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.provider.DocumentsContract;
+import android.support.design.widget.FloatingActionButton;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -57,41 +58,32 @@ public class PredictiveResultCursorAdapter extends CursorAdapter {
 
         //resultados por item
         Button tword= (Button) view.findViewById(R.id.tvWord);
+        TextView wtf = (TextView)  view.findViewById(R.id.tvWordText);
 
         String strres = cursor.getString(cursor.getColumnIndex(TranslationContract.TranslationEntry.WORD));
+        String wtftranslationres = cursor.getString(cursor.getColumnIndex(TranslationContract.TranslationEntry.TRANSLATION));
         Spannable spanString = SpannableString.valueOf(strres);
         originalLanguaje = Integer.parseInt(cursor.getString(cursor.getColumnIndex(TranslationContract.TranslationEntry.LANGUAGE_ID)));
 
         String valueToFind = wordTF;
-
-
-        tword.setText(strres, TextView.BufferType.SPANNABLE);
-
-
-        Integer startIndex = strres.toLowerCase().indexOf(valueToFind.toLowerCase());
-
-
-        if(startIndex != -1)
-        {
-            spanString.setSpan(new ForegroundColorSpan(Color.BLACK), 0, startIndex, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-            spanString.setSpan(new ForegroundColorSpan(Color.RED), startIndex, startIndex+valueToFind.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-            spanString.setSpan(Color.BLACK, startIndex+valueToFind.length(), strres.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-
-            tword.setText(spanString, TextView.BufferType.SPANNABLE);
-        }
-        else
-        {
-            tword.setText(strres);
+        strres = strres.replace("-","");
+        String showstrres = strres +": ";
+        if(wtftranslationres.length() <= 20){
+            showstrres +=  wtftranslationres;
+        }else {
+            showstrres +=  wtftranslationres.substring(0,20);
         }
 
-        tword.setText(strres);
+        tword.setText("Ver más de: "+strres, TextView.BufferType.SPANNABLE);
+        wtf.setText(showstrres, TextView.BufferType.SPANNABLE);
+
         tword.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
                     //EditText wordtf = (EditText) findViewById(R.id.textToFind);
                     Button tword = (Button) v.findViewById(R.id.tvWord);
-                    String valueToFind = tword.getText().toString();
+                    String valueToFind = tword.getText().toString().replace("Ver más de: ","");
                     Intent allWords = new Intent((MainActivity) context, AllWordsActivity.class);
                     allWords.putExtra("wordtf", valueToFind);
                     allWords.putExtra("olanguage", originalLanguaje);

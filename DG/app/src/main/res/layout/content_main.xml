@@ -6,33 +6,47 @@
     android:id="@+id/content_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.lanacondio.diccionarioguarani.MainActivity"
     tools:showIn="@layout/activity_main">
 
 
     <ListView
+        android:id="@+id/predictiveLV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/textToFind"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="40dp"
-        android:id="@+id/predictiveLV" />
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="50dp" />
 
     <SearchView
+        android:id="@+id/textToFind"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:id="@+id/textToFind"
-        android:orientation="horizontal"
-        android:layout_below="@+id/originLanguageTextView"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="13dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal" />
 
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="100dp"
+        android:ems="10"
+        android:background="@null"
+        android:inputType="textPersonName"
+        android:text="Sugerencias"
+        tools:text="Sugerencias" />
 
 </RelativeLayout>

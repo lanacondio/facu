@@ -50,7 +50,7 @@ public class ResultCursorAdapter  extends CursorAdapter {
         final int position = cursor.getPosition()+1;
 
         TextView tIndex= (TextView) view.findViewById(R.id.tvIndex);
-        TextView ttype= (TextView) view.findViewById(R.id.tvType);
+        //TextView ttype= (TextView) view.findViewById(R.id.tvType);
         final TextView ttranslation = (TextView) view.findViewById(R.id.tvTranslation);
         TextView tcontext = (TextView) view.findViewById(R.id.tvContext);
         FloatingActionButton delButton  = (FloatingActionButton)view.findViewById(R.id.delword);
@@ -83,7 +83,7 @@ public class ResultCursorAdapter  extends CursorAdapter {
         translationsList.put(strres, ttadd);
 
         ttranslation.setText(strres);
-        ttype.setText(type);
+        //ttype.setText(type);
         tcontext.setText(contexts);
         if(strres != context.getString(R.string.not_found_word))
         {

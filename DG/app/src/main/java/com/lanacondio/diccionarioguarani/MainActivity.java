@@ -31,6 +31,11 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import com.lanacondio.diccionarioguarani.repository.com.lanacondio.diccionarioguarani.repository.models.TranslationDbHelper;
 import com.lanacondio.diccionarioguarani.service.PredictiveResultCursorAdapter;
 
@@ -65,6 +70,13 @@ public class MainActivity extends AppCompatActivity {
         wordtf.setIconified(false);
         wordtf.requestFocusFromTouch();
 
+
+        MobileAds.initialize(this, "ca-app-pub-1181701894378617~6485878225");
+
+        AdView adView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        adView.loadAd(adRequest);
 
             wordtf.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
@@ -168,30 +180,6 @@ public class MainActivity extends AppCompatActivity {
 
                 swtoFind = valueToFind;
                 mResultList.setAdapter(null);
-                wordtf.setQuery("",false);
-
-                /*
-                if(swtoFind != null && !swtoFind.isEmpty()){
-
-                    mResultAdapter = new PredictiveResultCursorAdapter(MainActivity.this, null, valueToFind);
-
-                    // Setup
-                    mResultList.setAdapter(mResultAdapter);
-
-                    // Instancia de helper
-                    mTranslationDbHelper = new TranslationDbHelper(MainActivity.this);
-
-                    // Carga de datos
-                    loadPredictiveResults();
-
-                    wordtf.setQuery(swtoFind,false);
-
-                }else{
-                    // Setup
-                    mResultList.setAdapter(null);
-
-                }
-                */
 
 
                 if(languajeText.getText().toString() == getResources().getString(R.string.Guarani)){
@@ -214,6 +202,29 @@ public class MainActivity extends AppCompatActivity {
                     tlanguajeText.startAnimation(in);
                     originalLanguaje = 1;
                 }
+
+                if(swtoFind != null && !swtoFind.isEmpty()){
+
+                    mResultAdapter = new PredictiveResultCursorAdapter(MainActivity.this, null, valueToFind);
+
+                    // Setup
+                    mResultList.setAdapter(mResultAdapter);
+
+                    // Instancia de helper
+                    mTranslationDbHelper = new TranslationDbHelper(MainActivity.this);
+
+                    // Carga de datos
+                    loadPredictiveResults();
+
+                    wordtf.setQuery(swtoFind,false);
+
+                }else{
+                    // Setup
+                    //mResultList.setAdapter(null);
+                    wordtf.setQuery("",false);
+
+                }
+
 
                 return true;
 

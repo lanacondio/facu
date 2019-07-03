@@ -226,7 +226,7 @@ public class AllWordsWebFragment extends Fragment {
                     "canEvaluate"
             });
 
-                matrixCursor.addRow(new Object[] { 1, getContext().getString(R.string.not_found_word), "", "", "","",0,0,0,0,true});
+                matrixCursor.addRow(new Object[] { 1, getContext().getString(R.string.not_found_word_web), "", "", "","",0,0,0,0,true});
                 MergeCursor mergeCursor = new MergeCursor(new Cursor[] { matrixCursor });
                 mResultAdapter.swapCursor(mergeCursor);
             }
