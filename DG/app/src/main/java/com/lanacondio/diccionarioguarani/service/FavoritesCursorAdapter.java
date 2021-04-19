@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +26,8 @@ import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import androidx.core.content.ContextCompat;
 
 /**
  * Created by lanacondio on 20/10/2016.

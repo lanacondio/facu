@@ -52,7 +52,7 @@
             android:layout_weight="0.08" />
 
 
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:gravity="right"
             android:layout_marginLeft="15dip"
             android:layout_width="wrap_content"

@@ -3,24 +3,24 @@ package com.lanacondio.diccionarioguarani.service;
 import android.content.Context;
 import android.preference.PreferenceActivity;
 
-import com.google.gson.Gson;
 import com.lanacondio.diccionarioguarani.repository.com.lanacondio.diccionarioguarani.repository.models.Evaluation;
 import com.lanacondio.diccionarioguarani.repository.com.lanacondio.diccionarioguarani.repository.models.Translation;
+/*
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.*;
 import com.loopj.android.http.*;
-
+*/
 import java.util.ArrayList;
 import java.util.List;
-
-import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by lanacondio on 30/1/2017.
  */
 
 public class GdiccApiClient {
+   /*
+
     private List<Translation> translations;
     private int webId;
 
@@ -219,5 +219,5 @@ public class GdiccApiClient {
         });
 
     }
-
+*/
 }

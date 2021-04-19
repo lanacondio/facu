@@ -13,7 +13,7 @@
     tools:context="com.lanacondio.diccionarioguarani.AllWordsActivity"
     tools:showIn="@layout/activity_all_words">
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -26,7 +26,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="11dp" />
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -39,6 +39,8 @@
         android:layout_alignTop="@+id/floatingActionButton"
         android:layout_toLeftOf="@+id/floatingActionButton"
         android:layout_toStartOf="@+id/floatingActionButton" />
+
+
     <!--
        <android.support.design.widget.FloatingActionButton
            android:layout_width="wrap_content"
@@ -82,7 +84,7 @@
                android:layout_marginEnd="14dp"
                android:id="@+id/floatingActionButton7" />-->
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -96,6 +98,7 @@
         app:backgroundTint="@android:color/holo_blue_dark"
         android:id="@+id/addFavorite" />
 
+    <!--
     <Button
         android:text="@string/look_web"
         android:layout_width="150dp"
@@ -108,6 +111,6 @@
         android:layout_alignBottom="@+id/addFavorite"
         android:layout_toLeftOf="@+id/addFavorite"
         android:layout_toStartOf="@+id/addFavorite"
-        android:layout_alignTop="@+id/addFavorite" />
+        android:layout_alignTop="@+id/addFavorite" />-->
 
 </RelativeLayout>

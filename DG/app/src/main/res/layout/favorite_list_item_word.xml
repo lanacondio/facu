@@ -19,7 +19,7 @@
         android:enabled="true"
         android:layout_weight="0.38" />
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:clickable="true"
@@ -30,7 +30,7 @@
         app:backgroundTint="@android:color/holo_blue_dark"
         android:id="@+id/set_favorite_status" />
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:clickable="true"
@@ -41,7 +41,7 @@
         android:id="@+id/share_favorite"
         app:backgroundTint="@android:color/holo_blue_dark" />
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:clickable="true"

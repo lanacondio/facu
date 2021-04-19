@@ -1,5 +1,6 @@
 package com.lanacondio.diccionarioguarani;
 
+import android.app.ActionBar;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -7,11 +8,11 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.design.widget.AppBarLayout;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -31,13 +32,21 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+/*
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-
+*/
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.lanacondio.diccionarioguarani.repository.com.lanacondio.diccionarioguarani.repository.models.TranslationDbHelper;
+import com.lanacondio.diccionarioguarani.service.AbbreviationSupportHelper;
 import com.lanacondio.diccionarioguarani.service.PredictiveResultCursorAdapter;
+import com.lanacondio.diccionarioguarani.service.Session;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,10 +60,11 @@ public class MainActivity extends AppCompatActivity {
     private Integer originalLanguaje = 1;
     private RelativeLayout popupRelativeLayout;
     private PopupWindow mPopupWindow;
-
+    private AdView mAdView;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         getTheme().applyStyle(new Preferences(this).getFontStyle().getResId(), true);
         getTheme().applyStyle(new Preferences(this).getFontColor().getResId(), true);
 
@@ -70,19 +80,29 @@ public class MainActivity extends AppCompatActivity {
         wordtf.setIconified(false);
         wordtf.requestFocusFromTouch();
 
-
-        MobileAds.initialize(this, "ca-app-pub-1181701894378617~6485878225");
-
-        AdView adView = (AdView) findViewById(R.id.adView);
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
-        adView.loadAd(adRequest);
+        Session session = new Session(getApplicationContext());
+        session.createLoginSession();
 
-            wordtf.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        if(session.showAbbreviationHelp()){
+            AbbreviationSupportHelper abbHelper = new AbbreviationSupportHelper();
+            abbHelper.IntroSupport(this);
+        }
+
+
+        wordtf.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
                     //EditText wordtf = (EditText) findViewById(R.id.textToFind);
-
+                    query= query.replace("'","´");
                     String valueToFind = query;
                     if(TextUtils.isEmpty(valueToFind)) {
 
@@ -101,6 +121,8 @@ public class MainActivity extends AppCompatActivity {
                 public boolean onQueryTextChange(String newText) {
                     // you can call or do what you want with your EditText here
                     String valueToFind = newText;
+                    valueToFind = valueToFind.replace("'","´");
+
                     swtoFind = valueToFind;
 
                     if(swtoFind != null && !swtoFind.isEmpty()){
@@ -279,8 +301,8 @@ public class MainActivity extends AppCompatActivity {
                 // Initialize a new instance of popup window
                 mPopupWindow = new PopupWindow(
                         customView,
-                        AppBarLayout.LayoutParams.WRAP_CONTENT,
-                        AppBarLayout.LayoutParams.WRAP_CONTENT
+                        ActionBar.LayoutParams.WRAP_CONTENT,
+                        ActionBar.LayoutParams.WRAP_CONTENT
                 );
                 mPopupWindow.setOutsideTouchable(true);
                 mPopupWindow.setFocusable(true);
@@ -292,20 +314,9 @@ public class MainActivity extends AppCompatActivity {
                     mPopupWindow.setElevation(5.0f);
                 }
 
-                ImageButton closeButton = (ImageButton) customView.findViewById(R.id.ib_close);
-                Button acceptButton = (Button) customView.findViewById(R.id.popup_button_cancel);
-                acceptButton.setText("Aceptar");
-                TextView popuptext = (TextView) customView.findViewById(R.id.tvpopup);
-                popuptext.setText("gdicc DICCIONARIO GUARANÍ - ESPAÑOL");
 
-                // Set a click listener for the popup window close button
-                closeButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        // Dismiss the popup window
-                        mPopupWindow.dismiss();
-                    }
-                });
+                 Button acceptButton = (Button) customView.findViewById(R.id.popup_button_cancel);
+                acceptButton.setText("Aceptar");
 
                 acceptButton.setOnClickListener(new View.OnClickListener() {
                     @Override

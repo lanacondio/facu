@@ -1,12 +1,12 @@
 package com.lanacondio.diccionarioguarani.service;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.provider.Settings;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +48,7 @@ public class WebResultCursorAdapter extends CursorAdapter {
         return inflater.inflate(R.layout.list_item_word_web, viewGroup, false);
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void bindView(View view, final Context context, Cursor cursor) {
 
@@ -179,6 +180,7 @@ public class WebResultCursorAdapter extends CursorAdapter {
 
         if(canEvaluate) {
             thumbDownButton.setOnClickListener(new View.OnClickListener() {
+                @SuppressLint("RestrictedApi")
                 @Override
                 public void onClick(View view) {
                     // Dismiss the popup window
@@ -207,6 +209,7 @@ public class WebResultCursorAdapter extends CursorAdapter {
             });
 
             thumbUpButton.setOnClickListener(new View.OnClickListener() {
+                @SuppressLint("RestrictedApi")
                 @Override
                 public void onClick(View view) {
                     // Dismiss the popup window
@@ -270,12 +273,13 @@ public class WebResultCursorAdapter extends CursorAdapter {
         @Override
 
         protected Cursor doInBackground(Void... voids) {
+            /*
             try {
                 client.postEvaluation(context, this.etpost);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
+            */
             return null;
         }
 

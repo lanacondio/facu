@@ -7,7 +7,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -158,6 +158,7 @@ public class AllWordsWebFragment extends Fragment {
 
             GdiccApiClient client = new GdiccApiClient();
             List<Translation> translations = new ArrayList<>();
+  /*
             try {
                 client.getWords(wtoFind);
                 client.getEvaluations();
@@ -166,7 +167,7 @@ public class AllWordsWebFragment extends Fragment {
                 e.printStackTrace();
             }
 
-
+*/
             for(int i = 0; i<translations.size(); i++)
             {
                 String eval = CanEvaluate(translations.get(i));

@@ -1,11 +1,12 @@
 package com.lanacondio.diccionarioguarani.service;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.Settings;
-import android.support.design.widget.FloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,7 @@ public class ResultCursorAdapter  extends CursorAdapter {
         return inflater.inflate(R.layout.list_item_word, viewGroup, false);
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void bindView(View view, final Context context, Cursor cursor) {
 
@@ -107,7 +109,7 @@ public class ResultCursorAdapter  extends CursorAdapter {
 
         }
         else {
-            delButton.setVisibility(View.GONE);
+            delButton.setVisibility(View.INVISIBLE);
         }
 
 

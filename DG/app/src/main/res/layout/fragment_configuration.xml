@@ -79,12 +79,10 @@
         android:spinnerMode="dropdown"
         android:layout_height="?attr/dropdownListPreferredItemHeight"
         android:background="@drawable/gradient_spinner"
-        style="@style/spinner_style"
         android:paddingRight="14dp"
-        android:stateListAnimator="@drawable/spinner_sla"
         android:layout_centerVertical="true"
-        android:layout_alignRight="@+id/conf_fsize_tv"
-        android:layout_alignEnd="@+id/conf_fsize_tv" />
+        android:layout_alignLeft="@+id/ib_smallfs"
+        android:layout_alignStart="@+id/ib_smallfs" />
 
 
      <TextView

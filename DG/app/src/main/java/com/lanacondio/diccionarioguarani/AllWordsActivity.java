@@ -11,12 +11,12 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -56,7 +56,7 @@ public class AllWordsActivity extends AppCompatActivity {
 
         FloatingActionButton addFavorite  = (FloatingActionButton)findViewById(R.id.addFavorite);
 
-        Button allWordsWeb = (Button) findViewById(R.id.webRequestButton);
+        //Button allWordsWeb = (Button) findViewById(R.id.webRequestButton);
 
         FavoriteDbHelper mFavoriteDbHelper = new FavoriteDbHelper(AllWordsActivity.this) ;
         String wtoFind = getIntent().getStringExtra("wordtf");
@@ -158,7 +158,7 @@ public class AllWordsActivity extends AppCompatActivity {
             }
         });
 
-
+        /*
         allWordsWeb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -171,7 +171,7 @@ public class AllWordsActivity extends AppCompatActivity {
                 startActivity(allWordsWeb);
 
             }
-        });
+        });*/
 
         AllWordsFragment fragment = (AllWordsFragment)
         getSupportFragmentManager().findFragmentById(R.id.content_all_words);

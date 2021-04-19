@@ -27,7 +27,7 @@
     <string name="show_synonym">Sinonimos</string>
     <string name="change_app_language">Sinonimos</string>
     <string name="api_url">http://gdiccw.000webhostapp.com/gdicc.php</string>
-    <string name="not_found_word">No se encontraron resultados en su dispositivo. Intente presionando "Buscar en la web"</string>
+    <string name="not_found_word">No se encontraron resultados en su dispositivo.</string>
     <string name="not_found_word_web">No se encontraron resultados. Si conoce la traducción puede agregarla a nuestro diccionario presionando +</string>
     <string name="look_web">Buscar en la web</string>
     <string-array name="languages_array">
