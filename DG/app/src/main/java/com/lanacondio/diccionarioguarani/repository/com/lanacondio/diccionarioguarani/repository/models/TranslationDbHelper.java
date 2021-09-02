@@ -15,7 +15,7 @@ import java.util.List;
 
 public class TranslationDbHelper extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 22;
+    public static final int DATABASE_VERSION = 24;
     public static final String DATABASE_NAME = "Translation.db";
 
     public TranslationDbHelper(Context context) {
@@ -14381,7 +14381,23 @@ public class TranslationDbHelper extends SQLiteOpenHelper {
 
         }
 
+        if((oldVersion == newVersion && newVersion >= 23 ) || newVersion == 23){
+
+            UpdateVersion23(sqLiteDatabase);
+
         }
+
+        if((oldVersion == newVersion && newVersion >= 24 ) || newVersion == 24){
+
+            UpdateVersion24(sqLiteDatabase);
+
+        }
+
+
+
+
+
+    }
 
 
         private void UpdateVersion22(SQLiteDatabase sqLiteDatabase){
@@ -14913,6 +14929,1231 @@ public class TranslationDbHelper extends SQLiteOpenHelper {
 
 
         }
+
+    private void UpdateVersion23(SQLiteDatabase sqLiteDatabase){
+
+        //230-2
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pandilla','I. Akähatára nerbyty ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pandorga','I Kuatiaveve, jaguaveve ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'panfleto','m. Kuatia´i oporomomaranduva ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pánico','m. Kyhyie hulcha panorama, f. Tesapyso, techapy, araraро.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pantalla',' f. pejuha. 2. Tenda ohechaukáva ta´anga ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pantalón','m Kaső, manga del p.Kasjyva.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pantanal',' m. Karugua, tujukua, tujuapasuso.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pantano',' m. Karugua, tuju, tujukua, ypa, apasuso, jasuru, yy sus, ypeguaho.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pantanoso, sa',' adj. Tuju.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pantorrilla',' f. Tetyma ro´o, kupy.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'panza','f. Tye.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'panzada','f. Tyvatā, karu guasu, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'panzudo, da',' adj. Hyepo, hye guasu,hye gua´a.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pañal',' m. Jeliaha, mitä ao.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'paño',' m. Ao.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pañuelo',' m. Ao´i, ty´ai mokaha, hetihy ha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'papa',' f. Yvy´a. p. dulce. Jety.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'papa',' m. Avare guasu Romapegua.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'papa',' m. Taita, túva, ru.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'papada',' f. Jyryvi, ajúra ro´o.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'papagayo',' m. Gua´a, araraka.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'papaina',' f. Mamóne rykue.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'papanatas',' m. Tovatavy.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'papaya',' f. Mamóne.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'papel',' m. Kuatia. p. escrito. Kuatiañe´e.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'papelón',' m. Nemoti, nemboso, nembo huguy ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'papera',' f, Juái, ajura kandu, talyky guyruru.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'paquete, ta',' adj. Fifi. 2. m. Apytimby, jokuapy.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'paquidermo',' m. Mymba tuicha pire ată.', '', '')");
+
+        //231
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parabrisas',' f. Yvytu jokoha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parado, da',' adj. Opytáva. 2. OñemboWa. 3. Omba´apo´ga. mal p. Tesa parape.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parador',' m. Neguahēha, jepyta haguã.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'paraguas',' m. Amamo´áha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'paraguas',' m. Amamo´áha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'paraguay',' m. paraguái. río P. paraguay.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'paraguayo, ya',' adj. paraguái.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'paraíso',' m. Yvága, angapyhy renda, y´a renda, vy´a raity. p. terrenal. Yvy marae´y.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'paraje',' m. Tenda. p. abandonado. Tapere.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'paralelo, la',' adj. Joja jovái.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parálisis',' f. Akuruchi, nepă, apa.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'paralítico, ca',' adj. Akuruchỉ, nepă.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'paralización',' f. pyta, nemýi´ỹ.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'paralizar',' tr. Joko. 2. Mboapa.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'páramo',' m. Nu nandi, tave´ỹ.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parangón',' m. Joguaha, mbojojaha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parangonar',' tr. Mbojoja.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parapeto',' m. Jokoha, tápia.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parar',' intr. pyta, poi. p. de llover. pi. 2. tr. Joko, mombyta, hapejoko, mombi. 3. pml. pyta, ñemboy, puã. p. en puntas de pie. Jepytaka.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pararrayos',' m. Aratiri mo´äha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parásito',' m. pyteha, tuguy uha, okarúva ambue retére. p. intestinal. Tye raso.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parasol',' m. Kuarahy mo´äha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parca',' f. Mano, mano jára.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parcela',' f. pehëngue, yy pehẽngue.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parcelación',' f. Nemboja´o, yy nemboja´o.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parche',' m. Nembovyvy.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parcial',' adj. OTmba´y, pehënguéva.', '', '')");
+
+        //231-2
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parcialidad',' f. Joja´y, teko joja´. p. indígena. Te´yi.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parcialmente',' adv. Vy, ngy, pehë nguére.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parco, ca',' adj. poka, ñe´ëmbyky, karui, pardo, da, adj.pytümby, hungy.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pareado, da',' adj. Joyyy.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parear',' tr. Mbojoja.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parece',' V. Vaicha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parecer',' m. Temimo´a, ñeiro´ă. 2. tr. Hiä, imo´ă. p. que. pipo, po, nipo. 3. pml. Jogua, jojogua, haete, hiã.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parecido, da',' adj. Joguaha, ha´ete,ichagua, hesegua, javete, ñeimo´āva. 2. pl. Juehegua. 3. m. Jejogua.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pared',' f. Tápia, ogyke.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parejo, ja',' adj. Sýi, apesýi. 2. f. Mokõioñondive, júnta.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parejo',' adv. Joja.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parentela',' f. Ogaygua, tuguy, hénte.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parentesco','m. Ojuguy, nopehëngue.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'paréntesis',' m. Ne´ērokái, rokái, ñe´ëpa´ũ.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'paria',' m. Mboriahu, nemyrõme oikóva.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'paridad',' f. Nembojoja.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pariente, ta',' m. y f. Tuguy, pehẽngue, johuguy, johuguyre, hénte.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parir',' tr. Memby, jedesouliga.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parla',' f. Nelē.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parlamentar',' intr. Nemongeta.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parlamento',' m. Nemongeta. 2. Tetătendota atyra.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parlanchín, na',' adj. Ne´ēngatu, jurumyý, jurupipi.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parlar',' intr. Ne´é, mongeta.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parodia',' f. Neha´ā gua´u, tekora´ă, neha´ā pukarā.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parodiar',' tr. Ha´a, ha´ă pukară.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parpadear',' intr. Resapiri, resapirir.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parpadeo',' m. Tesapiri, tesapiriri.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'párpado',' m. Tope, topepi.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parque',' m. Yvotyty, Wyraty, jeguataha,vyarenda.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parquedad',' f. Ne´ě mbyky.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parra',' f. parral.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'párrafo',' m. Haipyvo.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parranda',' f. Vy´a ayvu, karu guasu.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parricida',' adj. Túvape ojukáva. U. t. c. S.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parrilla',' f. Mbohesyha.', '', '')");
+
+        //232
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parroquia',' 1. Ogaty tupao jerére.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parsimonia','f Teko mbegue.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parte','1 Vore, pehëngue, pesëngue, vo. 2. Marandu. 3. Tenda, p. inferior. Guy. p. posterior. Kupe, tapykue, takykue, en cualquier p. Mamorei, en ninguna p. Mamove. en todas partes. Opărupi.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'partero, ra','myf. Oporomomembýva. 2. f. Machu.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'partición',' f. Nemboja´o.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'participación',' f. Jeike. 2. Marandu, nemomarandu.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'participante',' adj. Oikéva, oha´āra. 2. Omomaranduva.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'participar',' intr. Iko atype. 2. tr. Momarandu.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'particula',' f. Vore´i, ku´i, kytomi, pehēngue´i. 2. gram. Ne´ēky, ne´ēpehē, ñe´épehētai. p. prefija. Ne´ēpehētai mboyvegua. p. sufija. Ne´épehētai upeigua.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'partida',' f. Ho, jeho, je´ói. 2. Aty.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'partidario, ria',' adj. Oimo´ãva iporãhapetes mba´e.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'partido, da',' adj. Mboja´opy, ñembojalo, pehē´a. 2. m. Oimo´ā jojáva aty. 3. Nembosarái, neha´ã.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'partir',' intr. Sẽ, ha, ho, jehekýi. 2. tr. Mbovo, pesē´a, pehẽ´a, mbo´i, mboja´o, mbosa´i. 3. prnl. Vo, ñembovo, nembo´i.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'partitura',' f. purahéi haipyre.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parto',' m. Membyrā. ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'párvulo, la',' m.yf. Mitã.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pasa',' adj. f. piru. uva p.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parral','piru.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pasable',' adj. Naiporãmbái.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pasablemente',' adv. Vai vai.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pasada',' f. Jehasa.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pasadizo',' m. Hasaha, guataha, tape po´i.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pasado, da',' adj. Ohasámava, havē, ha´o. 2. m. Ara ohasapámava, pasado mañana. Ko´éambuérő, ko´éambuéramo.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pasador',' m. Mbotyha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pasaje',' m. Hasaha, guataha. 2. Jerahaгеру.', '', '')");
+
+        //232-2
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pasajero, ra',' adi Mba´yruguatape volva. 2. m. y 1. Mba´yrugua', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pasatiempo',' m. Nembosarái, ára sembohasaha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pasear',' intr. Guata, guata wy´ară. 2. tr Roguata, mboguata.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'paseo',' m. Guata, jeguata. 2. Guataha tape guasu.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pasillo',' m. Hasaha´i, pa´u´i.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pasión.','f. pota, taryrýi, tembipota asy 2. Jehasa asy ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pasionaria',' f. Mburukuja.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pasivo, va',' adj. Kaigue, nombohováiva.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pasmado, da',' adj. Jurujái.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pasmar',' t. Mondýi, mopiri, mbojurujái.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'paso',' m. pyrũ, guata. 2. pa´ũ, jehasaha dar un mal p. Rapeavy, rekoavy. grandes pasos. Sambo sambo. ruido de pasos. pyambu. salir al p. Huvaiti, hapejoko.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pasquín',' m. Ne´ě meguã ndojekuaáiva mávapa ohai, kuatia oporoja´ova.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pasta',' f. Mba´e hu´ů. de buena p. Heko porã.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pastar',' intr. Karu mymba. 2. tr. Mongaru mymba.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pastel',' m. Chipa so´o. hacer un p. Javy tuicha, japo vai ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pasteurizar',' tr. Mopoti mbohakuhápe.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pastizal',' m. Kapi´ity. ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pastom',' Kapi´i, kapi´ipe, mymba rembi´u. cortar el p. Kopi, napi.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pastor, ra',' m.yf. Mymba rerekua.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pastorear',' tr. Mongaru mymbápe, nangareko mymbare.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pastoreo',' m. Mymba ñemongaru, neñangareko mymbáre.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pastoso, sa',' adj. Hu´ů.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pata',' f. Mymba tetyma, kupy, py, po.jyva, pokue, pykue. 2. Ype kuña en cuatro patas. Opovo. andar en', '', '')");
+
+        //233
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pateadura','I Jepyvolw Pyyor pyro. 2. Quata hela ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'parentar','i Nembojára ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'patente','adi Hesaka, jeroviaha, Mbo', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'patentizar','br Mbojekuna ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'paternal','adj Heko taita, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'paternalmente',' adv. Taita rekope ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'paternidad',' Tuva reko, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'paterno, na','adj. Tuva rehegua, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'patético, ca','adj. Mopitiva, mbojepy´apyva ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pati','m Pira hérava pati, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'patibulario, ria','adj. Jukahaicha, jejuvyrova joguaha, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'patibulo','m Jukaha, jejuka renda, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'patilla','1 Tova yke rague, patin. m.pysyryha, patinar intr.pysyry, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'patio',' m. korapy, oka, oga roka, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'patitieso, sa',' adj. Hetyma ata, juruja, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'patizambo, ba',' adj. Hetyma karé, hetyma noki.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pato',' m. Ype, mbigua, guarimbe, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'patológico, ca',' adj. Teko hasýva, patón, na adj.py pe, pyvusu, py guasu.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'patota',' f. Mitärusu rekotie´y aty, patraha 1. Japu, mbotavy ky´a.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'patria',' 1. Teta, tetama, yvy nanerenóihague, su propia p. Ogueta.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'patriarca','m. Tamál, Kemofare, tetä ramoi ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'patricio, cia','adj. Karal (kunakarai) guasu, tetä rayhuha ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'patrimonio',' m. Mba´e tee, túva mbalekue, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'patrio, ria',' adj. Tetä rehegua, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'patriota',' adj. Hetā rayhuva patrocinar. tr.pytyvo ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'patrocinio',' m. Nemo´a, hepytyvo.', '', '')");
+
+        //233-2
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'patron',' na my Jara , ambapo hajara permambapova w ramy My ha pyyohara', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'patrulla','I Imbokava allere are ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'patrullere',' and Manahabokava 2. Tahadh ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'paulatinamente','ady Sai sipembeque katu ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'paulatino, na','adjMbegu mbegueeolkova ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pauperrimo, ma','adj. Mbonahu asy, poMahu apt ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pausa',' Pao, pyla sapya ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pausado, da','adj. Mbegue ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pauta','1 Tape, techaukara ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pava','f. Ytakuryru 2 Myto kuna ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pavada','Vyrorei ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pavear','intr Nembohory, jojai ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pavimentar',' tr. Moata tape.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pavimento',' m Tape moataha ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pavo, va','adj. Výro, výra 2. myiMyto, jaku, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pavonearse',' intr. Vu, jerovu, jejapo.jechauka, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pavor',' m. Kyhyje rasa ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pavoroso, sa','adj. Mopirimbava, omondýiva, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'payasada','f. porombopukaha, toryja.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'payasom',' Toryja, toryjára, jojaiha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'paz',' f. py´aguapy, akaguapy, angapyhy. mytué, norairo´y, joayhu joa, teko joaju.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pe',' 1. Tai préra.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'peaje',' m. Jehasaha repy.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'peaton, na',' m.yf. Guataha, vyrupigua pebete. m. Mita pecaf. pititi, pini ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pecado',' m. Angaipa, teko´avy.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pecador, ra',' adj. Angaipavora. U.t.cs.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pecari',' m. Taitetu, tanykati, tajykat.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pececito',' m. piky.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pecera',' f. Mbayru pira rendara.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pechar',' tr. pyti´amyaña, pyt´amuaña2. Viru jerure.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pecho',' m. pyt´a, ne´a, kama. dar el p. Mokambu. quitar el p. Kambu´o, mombo´o, tomar a p. Jepy´apy, tomar elp. Kambu.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pechuga',' f. Guyra pyt´a ro´o.', '', '')");
+
+        //234
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pecoso, sa',' adj.pititi hetáva.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pecuario, ria',' adj. Mymba rehegua.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'peculado',' m. Tetă mba´e nemonda.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'peculiar',' adj. Hesegua.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'peculio',' m. Viru tee.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pecuniario, ria',' adj. Viru rehegua, pirapire rehegua.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pedacitos',' m.pl. Kuruvi, ku´i. deshacerse en p. Nemongu´i. hacer p. Mongui.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pedagogia',' f. Mită mbo´e rape.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pedagogo, ga',' m.yf. Mbo´ehára.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pedal',' m. pyrüha, pýpe omýiva.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pedalear',' intr. pøpe momýi.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pedante',' adj. Ovúva ikuaáre.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pedazar',' tr. pehë´a.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pedazo',' m. Vo, vore, pehẽ, akytă, pehëngue, pesēngue. 2. m.pl. Kuruvíka. sacar p. pe´o.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pederasta',' m. Teviro, kuimba´e kuñareko.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pedernal',' m. Ita atã.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pedestal',' m. Jokoha mboyvatéva.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pedestre',' adj. Guatagua, wyrupigua.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pediatra',' adj. Mită pohanohára. U. t. c. S.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pediatría',' f. Mitä pohano mbo´e.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pedicuro, ra','m.yf. py myatyrõhára.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pedido, da',' adj. Jerurepyre. 2. m. Jerure, mba´ejerure, tembijerure.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pedigüeño, ña',' adj. Jepokuaa jerurépe,ojerure meméva, ojerure reíva, juru´akua.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pedir',' tr. Jerure. p. prestado. poru.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pedo',' m. Tepyno, pyno. largar p. pyno.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pedrada',' f. Ita api.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pedregal',' m. Itaeta, itakuruvity.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pedregoso, sa',' adj. Henyhệ itágui.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pedregullo',' m. Ita kuruvi, ita ra´vi.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pedúnculo',' m. Jurupy, togue jurupy.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pegadizo, za',' adj. Oja reíva, nemboja reiva.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pegado, da',' adj. Nemboja. 2. pl. Juaju.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pegajoso, sa',' adj. Aysy, apovő. 2. He vija, jajy.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pegamento',' m. Mba´e apovő, mba´e mboja haguă ojeporúva.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pegar',' tr. Nupă, mbyepoti, havira, tongea. 2. Mboja. p. con la mano.', '', '')");
+
+        //234-2
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pegote','. m. Tevija.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'peinado','. m. Neakakarai. ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'peinar',' tr. Akäkarai, karai. 2. prnl. ra käkarãi.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'peine','. m. Kygua.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'peineta',', f. Kygua vera.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pelado, da','. adj.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pero',', akāpero, ant Sogue, so, chapt.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'peladura','. f. pere, nemopero, pireka apekue, api, japiro, karãi vore.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pelagatos','. m. Tekove sogue.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pelaje','. m. Tague.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pelar','. tr. Napi, mopero, moakāpero hague´o, piro, javo´o, mboapiro, hague kyti. 2. Mbosogue. p. las hojas. How gue´o. p. la piel. pire´o, pe´o. 3. pmi. Jepiro. p. el prepucio. Japiro.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'peldaño','. m. Jupiha, py jupiha, mba´e ja jupi haguã.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pelea','. f. Norairő. p. a trompadas. Soki.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'peleador, ra','. adj. Narő, ñorairõséva. oñorairõva, pororairõha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pelear','. intr. y pml. Nonupā, norairõ, nombuepoti, noha´ā, taky.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'peletería','. f. pirekue nemuha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'peliagudo, da','. adj. Javorái, hasy, vai.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'película','. f. pire perers. 2. Ta´anga omýi va.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'peligro','. m. Mongyhyjeha, mondyiha, mba´e ikatúva ombohasa asy. ipeligro! interj. Cháke, háke.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'peligroso, sa',' adj. poromongyhyjéva, momondýiva, ikatúva ombohasa asy.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pelirrojo, ja','. adj. Hi´áva pytă, aká pytä, kiveve.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pellejo.',' m. pire, pirekue, pi.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pellizcar.',' t. pichãi. p. la comida. Na pi´u. pellizco. m. pichãi.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pelmazo','. m. Ava mbegue, tekove joha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pelo',' m. Tague, áva. p. de la barba. Te ndyva. p. largo. Avuku, cortar el pelo. Napi, hague´o, haguekyti.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pelón, na','. adj. perð.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pelota','. f. Apu´apopo. p. de cuero. Va kapipopo.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pelotón','. m. Ava aty, imbokáva aty.', '', '')");
+
+        //235
+
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'penetración','. Jeike, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'penetrante',', adj. Olkeva, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'penetrar',' intr. Ike, hasa, jasuru, jasururu, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'peninsula','. Yvyapy, wy akua ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'penitencia',' f. Tembiapo vai repykue, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'penitenciaria',' f. Ka´irai, wyrakua roga, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'penosamente',', adv. Asype, hasýpe ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'penoso, sa',' adj. Asy, hasy, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pensado, da',', adj. Neimo´äva, Keimo´aDyre, nemopyamongetava.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pensador, ra',' adj. Arandu, neimo´äva,Jepy amongetáva, U.L.S.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pensamiento',', m. Temimo´a, nelmo´a, temiandu, py´amongeta, py´angata, apylı´Oroky, pyaho.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pensar','. Intry w Imo´a, jesareko, ´e py´a pe, ´e jupe, nanga´u, malisia, karkula, p. mal. Nemoangai, pansion 1. Jelkove repy, tupa repy. 2Mbohupa roga, pensionista, myr Mbohupa.', '', '')");
+
+
+        //235-2
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'peñon',' m. la yete, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'peon',' m. balapohara, tembigui ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'peor',' adj. Valve, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prepino',' m. Kurapepe joguha aky je ´uva, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pepita',' Ta´y, tayingue.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pequeñez',' f. Sa´ikue, Karapekue, vyro rei ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pequeño, ha',' adj. Michi, i, mi, mirni, sa 1, miri, chui, Karape, kyto, hesal, pliki. 2. m. Mnai. 3. f. Mitakunai.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'percance',' m. Jehecha vai heimo´ayre, jehecha tesaparape, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'percatarse',' pml Hechakuaa.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'percepción',' f. Nehandu, kuaa.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perceptible',' adj. Nehandukuaáva.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'percha',' f. Mosaingoha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'percibir',' tr. Nandu. 2.pyhy.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'percusión',' f. Nembota.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perdedor, ra',' adj. po´a´), nda´ipu ´akaiva, perder, tr. Mokany, rokany. 2. Mbyai,momara. 3.pmi. Kany, hedesatina. 4. Nembyai, hehundi, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pérdida',' f. Kany, hekahy, mba´e ndajarekovéiva.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perdido, da',' adj. Kahypyre, Kembyal pyre. 2. f. Kuna reko vai. 3. m. Avareko vai.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perdigón',' m. Mboka ra´yi.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perdiguero',' m. Jagua ynambu.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perdiz',' f. Ynambu, tataupa.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perdón',' m. Nyrö, jora.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perdonar',' tr. Nyrö, jora.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perdurable',' adj. Opa´ģva, pavey, hi´are pukúva.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perdurar',' Intr. Are puku, perecedero, ra. adj. Opáva, sapy´agua,omano va´erava.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'peregrinación',' f. Guata puku, guatakaral.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'peregrino, na',' adj. Ohasáva, jepigua´y.2. m.yt. Guataha, hasaha.perenne. adj. Meme, memegua, ndo páival, ndokuival.', '', '')");
+
+
+        //236
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perentorio, ria','adj. Volvatera.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perezosamente',' adv. Ate´yhape, kal quehape.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perezoso, sa','adj. Kaigue, ate´y pily, te Awei 2 m Kaguare ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perfección','1Teko poräite, porängue, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perfeccionar','tr. Moporave, 2. pml. Ne myatyro, jehekoporanga.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perfectamente',' adv. poraite, pora iterei.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perfecto, ta','adj. pora jepeva, oimba va, maraney ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perfidia',' Nanangue, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perfido, da','adj. Naña, jeroviaha´y ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perfil','m. Yke, tova jahecha yke guio.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perfilar',' tr. Myatyrð.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perforación',' 7. Nembokua.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perforar',' tr. Mbokua, mbojuru.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perfumado, da',' adj. Hyakuävu, hakuă,hyakua poråva.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perfumar',' tr. Mohyakuāvu, mohakuä.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perfume',' m. Tyakuāvu, myakuä, tyakua pora, mba´e mohyakua hagua. tenerp. Hakua.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pergeñar',' tr.pyaha, japo vai vai.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pericia',' Katupyry.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pericón',' m. Chopi, jeroky. Som periferia. f. Jere.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perifonear',' tr. Mbojekuaa.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perifrasis',' f. Ne´ë jere.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perilla',' f. pyhyha. 2. Tendyva apy rague, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perímetro',' m. Apu´a, jereha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'periné','m. Takamby palū.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'periódicamente',' adv. Sapy´apy´a, árapa´o pa´üme.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'periódico, ca',' adj. Sapy´agua, jepi. 2. m. Kuatia sapy´agua, momaranduha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'periodismo',' m. Kuatia hai mbo´e.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'periodista',' com. Momaranduhára, kuatia momaranduha apoha', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'peritonitis',' f. Tye ryru rasy', '', '')");
+
+
+        //236-2
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perjudicial',' adj. Mbyaiha, vai', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perjuicio',' m. Nembuai, ner ly, te', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perjurar',' intr. Japu. je,', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perla',' f. Apu´a hepyete. 2. fig. Ne marangatu, viene de perlas poră. erel.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'permanecer',' intr. pyta, iko, mvi´s nbá- ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'permanencia',' f. Jepyta, pyta.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'permanente',' adj. Opytáva, tapiaque ndopáiva.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'permanentemente',' adv. Mantermante, opave´ýme.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'permeable',' adj. He´õva, ho´z katuva hasaha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'permisible',' adj. Ikatúva jajapo.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'permiso',' m. Nei, sāso. entrar sin p. Jasuru, jasururu.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'permitir',' tr. Mones, heja.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'permuta',' f. Nembyekovia.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'permutar',' tr. pyru, mbuekovia, mbyeko via.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pernicioso, sa',' adj. Mară, mbyaiha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perno',' m. Okē jokoha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pernoctar',' intr. Nembohupa, ke, ne mbopyhare, hasa pyhare.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pero',' conj. Viña, katu, uvei, ha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perogrullada',' f. Ne´ē rei.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'peroné',' m. Tetyma kangue.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perorata',' f. Ne´ě puku oporombyajúva.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perpetrar',' tr. Japo mba´e vai.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perpetuamente',' adv. pave´ỹme, apyre ýme, arapaỹme, arapave´ỹme.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perpetuar',' tr. Mboare, mombytauka, mbojepi, mbopave´y.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perpetuo, tua',' adj. Tapiagua, opave´y va, apyre´y.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perplejo, ja',' adj. Oñemondýiva, oikuaa wa mba´épa oiko.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perra',' f. Jagua kuna.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perrera',' f. Jagua rupa.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perrería',' f. Jagua atýra.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perro',' m. Jagua. p. rabioso. Jagua ha sy pochýva, aullido de p. Guahu. ladrido de p. Naro. voz para espantar al p. Sálaki.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perruno, na','adj. Jagua rehegua.', '', '')");
+
+        //237
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'persistencia',' f. Jetu´u.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'persistir',' intr. Tu´u, jetu´u.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'persona',' f. Máva, tekove, ava, avaite, Wypóra, tapicha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'personaje',' m. poguasu, ava jepigua´y.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'personal',' adj. Tee, ava rehegua. 2. m. Tembiguai kuéra.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'personalidad',' f. Tekove arandu, tekove poguasu. 2. Teko.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'personalmente',' adv. Ete, ite, te, ae.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perspectiva',' f. Tenonderă.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perspicacia',' f. Kuaa, jehecha puku.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perspicaz',' adj. Arandu, hakuã, ohetű pukúva, katupyry.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'persuadir',' tr. Mbo´e, py´amovă, mbo´e kuaa, mová roviaha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pertenecer',' tr. Jarareko, ...mba´e.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perteneciente','a. Rehegua, pegua, mba´e.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pertenencia',' f. Mba´e, jerekoha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pertinaz',' adj. Akähată, jetu´úva, nemo hatã.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perturbación',' f. Sarambi, tyai.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perturbado, da',' adj. Nembotyai, py´a ngata, tarova.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perturbar',' tr. Mbyai. 2. prl. Nembyai.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'perverso, sa',' adj. Naña, ahẽ, moñái, pochy, tie´y, py´aro.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pervertido, da',' adj. Heko vai.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pervertir',' tr. Mbyai, motie´y, mbohekovai, monaña. 2. prnl. Nembyai, nemyana, nemotie´y. nembohekovai.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pesa','f. pohyikue ha´äha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pesadez',' f. Kane´i, kaique.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pesadilla',' f. Kerasy, ke rasë, ke pyahë.', '', '')");
+
+
+        //237-2
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pesado, da',' adj. pohy. 2. Ha´ambyre 3. f. pohyikue heha´a ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pesadumbre',' f. Nembyasy. pyarasy, py´apy, jejopy, pyaro, mbyasy, mba´e mbyasy, neko´ői, joha, vya´y ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pésame',' m. Nerombyasy, guerombya. sy. dar el p. Rombyasy ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pesar',' tr. Ha´a. 2. m. Nembyasy. pyapy. mbyasy. mba´embyasy, rombyasy, a p. de eso. Upevére, ko ýte, a p. de que. Jepe. ramo jepe.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pesaroso, sa',' adj. Nembyasy pesca. f. pirakutu.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pescado',' m. pira, espina de p. pira ra tí.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pescadito',' piky.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pescador',' m. pirakutuha, piramonu haha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pescar',' intr. pindapoi, pirakutu. 2. tr. kutu', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pescozón.','m. pete atúa pete.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pescuezo',' m. Atúa ajúra.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pesebre',' m. Mymba karuha. 2. Niño ára ra´anga.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pésimo, ma',' adj. Vai eterei, vai rasa.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'peso',' m. pohyikue.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pesquisa',' f. Teka, jeheka, typeka.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pesquisar',' intr. Heka, porandu, typeka.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pestaña',' f. Topea.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pestañear',' intr. Resapiri, resavi.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pestañeo',' m. Tesavi, tesapiri, tesakua piri.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'peste',' f. Tasy pavē, mba´asy oñemya sãiva.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pestilencia','f. Tyakuă vai.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pestilente',' adj. Ne, nevu, hyakuă vai.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pétalo','m. Yvoty rogue, yvoty ropea.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'petardo',' m. Mbokavicho, mbokapu. peterevi. m. peterevy, petes yvyra.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'petición',' f. Jerure, tembijerure.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'peticionar',' tr. Jerure.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'petiso, sa','adj. Karape petitgrain. m. Narăhái rogue rykue.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pétreo, a','adj. Itaguigua.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'petrificar',' tr. Mboita.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'petróleo',' m. Nandy ho yvyguýgui oúva.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'petulancia','f. Tova´ată, jerovu.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pez',' m. pira. p. dorado. piraju. Variedades de peces. Suruvi paku, manguruju, mandi´i, javevýi, tare´yi, pati.', '', '')");
+
+
+        //238
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pezón','m. Kamapu´a, jurupy, kama mbyi, kama kua, kama´apýt, titi pezuha 1. pysäpe, pyape.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'piadoso, sa','adj. Marangatus, poriahuve rekova.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'piar',' intr. pla, pipi piara f. Kure atýra pibe. m. Mitai.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pica','1. Mymbuku picada f. Tape po´i.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'picadillo',' m. Kun.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'picadura','f. Jopi, suukue.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'picafior',' m. Mainumby picana f. Kutuha ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'picanear',' tr. Kutu ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'picante',' adj. Tái, ojopiva, ají p. Kys, kumbani. 2. Tie´y ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'picapedrero',' m. Ita mongu tha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'picaporte',' m. Oke mbotyha, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'picar',' fr. Jopi, suu, mboly. 2. Remói, ko 0, joha, 3. Mbo´i, mongui, mbosai.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'picardia','f. Tie´y, akáhatā.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'picaresco, ca','adj. Tie´y, hory, hetia´e, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pícaro, ra','adj. Morombi, akáhatá, tie´s, añambaraka, pirai.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'picazón',' f. Jopi, temoi, koo, jejopi, joha, pijoha, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pichon',' m. Guyra ra´y ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pico',' m. TT, guyra ll, guyra juru, 2. Joo ha, yyy jo´oha, mokaraiha, 3, Ywyty nua, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'picor',' m. Tembi, koʻ6, jopi.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'picota','1. Juvyha, picotazo, m. Guyra sưu, guyra kutu.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'picotear','tr. Suu, peto, javiru, hapra, ha pro, pichai.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'picudo, da','adj. Tiguasu. 2. m. Tigua´a. piem. py, mby, guapyha, p. agrietado. Py jeka p. bot. py apa. p. lleno de piques. pychai. p. tullido Py apa, a p. Yvýrupi, afirmar los ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pies',' Jepytaso, atar los pies. pykua de p. Nembo´yhape. dedo del p. pysa, empeine del p. py kupe, py ape, estar de p. Nemboy, lavar los pies. pyhei. planta del p. pypyte ponerse de p. Nemboy, pưa, nepưa punta del p. Pya, una del p. pynape, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'piedad',' 1. poriahuvereko, Tupã rayhu', '', '')");
+
+
+        //238-2
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'piedra',' f. Ita p. de afilar preciosa. Ita vera. p. kuruvi. ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'piel',' f. pire, pi, ape, apekue. p de vaka Vakapi. piel de cerdo. Kurepi ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pienso',' m. Myrba rembiu.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pierna',' f. Tetyma. piernas junta ma nokt.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'piesa','f. Vo, akyta, pehéngue. 2 interior de la p. Kotypy.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pifiar',' intr. Javy.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pijotero, ra',' adj. pojopy, hakate ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pila','f. Aty, atyra, chon.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pilar',' m. Yta, okyta.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pilcha',' f. Ao píldora, f.pohä apua.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pileta',' f. Johetha, jahutha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pillaje',' m. Nemonda. pillar.tr. popa, topa.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pillastre',' adj. Mohái, aña ray.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pillo, lla',' adj. Ha´eve. 2. Mohái, monda ha, ahambaraka, tie y, pirai.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pilón',' m. Atýra piloto. m. Avio sämbythyha, ygarusu mbythyha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pimiento, ta',' m.yt. Kyg, kumbani.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pimpollo',' m. Kuru, yvoty kuru, poty ku ru.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pináculo',' m. Tua pincel, m. Haiha haguéva.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pinchar','tr. pichai, kustu ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pinchazo',' m. Jekutu, hepichai.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pinche',' m. Jokoha. 2. Tembiguai, pyty Võha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pingüe',' adj. Heta.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pino',' m. Kuri, kuriy.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pinta',' f. pitti. 2. Jehecha,', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pintar',' tr. Mongolo, mbopara.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pintón, na','adj. Apeju.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pintor, ra',' m y f. Mboparaha, ta´anga japoha ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'piojoso, sa',' adj. lky hetava.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'piola',' f. Sa, inimbo poguasu.', '', '')");
+
+
+        //239
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'piragua','. f. Yoa', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'piraña','. f. pirai. ata adj. Mondaha. 2. m. Ypegua mo ndaha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'piratear','. tr. Monda.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pirincho','. m. piriríta.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'piropo','. m. Mborayhu ñe´ë, momba´e guasu.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pirueta','. f. Jere, jepo, mýi pya´e.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pisado, da','. adj. Ku´i. 2. f. pyrű, pyambu, pypore.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pisar','. tr. pyrű. 2. Joso, mongu´i. p. en mortero. Nembiso.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'piscina','. f. Jahuha, jeyta renda.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'piso','. m. Yyy ată, yy rogapy. casa de', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pisos','. Oga ijyvy joa hetáva.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pisón','. m. Soka, avatisoka.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pisotear','. tr. pyrų, joso.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pisotón','. m. pyrű, nepyrű.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pista','. f. pypore, rapykuere. p. de aterri zaje. Jeguejy rape. p. de baile. Jerokyha. p. de carrera. Neñaniha. se guir la p. Ha hapykuéri.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pistola','.f. Mboka mbyky.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pistolera','. f. Mboka ryru.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pistolero, ra','. m. y f. Mondaha imbokáva.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pitada','. f. Turuñe´ë, mimbypu.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pitar','. intr. pu, mbopu.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pituco, ca','. adj. Kate, fifi, chúchi.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pizarrón','. m. Ogyhūhai, ogyhairă, yyra pehai.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pizca','. f. Ku´imi, pehënguemi.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'placa',' f. Mba´e pereri.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pláceme','. m. Guerohory, jererohory, je rohory.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'placenta','. f. Aupa, memby ryru.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'placentero, ra','. adj. Rory, vý´a reruha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'placer','.m. Wya, angapyhy.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'placidez','. f. Tory, Py´aguapy.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'plácido, da','. adj. Hory, py´aguapýva.', '', '')");
+
+        //239-2
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'plaga',' f. Mba´asy isarambiva, mba´e vai heta.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'plagar',' tr. Myenyhe mba´e valgui.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'plan',' m. Tape, mba´epota.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'plana',' f. Mburuvicha atyra.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'plancha',' f. Mba´e pe. 2. Aokytyha, ao chay pe´aha, mosõiha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'planchar',' tr. Moapesợi, ao kyty, pe´a chaingue.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'planeta',' f. Mbyja kuarahýre ojereva. p. tierra. Yvy apu´akue.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'planicie',' f. Yvy pe.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'planilla',' f. Téra rysýi.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'plano, na',' adj. Sği, joja, pe, ape joja. 2. m. pysoha ta´anga.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'planta',' f. Ka´avo, ka´a, yvyra, máta, ñana. p. del pie. py pyte. p. medicinal. pohã ñana. raíz de p. Tapo.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'plantación',' f. Kokue, temity, nemitý, kó ga, nenoty.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'plantar',' tr. Nemity, noty. 2. Moñemboy. 3. prnl. Jetu´u.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'planteamiento',' m. Nemot tesa renondépe.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'plantear',' tr. Mor tesa renondépe, te mbiaporă mbohechauka.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'plantificar',' tr. Mot jepota´y rendápe.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'plantón',' m. Nembo´y.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'plañidero, ra',' adj. Hasēva, ojahe´óva, hasē reiva. 2. f. Hasẽha, hasē gua´úva hepýre.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'plañido',' m. Jahe´o, pyahě.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'plasmar',' tr. Japo, pyaha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'plata',' f. Itati, kuarepotiti. 2.pirapire, viru.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'platal',' f. pirapire heta.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'plátano',' m. pakova, pakova kuã, pako va´y ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'plática',' f. Nemongeta, nemone´é, ñe´ë.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'platicar',' intr. Ne´é, ñemongeta, nomongeta, nemoñe´ë.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'plato',' m. Na´ēmbe.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'platónico',' amor p. Mborayhu joheipyre.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'platudo, da',' adj. pirapire hetáva.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'plausible',' adj. Ikatúva jejapo.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'playa',' f. Tembey, y rembey.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'playo, ya',' adj. pe, ndahypýi, kachape.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'plaza',' f. Oka guasu tavapegua, okavusu.', '', '')");
+
+
+
+    }
+
+
+    private void UpdateVersion24(SQLiteDatabase sqLiteDatabase){
+
+        //240
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'plazo','m. Ara vore, arapa i ara ojejapo nagu pete mba´e.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'plebe','Tavaygua atyra.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'plebeyo, ya','ad Koygua, mbonahu.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'plebiscito','m. Tetaygua neporandu.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pleyable','adj. Joapykuaava.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'plegado da','adj. Moapicha  ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'plegar',' tr. Joapy, mbojo´a, mocha 7. 2. pml Japa, 3. Moinu, nakārty ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'plegaria','f. Nembo´e.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pleitear','int. Norairő, mbohovái.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'plentesia',' f. Nemomirt, nakäity.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pleito',' m. Norairo, nombohovai, norairo kuata rupi ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'plenilunio','m. Jasy renyhe.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'plenitud',' f. Terryhē, tyguată.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pleno, na','adj. Henyhē.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pliego','m. Kuatia apakua.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pliegue','m. Apichat.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'plomada','f. Ita saingo.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'plomo',' m. Kuarepot membe, ita pohýi.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pluma','f. Tague, guyra rague 2. Haiha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pluraje','m. Tague atyra.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'plumero','m. Nandu´a, Wyombo tyvyro ha ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'plural.','m. Teta papyeta ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'plutocracia','f. Viru hetáva sambyny.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pluvial','adj. Anna rehegua.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pluviometro','m. Ama ra´āha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'población',' f Tava. 2. Tavaygua kuéra. tetaygua kuera poblado, da adj. Tetāygua hetáva. 2 m. Tava ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'poblar',' tr. Tetaygua mbohetave.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pobre',' adj. Mbonahu, poriahu, sogue. api. Oikotevēva. U. tc. 2 Aichejaranga. anga ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pobremente','adv. Mboriahuhape ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pobretón, na','adj. Mbonahu. U.t c.s. hu ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pocilga',' f. Kurekua, kure renda ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pocillo',' m. Na é apưa, mba´yrui.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pobreza','f. Tekotevē, nekotevē. mboria', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pócima, pocion',' f.pohä ñana rykue.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'poco, ca','adj. Mbovy, sa´michi.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'poco',' adv. Mbovy, michi, sal, pokā, nunga. p. a p. Mbegue katu, sai sa´ipe. p. cosa. Vyrorel, jagua ry´ai. p. des.pués. Riremi. p. más. Mive, mie. ha. ce p. Ange, ramo, na ymái, angete', '', '')");
+
+        //240-2
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'poda',' f Tokyo ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'podar',' tr. Raka´o, napt´so hapt, ka 2. pe´a.tas Mbarete, poga peu, mbéu, hemba', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'poder',' m. puaka, pokatu 2 pojai, kuaa. en (bajo el) poder Poguýpe.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'poderoso, sa',' adj. Mbarete. pu´aka.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'podredumbre',' f. péu, mbeu. ta´o, tuju.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'podrido, da',' adj. Ha´o, tuju.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'podrir',' tr. Mbyai, mbuai, mbotuu prl. Tuju, haguino.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'poema.','f. Ne´ēpoty, ñe´ë voty ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'poesia',' f. Ne´époty, neēyvoty poeta, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'poetisa',' m.yf. Ne´épapára, fe ´ēpoty apoha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'polea',' f. Jupiha jere.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'polémica',' f. Ne´ē norairo, nembohová ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'polemizar',' intr. Mbohovái.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'polen',' m. Yvoty ray.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'polenta',' f. Mbaipy. p. de calabaza K veve.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'policía',' m. Tahachi. 2. f. Tahachi atyra cuartel de p. Tahachio.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'policromo, ma',' adj. para, mbatara ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'poliedro',' m. Hova hetáva.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'polifonia',' f. purahéi heta joáva.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'poligamia',' f. Tembireko heta.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'polígamo',' adj. Hembireko hetava. Ut C. S.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'poligono',' m. Takamby hetáva.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'polilla',' f. Yso michi ao uha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'polisilábico, ca','adj. Ne epehéeta.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'polisílabo, ba',' adj. Ne´ēpehệ hetáva.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'politeismo','m. Tupă heta jerovia.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'político, ca',' adj. Tetā mba´ére ojepy apýva. U.t c. s. 2. Heko poră. 3. f. Tetă sâmbytykuaa.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'politiquería',' f. Tetă sămbyhyha karē.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'póliza',' f. Kuatia jeroviaha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'polizón.','m. Mbayrumýime ojupiva ka nyhápe.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'polizonte','m. Tahachi.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'polla',' f. Ryguasu rajy.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pollera',' f. Sái.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pollino',' m. Mbunika, vúrro, chavuro.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pollo',' m. Ryguasu ra´y.', '', '')");
+
+        //242
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'portazo',' Oke Rembota.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'porte',' m. Teko.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'porteador, ra',' m. yl. Mbohasaha, ogueruva ha ogueraháva.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'portento',' m. Hechapyra, mba´e guasu eterel.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'porteño, na','adj. Y rembe´ygua. 2. Kurepi.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'porteria',' 1. Oke koty, portero, ra, my f. Oga rerekua, óga Aangarekoha, okére onangarekova. pot tốn mi Okẽ, okẽ quasy, okẽ okape gua.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'porvenir',' m. Tenonderă, ou va´eräva.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pos, prep',' Rire. en pos de. Rapykuéri, rakykuéri.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'posada',' 1. pytaha, mbohupaha.  ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'posaderas',' 1. pl. Tevi ro´o.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'posadero, ra',' m.yf. Mbohupaha jára.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'posar',' intr. Guapy, pytu´u, pyta, hemoha´anga. 2. tr. Mboguapy. 3. prnl, Guejy ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pose',' 1. Teko, jejapo.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'poseedor, ra,','adj. Jára, terekoha, tere kohára.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'poseer',' tr. Reko, guereko, mba´erereko. 2. poreno.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'poseido, da',' adj. ljárama. ser p. Je´u.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'posesión',' f. Jereko, tembirereko, mba´e,', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'posesionarse',' prl. Nemomba´e.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'posesivo',' vagram., adj. Mba´éva.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'poseso, sa',' adj. Hembiapo pochýva.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'posguerra',' f. Norairő rire.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'posibilidad',' f. Mba´e ikatúva oiko.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'posible',' adj. lkatúva oiko. ser p. Ikatu, ja serle p. pojai.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'posiblemente',' adv. pipo, nipo, po, ipo, ikatu.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'posición,','f. Teko, netha, tenda, ne molha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'positivamente',' adv. Añetehápe.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'posponer',' tr. Mbotapykue, mbotakykue.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'posposición',' f. Nembotapykue. 2. gram. Ne´ëriregua.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pospuesto, ta',' adj. Mbotapykuepyre.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'posta',' f. pareha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'postdata',' f. Ne´e rembyre, hai joapyre.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'poste',' m. Ysa, yra nembo´y.', '', '')");
+
+        //242-2
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'postergar',' tr. Mbotapykue, mekue, mboare, mboyke.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'posteridad','1. Ara tenonders va´era.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'posterior',' adj. Hapykue au pykuerigua, hakykuerigua, kunha. niregua, upei outava. parte p. K tapykue, ropyta, atukupe, en la pa p. Tapykueri.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'posteriormente',' adv. Uperire, rire ve.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'postigo',' m. Ovetä´i, okei.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'postizo, za',' adj. Rekovia, añetequa´s ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'postor, ra',' m.yf. Mbohepyha, joguaha ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'postrado, da',' adj. Ovapývo oikóva oñenova.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'postrar',' tr. Mboity, moñesü, mokanov mot ovapývo. 2. prl. Nesų, jeity.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'postre',' m. Mahe´é, tembi´u arigua, tembi´u he´ē. p. de queso y calabaza Kiveve.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'postrer',' adj. Tapykuerigua, paha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'postrero, ra',' adj. pahague, paha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'postrimerías',' f. pl. paha.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'postulado, da',' adj. potapy. 2. m. Ane tete.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'postulante',' com. potaha, oipotáva peter tenda.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'postular','tr. y prnl. Jerure rendarā.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'póstumo, ma',' adj. Amyrõigua, mano riregua.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'postura',' f. Nemoi, teko.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'potable',' adj. Ikatúva jay´u.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'potaje',' m. Hi´upy, jukysy jopara.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pote',' m. Mba´yrui.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'potencia',' f. pokatu, mbarete, pu´aka. 2. Tetä mbaretete.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'potencial',' adj. Ikatúva oiko.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'potentado',' m. poguasu, pirapire heta.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'potente. ','dj. pu´akáva, mbarete.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'potestad.','f. pokatu, tereko, jerereko.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'potrero',' m. Mymba renda.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'potro',' m. Kavaju ra´y.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pozo',' m. Yvykua, ykua, yu pypuku.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'práctica',' f. Jepokuaa, jeporu, poru, арору.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'practicable',' adj. Ikatúva jajapo.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prácticamente',' adv. Anetehápe. 2. Ka tupyyhápe', '', '')");
+
+        //243
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'precario, ria',' adj. Hatayva, cha´.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'precaverse',' prl. Ma´é porä rae, jere reko.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'precedente',' adj. Tenondegua, U. t.cs.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'preceder',' tr. Rae, renonde´a.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'precepto',' m. Tembiapoukapy, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'preceptor, ra','myf. Mbo´ehára.  proces. f. pl. Nembo´e.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'precio','m. Tepy, tepykue, bajar p. Mbo guejy, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'poner','p. Mbohepy. subir p. Mbojupi.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'precioso, sa',' adj. poräite, hepyete.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'precipicio',' m. Je´aha, wykua pypuku.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'precipitación',' f. Tage iterei, nembo pya´e iterel. p. pluvial. Ama.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'precipitado, da',' adj. pojava.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'precipitar',' tr. Mbo´a, ity, 2. prnl. ´A yategui, jepoi, jeity, ndyry. 3. Myagë, mbopya´e.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'precisamente',' adv. Ete, ite, te, katuete, katuetei.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'precisar',' tr. Kotevë. 2. Mombe´u poră.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'preciso, sa',' adj. Ha´ete.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'precolombino, na',' adj. Kolő mboyve gua ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'preconizar',' tr. Momba´eguasu, mohera kua.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'precosidad',' f. Ara mboyve.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'precoz',' adj. Hi´ára mboyve.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'precursor, ra',' adj. Nemotenondéva, ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'predecir',' tr. Ha´uvo, mombe´u ojehu vaera ', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'predicación',' f. Nemone´é.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'predicador','m. Nemohe´éngára.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'predicamento',' m. Nemone´e.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'predicar',' tr. Nemone´é, ne´e.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'predicción',' 1. Ta´uvo, ojehu va´erava hemombe´u.', '', '')");
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'predilección',' f. Jehayhuve.', '', '')");
+
+        //244
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prensar',' W. Jopy ', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prensil',' adj Fyw ', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prenupcial',' adj Remenda mbegu ', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'preñado, da',' adj. Henyhe, 2. adj. 1.Hyeguasu, hyevu, punua ', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'preñar','I Myeryho, mbo yeguas ', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'preñez',' 1 Tyeguasu, punda, ', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'preocupación',' 1 Japy apy, pyapy angala, angekol, Dyangata ', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'preocupado, da',' adj. Jepapya, ', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'preocupar',' t Mbopy apy, moangata 2 pri Jepy apy, angata, pyaho, pena.', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'preparación',' 1 Nembosakot, ', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'preparar',' tr. Sakoi, mbosakot, p. la cama Tupapo, 2. pri Nembosakot ', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'preponderancia',' f. Teko puakave, ', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'preposición',', gram., 1. Ne´e renondegua, ', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prepotencia',' 1Mbarete, tovaata, ', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prepotente',', adj. Mbarete, hova´ata, ', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prepucio',' m. Tembo aka pire, pelar el p. Japiro, ', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prerrogativa',', I. poravopyre teko.', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'presa',', 1. Jepyhy, rekecho. 2. Ysyry jo koha ', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'presagiar',', tr. Ha´uvo, ', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'presagio','. m. Neha´uvo, ', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prescindir',', intr. Mboyke.', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prescribir','. tr. Japouka, ', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'presencia',' f. Tovake, tesa renonde, en p. de. Rovake.', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'presenciar',', tr. Male, mana, hecha.', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'presentar','. tr. Ru, gueru, hechauka, kua ve´é, mbokuaa.', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'presente','. adj. Oiméva, ägagua, ko´ága gua, hovakegua. 2. m. Ara ägagua. 3. Jopói.', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'presentimiento','. m. pyandu, andu, pya hatöi.', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'presentir','. tr. Nandukuaa, handu raệ.', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'preservación','. f. Jokoha, Kangareko, hangarekoha.', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'preservar','. tr. Nomi, joko, nongatu, py syro.', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'preservativo','. m. Tembo pire jo´a, te mbo ryru.', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'presidencia','. f. Tuvicha renda.', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'presidente','. m. Mburuvicha, tendota.', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'presidio','. m. Ka´irai, yyrakua.', '', '')");
+
+    //244-2
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prestigio',' m. Jerova, kaavo here ', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prestigioso, sa',' adj. Kaavo, hememba egwasu, jeha thu, ', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prestigitador, ra',' myf. Oporom tavyva ipo hembosaraide, ', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'presto, ta',' adj. pojava, fembosakot pyre ', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'presumido, da','adj. Jejapo lerov ', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'presumir',' intr. Jejapo, jerovu. 2. Imos ha,malista ', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'presuntuoso, sa',' adj. Jejapo, jerov ', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'presuroso, sa','adj. pyale, hage.', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pretensión','f. Tembioota, mba´ epota ', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pretencioso, sa',' ad Jerovu, jeiapo.', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pretender',' tr. Rekose, pota. p. ser. Ikose.', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pretendiente',' com. potaha, oipotára petet mba´e. 2. m. Nembokha.', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pretérito, ta',' adj. Kurigua, mboyvegua, yra guare. 2. m. Ara mboyvegua ', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pretexto',' m. Nembotavy nemoiporāsé guirăre.', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pretina',' f. Ku´akua ', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prevalecer',' intr. puaka, pu´akave, hasa.', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prevaricar',' intr. Japo vai, pyrü teko ', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'porvenir',' tr. Joko mba´e vai, hecha mo mbyry. 2. Hesape´a.', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'preventivo, va','adj. Mba´e vai ojokova.', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prever',' tr. Renonde´a.', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'previamente',' adv. Raē, mboyve.', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'previo, via',' adj. Raēgua, mboyvegua.', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'previsión',' f. Mba´e vai jokoha, techa mombyry.', '', '')");
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prima.','f. Tepyme´? mboyvegua. 2. Tia memby kuña, tio rajy.', '', '')");
+
+    //245
+    sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'primero','adr M pyrüme.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'primicia','f. Mba´e pyahu, tenondekue, pvahu, nemomarandu pyahu.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'primigenio, nia',' adj. Yma, ára nepyrű gua.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'primitivo, va','adj. Ypykue, yma guare. 2. Chae.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'primo',' m. Tia memby, tio ra´y, lopi.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'primogénito, ta',' adj. Tenonde guare. 2. my f. Taýra tenondegua, tajýra teno ndegua, memby tenondegua.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'primor',' m. Mba´e porãite.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'primordial',' adj. Tenondevegua. On ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'primoroso, sa',' adj. porã asy.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'princesa',' f. Mburuvicha guasu (réi) rajy, kuñatas porã.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'principal',' adj. Tenondegua, pu´akave.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'principalmente',' adv. Tenondépe, nepy rūhápe.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'principe',' m. Mburuvicha guasu (réi) ra´y.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'principiante',' adj. pyahu. 2. m.yf. Onepyrūva.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'principiar',' tr. Nepyrũ.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'principio',' m. Ypy, nepyrű. 2. Jerovia, añetegua rape.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prioridad',' f. Tenondeha.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prisa',' f. pojava, tagể.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prisión',' f. Ka´irãi, yyrakua, pysy.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prisionero, ra',' adj. Monambipyre. U. t. C.S.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'privación',' f. Jepe´a, jehekýi, pore´y.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'privadamente',' adv. Nemihápe.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'privado, da',' adj. Ndorekóiva, tyre´y ojepe´áva chugui. 2. Tee, ñemi.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'privar',' tr. pe´a, hekýi. 2. pml. Heja.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'privilegiado, da',' adj. Jehayhuvéva, po katuvéva.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'privilegio',' m. Jehayhuveha, katuveha.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'proa',' f. Ygati, yga akā.', '', '')");
+
+//245-2
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'probable',' adj. Ikatúva oiko.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'probablemente',' adv. lkatúne, vaicha.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'probado, da',' adj. Anete, ha´ahare.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'probar',' tr. Ha´a.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'probidad.','f. Marangatu reko.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'probo, ba',' adj. Joheipyre, marangatu.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'procaz',' adj. Tiey.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'procedencia',' f. Ypykue, nesẽhaguigua.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'proceder',' intr. Japo. 2. m Teko, tekopy, tembiapo.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'procedimiento',' m. Aporeko prócer. m. Tetă apohára.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'procesión',' f. Nembo´e guata. 2. Hetatekove jeguata.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'proclamar',' tr. Moherakuã, guerosapukái, momarandu.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'procrear',' tr. Moñemoña. 2. pml. Nemoña.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'procurador, ra',' m.yf Oñeha´āva ambue rérape.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'procurar',' tr. Ha´ā, neha´ā, ña´ã, nepia´ă. 2. pml. p. lo necesario. Jeheka.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prodigar',' t. Me´ë heta, mombo rei.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prodigio',' m. Mba´e guasu, mba´e hechapyrā.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pródigo, ga',' adj. pojera.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'producir',' tr. Japo, moheñói.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'producto',' m. Tembiapokue, ñemono´ő, tembiapo repykue. p. agrícola. Temi tôngue, koga´a.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'proeza',' f. Apopy tuicha. V o n ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'profanar',' tr. Momarã.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'profano, na',' adj. Oikuaawa.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'profecía',' f. Ta´uvo.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'profesión',' f. Apoha.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'profesor, ra',' m.yf. Mbo´ehára.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'profeta','m. Oha´uvõva, ohecha pukúva, omomaranduva ojehu va´eră.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'profetisa',' f. Ver profeta.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'profetizar',' tr. Ha´uvo, jurupyasy, mombe´u raě ojehu va´eră.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'profilaxis',' f. Jejoko raë.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prófugo, ga',' adj. Opiäva.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'profundidad',' f. pypukukue, typy ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'profundizar',' tr. Mbopypuku, mbohypy.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'profundo, da',' adj. pypuku, hypy ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'profusamente',' adv. popyyi, hetahape ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'profuso, sa',' adj. Heta.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'progenie',' f. Nemoñare.', '', '')");
+
+//246
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'progenitor',' m. Monahare, ypykue, túva,ru, taita.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'progenitora',' f. Sy programa. f. Jejapora, nembosako´i.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'progresar',' intr. Nemotenonde, pu´a,akärapu´a, nakärapu´à.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'progresivamente',' adv. Mbegue mbe guépe.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'progreso',' m. Nemotenonde, hakära pu´a.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prohibido, da',' adj. Nembotove, jejapo´gva´eră.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prohibir',' tr. Mbotove, japouka´y prójimo. m. Tapicha.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prole',' f. Nemoña, nemoñare, taýra ha tajýra kuéra, memby kuéra.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'proletariado',' m. Mba´apohára kuéra, mboriahu kuéra.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'proletario, ria',' adj. Mboriahu, mba´apo hára.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prolífica',' adj. f. Memby hetáva.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prolífico',' adj. m. Ta´ýra ha tajýra hetava.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prolijamente',' adv. Mbeguekatuhápe,jejapo porāme.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prolijo, ja',' adj. Omba´apo poráva.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prologom',' Kuaba jeike, ñelẽ yey, he´ẽnepyrű.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prolongación',' f. Nembopukuve.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prolongar',' tr. Mbopukuve, mboareve.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'promedio',' m. Mbytegua.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'promesa',' f. Ne´éneme´é, ñe´éme´ē.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prometer',' tr. Ne´éme´ē, kuave´ē.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prometido, da',' adj. Ne´ëme´ëmbyre. 2. m. Menară. 3. f. Tembirekorā.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'promiscuidad',' f. Jehe´a, kuña ha kui mbale jehe´a vai.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'promiscuo, cua',' adj. Jehe´a vaiva.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'promoción',' f. Nemotenonde, nemoherakuã poră.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'promontorio',' m. Yyytyi.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'promotor, ra',' m. y f. Motenondéva,moakārapu´āva.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'promover',' tr. Motenonde, moakārapu´ă.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pronombre',' gram., m. Terarangue.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pronosticar',' tr. Ha´uvo.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pronóstico.','m. Ta´uvõ.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prontamente',' adv. Voi, pya´e, kyre´yhápe, tagë pópe.', '', '')");
+
+//246-2
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prontitud',' f. Nempyry, pojava.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pronto, ta',' adj. Hage, pale, poja ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pronto',' adv. Voi, pya´e, vok Kyre´shape. de p. Sapya pronto como, Vove, vo, ne yone, tam Jee.mohet.baguive.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pronunciación',' f. Je´e, mohez p. Ne´é pora, kojera, mala p. Km ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pronunciar',' tr. Nee, mohete, molt p. un discurso. Nemohe, jeun ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'propagación',' 1. Nemosarambi nemyasäi.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'propagar',' tr. Myasai, mosarambi prl. Nemyasăi, hernosararnbi ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'propalar',' tr. Mbojekuaa, moheraka kuaauka, rosapukai.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'propasar',' tr. Hasa hekope yme. 2. or Jehasa hekopegme.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'propender','a. exp. pota, se.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'propenso, sa',' adj. potáva, seva ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'propiamente',' adv. Anetehápe, hekode ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'propiciar',' tr. pytyvo.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'propiedad',' f. Mba´e, jerekoha, mbale ijarava.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'propietario, ria',' adj. Jára, mba´ ejára. Utc.s.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'propina','f. popegua.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'propinar',' tr. Me´é, mbopopegua.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'propio, pia',' adj. Tee, jehegua. lop. Mba´e tee, hekopegua. su p.O.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'proporción',' f. Jojaha.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'proporcionado, da',' adj. Joja.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'proporcionar',' tr. Me´ē, mbopojái, ropo jái', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'proposición',' f. Nekuave´ē.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'propósito',' m. Tembipota, tembireka potapy. a p. potávo, ojaposégui.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'propuesta',' f. Nekuave´ē.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'propugnar',' tr. pytyvo, mba´apo hese.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'propulsar',' tr. Momýi, muaña.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prórroga',' f. Nemboare.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prorrogar',' tr. Mboare, mbopukuve mbotapykue.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prorrumpir',' intr. Soro, sororo. p. en gottos. Sapukai sapya.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prosa',' f. Ne´ēsyry, haisyry.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'proscribir',' t. Mbotove, mosē hetãgui.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'proscrito, ta',' adj. Mbotovepyre, nemo sē hetăgui.', '', '')");
+
+        //247
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prospero, ra','adi pordva. stemarse. pml. Neső, nesOpeha atbulom. Kuna reko vai róga, itución. 1. Nembyal, kuna reko vai', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prostíbulo','rekove.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prostituir',' tr. Mbyal. 2.prl. Nembyai, Membohekovai.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prostituta',' f. Kuña virúre oporenóva, ku na reko vai', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'protagonista',' com. Apoha tenonde.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'protección',' f. Nongatu, Kangareko, ne pytyvo.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'protector, ra',' adj. Onuväva, omo´äva. 2. m.yf. Nuvaha, mo´äha.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'proteger',' tr. Nuva, hangareko, mo´ä.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'protegido, da',' adj. Mo´ambyre, Kuvambyre. U. t.c. s.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prótesis',' f. Tete pehë rekovia.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'protesta',' f. Nembohovai, Kemor, he´ëngururu.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'protestante',' adj. Lutero ra´y. U. t. c.s.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'protestar',' intr. Mbohovái, hemor, ne´e ngururu.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prototipo',' m. Teko ypy.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'protozoario',' m. Vícho michigui ndojehecháiva.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'protuberancia','f. Kandu, akandu, gua', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'proveedor, ra',' adj. Ome´éva tekotevera.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'proveer',' tr. Me´e tekotevēra, mbo, mo, mbu, mu, mby, my. 2.prnl. Nemo, hemu, nemy, hemomba´e.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'proveniente',' adj. Ouva. p. de. Gua,gul, pegua.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'provenir',' intr. Nemboypy, ju.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'proverbial',' adj Kuaapyre.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'proverbio',' m. Ne´inga.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'providencia','f. Nangarekoha, tenondeaha, Tupa sarambły', '', '')");
+
+//247-2
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'providencial',' adj. Tupã omboúva, ou poräva provincia. 1. Teta pehénque, ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'provincial','adj. Tava michigua.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'provisión','1. Hi´upyrä, tembi´ura, jegueru, mba´e jererekova, hemos tekotevēva. p. para el viaje. Avio, matúla.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'provocación',' f. Ne´ēreity. 2. Mboje huha.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'provocar',' tr. Mbo, mo, mbu, mu, mby. my, mbojehu. 2. Mbopochy, poroheka, he´éreity.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'provocativo, va',' adj. porombohape vaiva, porombopochýva.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'próximo, ma','adj. Agulgua.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'proyectar',' tr. Japose, imo´a. 2. Myasăi. 3. pml. Nemyasăi.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'proyectil',' m. Mboka rembiu.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'proyecto.','m. Jejaposéva.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prudencia',' f. Akäguapy.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prudente.','adj. Akäguapy, akāpyta, karakatu.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prueba',' f. Ta´a, Neha´ä, py´ara´ā, kuaara´a. ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'prurito',' m. Ko´o, joha, temoi. 2. Jopi, jejopi.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'psicosis',' f. Tarova, aka mba´asy.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'psicoterapia',' f. Aka mba´asy nepohano.púa f. Tati, ju.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pubis',' m. Tyeguy.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'publicación',' f. porombokuaapy, kuatia momaranduva.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'públicamente',' adv. Maymáva rovake.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'publicar',' tr. Mbojekuaa, mosarambi. myasäi, muasal, moherakua, kuaau ka, nohë kuatiape.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'publicidad',' f. Momarandu.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'público, ca',' adj. Herakua, pavëguaje kuaapyre, semosarambiva, ojekuadva, opa tetaygua mba´e. 2. m. Techahára, henduhara, wypóra heta. Ipuchat interj. Nde rasore.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'puchero',' m. Tembi´u, so´o jukysy ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pucheritos','Chori, tembe chori ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pucho',' m. pety motimbora.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'púdico, ca',' adj. Hi´otiva.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pudiente',' adj.pirapire hetava.', '', '')");
+
+//248
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pudor.','m. Neti pudrir. tr. Mbyai, mbotuju. 2. pml. Tuju, nembyai ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pueblo',' m Táva. 2. Tetă tetama, tetay gua kuera, tetäygua aty ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'puente','m. Hasaha, vyvorasa, wyvorasaha.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'puerco, ca','adj. Tajasu, kure, ky´a. 2 m. yf. Kure 3 f. Kure kuna puercoespin. m. Kui ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'puericultura',' f. Mitā rekombo´e, mitämbo´ekuaaha.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pueril',' adj. Mită reko.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'puerta','f. Okê, abrir la p.pe´a okē. cerrar la p. Mboty okē llamar a la p. Mbota okē.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'puerto',' m. Ygarupa.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pues',' conj Katu. 2. exp. Voi, herã, py.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'puesta',' f. Nemoi. p. de sol. Kuarahy reike. p. de huevos. Nembo´a.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'puesto, ta',' adj. Moïmbyre. 2. m. Tekoha, tenda, koty´i. 3. Tembiapo. puesto que. Re, rehe.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'púgil',' m. Norairõha popu´ape.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pugilato',' m. Norairõ popu´ápe.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pugna',' f. Norairõ, nembohovái, juaju´ģ.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pugnar',' intr. Neha´ă, ñorairő.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pujante',' adj. Okakuaa porãva, mbarete pujanza f. Mbaretekue, pu´aka.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pujar','intr. Neha´ã.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pulcro, ra',' adj. poti, joheipyre.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pulga',' f. Tungusu. p. que entra bajo la piel Tű.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pulgar','m. Kuãguasu, kuãngusu.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pulgón',' m. Tigua´a.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pulido, da',' adj. Sỹi, joheipyre, mosỹi mbyre.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pulimentar',' tr. Moapesỹi, mosýi, mbovera pulir Ver pulimentar pulla. f Ne´émondo.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pulmón',' m. Vevúi, vevýi, ne´ā vevúi, vevuikue.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pulmonía',' f. Vevúi rasy.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pulpa','f. To´o, apytere.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'púlpito',' m. pa´i nemoñe´ëha renda ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pulpo',' m. Mymba ijyva hetáva.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pulsación',' f. Tytýi.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pulsar',' tr. Mbopu, natõi.', '', '')");
+
+//248-2
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pie',' pyti. pararse en p.de Natoi, mbopu', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pulsera',' f. pyapy jegua, pyapykypy rehegua.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pulso',' m. pyapy, tajygue tytýi.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pulular',' intr. Mumu, mymyi. alverizar. tr. Mbokunun, mongur ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'puma',' m. Jagua pyta.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'punta',' f. Apģi, apy, t1, apýra, tak p. del pie. pyti, pa pies. Nepyta´ă.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'puntada',' f. Ju kuára, kutu, puntal, m. Jokoha.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'puntapié',' m. pyvoi.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'puntear',' tr. Motenonde. 2. Natoi.m  mbaraka.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'puntería',' f. Japikuaaha.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'puntero, ra',' adj. Tenondegua.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'puntiagudo, da',' adj. Hati, hakua, aku ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'puntillas',' f. pl. pysäti. andar de p. Guata pysätire.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'puntilloso, sa.','adj. Hekoita, ambu´a ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'punto',' m. Kyta. p. culminante. Hu´à, a p. Ha´etépe. al p. Vokói, al p. de Jave.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'puntual',' adj. Ha´ete, aravoitépe oúva.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'puntualizar',' tr. Mombe´u sa´i sa´íde ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'puntualmente',' adv. Ha´etépe, hi´orape, ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'punzada',' f. Kutu, jekutu.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'punzar',' tr. Kutu, jopi.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'punzó',' adj. pytā asy.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'punzón',' m. Kutuha.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'puñado',' m. Atýra michi.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'puñal',' m. Kyse akua.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'puñalada',' f. Kutu, jekutu, kyse kutu, ky Se vore.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'puñeta',' f. Japiro.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'puñetazo',' m. Saple, popu´a mbota, po mboty nupā.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'puño',' m. poapu´a, poapy, popu´a, pomboty. 2. Yva, ygue.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pupila',' f. Tesa´yi, tesara´yi. 2. Tajyranga.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pupilo',' m. Ta´yranga, nembohupaha.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pupitre',' m. Guapyhahai, apykahai, mesa haiha.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'puramente',' adv. Marane yhápe, potihape. 2. Nonte, nte, mante, noite.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pureza',' f. Marane´, potingue, maraey.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'purga',' f. Nemosë poravopyrépe, poha porombohyéva, tye mopotíha.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'purgar',' tr. Mopott, mosě poravopyrépe.', '', '')");
+
+//249
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'pustula',' f. Ai, ai karu', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'puto',' m. Teviro.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'putrefacción',' f. Nembyai, tuju, ta´o.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'putrefacto, ta',' adj. Nembyaipyre. tujupyre, ha´o.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'qué.','adj. int. Mba´e. 2. pron. int. Mba´e, mba´éicha, he.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'qué clase de',' Mba´eichagua. ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'¿qué es?','Mba´emotepa.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'qué tal?','Mba´éichapa, mba´éiko.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'para qué',' Mba´era, maeră, marã. mbaupe,', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'por qué',' Mba´ére, mba´égui, mba´émo.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'quebrado, da',' adj. Soro, nemopë, jeka kue.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'quebrantar','tr. Mbopy´apy. 2. pmi. py.. ´apy, jepy´apy ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'quebranto',' m. py´apy, jepy´apy, ne mbyasy, pyangekoi, mba´embyasy', '', '')");
+
+//249-2
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'quebrar',' tr. Joka, mopë 2 prnl Jeka ре,', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'quedar','intr y pri. Pyta q, bien ´A pora q. mal ´A vai q. mal parado Je cha tesaparape ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'quejarse','pri Chi´, pyahe quejido.m. Pyahë.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'quemado, da','adj. Kai, kaigue persona q. al sol. Kamba.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'quemadura','f. Kaigue.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'quemar','tr Hapy. q. superficialmente Havere ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'quemazón','1. Kaigue, tata guasu.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'querencia',' f Tekoha.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'querer',' tr Pota, hayhu, se, ja e ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'querido, da',' adj. Hayhupyre, potapyre 2.myf. Kichiha tayhupára.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'queso.','m. Kesu. ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'quien','rel Va, va´ekue, va´eră. 2 con sub. Ha, hague q. realiza algo. Hara ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'quién','pron. int. Ava, máva ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'quietud',' f Pytu´u, myiy, mytue.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'quijada',' f. Tanykā.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'quinientos, tas','adj. Posa.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'quisquilloso, sa','adj. Jero, apesỹi.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'quitar',' t. Pe´a, hekýi, pyhy. q. de raiz Hapo´o. 2. prnl. Jepe´a q. la ropa Nemboi.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'quizá, quizás',' adv. Ikatu, herungua, nipo, pipo, ipo, nimbo, nune, mba´e, ne. vaichar. ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'r',' f. pundie herava ere avañe´ěmeicha ipÚva he´ẽ mbytepe, I cha ipÚva ñe´ẽ nepyrüme. ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rabadilla',' f. Tumby. ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rabia',' f. Naro. pochy, ñeko oi, tesako´ö, nemyrõ, tuguy raku. 2 Jagua mba ´asy. ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rabiar',' intr. Neko´õi, resako´o, pochy, nemyrő, naro ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rabieta',' f. Pochy rei. ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rabioso, sa',' adj Pochy, perro r. Jaguahasy.', '', '')");
+
+//250
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rabo',' m. Tugual ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rabon, na','adj. Huguai api. guevi, koli. 2. Nepia.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rabonero, ra',' adj. Mita opiäva mbo´e hadgui Ut.cs.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'racha','. Aly ombohasáva. r. de viento. Yvytu peju sapy´a.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'racimo',' m. Apesa.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'raciocinio',' m. Kuaa, py´amongeta.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'ración',' f. Chura, tembi´u pehëngue, por Dju.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'racionar',' tr. Chura me´ë, mopokā.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'radiación',' f. Asäi, mimbi, sarambi.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'radiante',' adj. Vera, mimbi, hendy.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'radicado, da',' adj. Opytáva, nemohendapyre.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'radicar',' tr. Mohenda, mbohapo, mombyta. 2. pml. Pyta, nembohapo, ne mohenda.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'radio',' f. Ne´ë mombyry inimbo´yre. r. emisora. Ne´ē myasãiha.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'ráfaga',' f. Nembohasa voi. r. de viento. Yvytu peju sapy´a. r. de ametralladora. Mbokapu pororo, piripipi.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'raído, da',' adj. Jeporu etereiva, soro.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'raigòn',' m. Veyra rapo, tãi rapo.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'raíz',' f. Tapo, ypy. r. de plantas. Tapo.r. de palabras. Ne´ē rapo. quitar de r.Hapo´o.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'raja',' f. Jepe´a, tiripyre.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rajado, da',' adj. Tini, jeka, soro.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rajadura',' f. Tini, jeka, soro.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rajar',' tr. Mondyry, mbotiri, mbovo, joka. 2. parag., intr. Nani, dipara. 3. pml. Tiri, jeka, nembovo.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rajatabla',' a r. Pya´e, osháicha.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'ralea',' f. Teko. de baja r. Kachiãi.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rallar',' tr. Mongu´i, karãi, popí, kyty.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'ralo, la',' adj. Pokā, chavi, chivi.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rama',' f. Takã. r. de árbol. Yvyra rakā.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'ramaje',' m. Takā, y yra raka.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'ramera',' f. Kuña reko vai, kuña virúre oporenóva.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'ramificar',' tr. Mohakā. 2. prnl. Nemo hakā.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'ramillete',' m. Yvoty apesā.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'ramo',' m. Apesā.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rampa',' f. Jupiha, jeguejyha.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'ramplón, na',' adj. Morombi.', '', '')");
+
+//250-2
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rana',' f. Ju´i. 2. Imbokava ve r. Guya', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rancho',' m. Tapi, óga. 2. Imbokmbi´u.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rancio, cia',' adj. Havē, haguyo ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rango',' m. Teko. alto r. Teko yvate. r. Teko cha.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'ranura',' f. Pa´a, kuára.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rapado, da',' adj. Pero, akāpero.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rapar',' tr. Napi, mopero.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rapaz',' adj. Mondaseva. ave r. G. jukaha, guyra ha mymbamime ´úva.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rape',' pelado al r. Nemoakāperöite ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rapé',' m. Petý ku´i oñehetüva.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rápidamente',' adv. Voi, pya´e, tesa. pirime.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rapidez',' f. Pojava, tagē.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rápido, da',' adj. Pya´e, kyrey, hagē.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rápido',' adv. Pya´e, hatā, tagēme.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rapiña',' f. Monda, ñemonda.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rapiñar','tt. Monda, mbosope.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'raptar',' tr. rokany mbaretépe.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rapto',' m. Nererokany mbaretépe.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'raquítico, ca',' adj. Chavi, piruchi.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'raramente',' adv. Sapy´apy´a, tapiaguaýme.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rareza',' f. Hechapyră.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'raro, ra',' adj. Hekope´y, tapiagua´y, oje cha ramova, pokā. rara vez. Sapy´apya, tapiaguayme.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'ras',' m. Joja yatekuépe. pelado al r. Perõite.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rascacielos',' m. Oga yate iterei, yvága karāiha.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rascar',' tr. Karãi, he´yi. 2. pml. Nehe yi.r. la cabeza. Nakāpire ýi.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rasgado, da',' adj. Soro.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rasgar',' tr. Mondoro, mondyry. 2. prnl. Soro.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rasguear la guitarra',' Natõi mbaraka.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rasguñar',' tr. Karãi.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rasguño',' m. Nekarãi.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'raso, sa',' adj. Joja, sýi, pero al raso. Okápe. campo raso. Nu perő.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'raspadura',' f. Nekarãi.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'raspar',' tr. Karãi, popr.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rastrear',' tr. Pypore reka, tapykuere reka.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rastrero, ra',' adj. Otypyrýva.', '', '')");
+
+//251
+        sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rastro',' m. Poremkuere.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rastroso',' m. To Pore, mbore, py pore, tapy m. Tatykue, kogakue. r. de urar, tr. Napi, hendyapo, mopero * Anguja, anguja guasu. r. de malz. Avat ygue. agua. Kyja.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'ratero, ra',' adi s ra, adj. Sope, popinda, mondaa povevúi, pokovi. U. t. c. S. car. tr. Mones, monet jey, moañete jey.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rato',' m. Sapy´a. de r. en r. Sapy´apy´a. hace rato. Aje´i. largo r. Are.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'raton',' m. Anguja, anguja´i.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'ratonera',' f. Anguja kuára.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'raudal',' m. Ysyry hată ama rire.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'raudo, da',' adj. Pya´e.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'raya',' f. Jehai. 2. Javevýi.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rayar',' tr. Karãi, hai. r. el día. Ko´ē.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'rayo',' m. Aratiri, aravera. r. de luna. Jasy ', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'resa',' jasy inimbo. r. de sol. Kuarahy resa, k. rendy, k. rembipe.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'raza',' f. Teýi.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'razón',' f. Kuaaha, no sin r. Ndareíri. sin r.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'razonable',' adj. Hekopegua.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'razonamiento',' m. Py´amongeta.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'razonar',' intr. Py´amongeta, jepy´amo ngeta. re, pref. Jey.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'reabrir',' tr. Pe´a jey.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'reabsorber',' tr. Pyte jey.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'reacción',' f. Mbohovái, pulā, apojovái.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'reaccionar',' intr. Mbohovái, pu´ā, naka rapu´a.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'reaccionario, ria',' adj. Ombohováiva mba´e pyahúpe.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'reacio, cia',' adj. Ombohováiva, onemo Iva, jetu´u.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'reafirmar',' tr. Moañete jey.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'real',' adj. Ha´ete, añete, tee, anetegua.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'realce',' m. Nembotuicha, nemopora, jeguakapo, nemboyvate.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'realeza.','f. Mburuvicha guasu reko. 2. Mburuvicha guasu kuéra.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'realidad',' f. Anetegua.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'realismo',' m. Anetegua reko.', '', '')");
+sqLiteDatabase.execSQL("insert into translation (language_id, word, translation, context, type) values(2,'realizable',' adj. Jejapokatuva.', '', '')");
+
+    }
 
     public Cursor getTranslations(String word, int originalLanguaje)
     {
